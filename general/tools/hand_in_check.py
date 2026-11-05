@@ -121,6 +121,8 @@ def newest_pdf(deliverable):
 
 
 def main(argv=None):
+    if hasattr(sys.stdout, "reconfigure"):          # Windows consoles are cp1252: PDF text can hold any character
+        sys.stdout.reconfigure(errors="replace")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("pdf", nargs="?")
     ap.add_argument("--deliverable", help="use the newest PDF in project/outputs/<deliverable>/")

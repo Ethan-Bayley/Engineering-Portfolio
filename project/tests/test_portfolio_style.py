@@ -14,7 +14,8 @@ def test_build_script_saves_cover_and_pages(tmp_path):
     import build_portfolio
     doc = build_portfolio.build()
     assert doc.save(tmp_path / "p.pptx") == []
-    assert doc.pages[0].cover and [p.number for p in doc.pages[1:]] == [1, 2]
+    n = len(doc.pages) - 1
+    assert doc.pages[0].cover and [p.number for p in doc.pages[1:]] == list(range(1, n + 1)) and n <= 15
 
 
 def test_refuses_small_text_and_a_16th_page(tmp_path):

@@ -6,7 +6,7 @@ https://ftc-resources.firstinspires.org/ftc/game/manual-06, saved as
 because Team Updates can change it. Below is a summary with rule numbers; the PDF is the authority.
 
 - Task sheet file: `ftc_manual_section6_awards_TU06.pdf`
-- Deadline: TODO (Wollongong event)
+- Deadline: FTC Wollongong event, Thursday 2026-11-12; PDF upload before it (exact upload deadline TODO: Event Director)
 - Limits: 1 cover page + no more than 15 pages of content; US Letter or A4; digital submissions under 15 MB
 - Hand-in: as the Event Director says; with no instructions, 1 printed copy at the Initial Interview (A202)
 
@@ -21,8 +21,8 @@ because Team Updates can change it. Below is a summary with rule numbers; the PD
 | A201 note | Minimise personal information: first names and last initials only; photos allowed | members listed as first name + initial |
 | A201 note | Avoid fonts under 10 pt and low-contrast text on images | portfolio format has nothing under 10 pt; dark-theme contrast measured (DECISIONS.md 1) |
 | A201 note | Judges will not follow links, websites or videos, or take extra papers | everything is in the PDF |
-| A201 note | AI and research aids are allowed if credited with a footnote or endnote | **undecided: see PROJECT.md** |
-| A202 | Submit on time as the Event Director says; default 1 printed copy at the Initial Interview; keep a spare copy in the pit | TODO: ask the Event Director |
+| A201 note | AI and research aids are allowed if credited with a footnote or endnote | one endnote on the last page (decided 2026-11-05, PROJECT.md) |
+| A202 | Submit on time as the Event Director says; default 1 printed copy at the Initial Interview; keep a spare copy in the pit | PDF upload before the event (user, 2026-11-05); upload deadline TODO; printed spare in the pit |
 | A203 | The team must take part in an Initial Interview to be considered for judged awards | interview prep is outside this repo |
 
 ## Award criteria the team is aiming for
