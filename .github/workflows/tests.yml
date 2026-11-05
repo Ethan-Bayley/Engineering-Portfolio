@@ -1,0 +1,22 @@
+# Runs the tests on every push and pull request (shared tools in tests/, plus any project tests in project/src/).
+# On a private repo this uses GitHub Actions minutes (the free plan includes a monthly allowance).
+name: tests
+on:
+  push:
+  pull_request:
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: |
+          python -m pip install -r requirements.txt
+          if [ -f project/src/requirements.txt ]; then python -m pip install -r project/src/requirements.txt; fi
+      - name: Test
+        run: python -m pytest -q

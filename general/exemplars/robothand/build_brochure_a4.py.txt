@@ -1,0 +1,1215 @@
+"""AT3 design brochure in the design system: A4 landscape, 16 pages -> brochure_vNN.pptx next to this file (v15 on).
+
+Same pages and wording as v14 (build_brochure.py), moved into the design system's boxes (presentation/DESIGN_SYSTEM.md):
+numbered "NN - CAPITALS" box headings in colour by meaning, one gap between boxes, left-bar highlights for key text,
+stat cards only for key numbers, verdict colours in the results table. Charts come from make_charts_a4.py.
+Run make_charts_a4.py first if a chart changed.   python presentation/posters/at3_brochure/build_brochure_a4.py
+Writing rules (skills humanizer and draft-brochure-page): plain words, "we", Australian English, no dashes as connectors.
+"""
+import importlib.metadata as md
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1]))
+from design_system import (ACCENT, BOX_COLOURS, FONT_TITLE, GREEN, MAIN, ORANGE, PURPLE, RED, SLATE, WHITE, Doc, Rect,  # noqa: E402
+                           _picture, _shape, _text)
+from pptx.enum.shapes import MSO_CONNECTOR  # noqa: E402
+from pptx.util import Pt  # noqa: E402
+from pptx.enum.shapes import MSO_SHAPE  # noqa: E402
+from pptx.enum.text import MSO_ANCHOR, PP_ALIGN  # noqa: E402
+
+A = "presentation/assets/"
+C = A + "crops/"
+CH = A + "charts_a4/"
+G7 = "gallery/07_scissors_pipeline/"
+G9 = "gallery/09_scissors_object_permanence/"
+PH = A + "photos/"           # our own photos of the real build
+SK = A + "sketches/"         # our pen sketches (a stray pen removed from the photo, user 2026-10-23); computer-drawn diagrams
+APPS = A + "apps/"           # app screenshots
+HW = A + "hardware/"         # our CAD and board images; the Arducam product photo
+# Cover photo of the real hand. The user's v34 cover photo was an edited picture (the servos and wiring had changed),
+# so it is not used (2026-10-24); swap in the retaken photo here when it exists.
+COVER_PHOTO = PH + "hand_wiring_test.jpg"
+GUIDE = A + "pollen/guide/guide_p{:02d}.png"   # pages of Pollen's assembly guide (CC BY 4.0)
+S1, S2, S3, S4 = ("1  Significance", "2  Methodological approaches", "3  Creativity and innovation",
+                  "4  Execution, construction and testing")
+S5 = "5  Presentation and communication"
+PAGES = [  # key, page title (caps word), contents title, required section (task sheet)
+    ("cover", "", "Cover", None), ("contents", "Contents", "Contents, key events and credits", None),
+    ("problem", "Problem", "The problem, goal and constraints", S1),
+    ("impact", "Impact", "Who it helps and why it matters", S1),          # v35
+    ("exist", "Existing work", "Existing work", S1),
+    ("plan", "Planning", "Criteria and schedule, planned and actual", S2),
+    ("materials", "Materials", "Materials and technologies and why", S2),  # v35
+    ("risks", "Risks", "Risk assessment", S2),
+    ("build", "First plan", "What we planned to build", S2),
+    ("options", "Options", "Three options", S2),
+    ("process", "Development", "How the design developed", S2),           # v35
+    ("mindmap", "Mind map", "Mind map", S3),   # v31: first in section 3, the ideas before the sketches
+    ("sketches", "Sketches", "Our design in sketches", S3),
+    ("finaldesign", "Final design", "The final design and its size", S3),
+    ("sim", "Simulation", "The simulation and why these tools", S3),       # user's v34 order: after the final design
+    ("stages", "Pipeline", "Main stages and what is new", S3),
+    ("speed", "Speed optimisation", "Speed optimisation", S3),
+    ("outline", "Outlines", "Outlines and inner contours", S3), ("grip", "Gripping", "Grip points and force vectors", S3),
+    ("plane", "Grasp plane", "Grasp plane, camera and kinematics", S4),
+    ("steady", "Steadiness", "Steady grasp and object permanence", S4),
+    ("eval", "Simulation evaluation", "Results and evaluation (simulation)", S4),
+    ("realbuild", "Build process", "How we built the real hand", S4),
+    ("realsetup", "Setting up", "Servos, finger order and the camera mount", S4),
+    ("camera", "Camera redesign", "Moving the camera", S4),               # v35
+    ("realctrl", "Our apps", "The main app and the servo tuner", S4),
+    ("realtest", "Testing", "Testing the real hand", S4),
+    ("graspmethod", "Grasp test plan", "Real-hand grasp test: method", S4),  # v35
+    ("graspresults", "Grasp test results", "Real-hand grasp test: results", S4),  # v35
+    ("tests", "Test summary", "Every test in one place", S4),
+    ("realeval", "Hand evaluation", "Criteria for the hand and apps, evaluated", S4),
+    ("finaleval", "Final evaluation", "How far we met our aims", S4),
+    ("nextver", "Next version", "Taking it further: the next version", S4),
+    ("realhand", "Reflection", "Skills, decisions, reflection and next steps", S4),
+    ("credits", "Credits", "Credits and sources", None),
+]
+NUM = {k: i + 1 for i, (k, *_r) in enumerate(PAGES)}
+
+
+def pg(key):
+    return NUM[key]
+
+
+# Versions on the project's own machine, as printed in brochure_v14 (built there). Not read at build time, because the
+# PC that builds the brochure may have different packages (this one got OpenCV and MuJoCo installed on 2026-10-22).
+VERSIONS = {"mujoco": "3.11.0", "python": "3.13.14", "opencv": "4.13.0.92", "ultralytics": "8.4.161"}
+
+
+def v(pkg):
+    try:
+        return md.version(pkg)
+    except md.PackageNotFoundError:
+        return "?"
+
+
+def labelled(box, rr, path, alt, caption=None, labels=()):
+    """A picture with arrows to its parts: labels = [(fx, fy, text, lx, ly)] as fractions of the picture."""
+    img = box.picture(rr, path, alt, caption=caption)
+    for fx, fy, text, lx, ly in labels:
+        box.annotate(img, fx, fy, text, lx, ly)
+    return img
+
+
+def mind_map(page, r, centre, branches, size=None):
+    """A mind map drawn with the design system's shapes: a centre node, branches = [(title, [points])] placed around it.
+    size: text size of the points (default small + 1)."""
+    f = page.fmt
+    size = size or f.small + 1
+    G = f.G
+    spots = [(0.0, 0.0), (0.0, 0.53), (0.68, 0.0), (0.68, 0.53), (0.34, 0.6)]
+    w = r.w * 0.32
+    cbox = Rect(r.x + r.w * 0.36, r.y + r.h * 0.14, r.w * 0.28, r.h * 0.3)
+    nodes = []
+    for (title, points), (sx, sy), colour in zip(branches, spots, BOX_COLOURS + (BOX_COLOURS[0],)):
+        h = r.h * (0.47 if sx != 0.34 else 0.4)
+        nodes.append((Rect(r.x + sx * r.w, r.y + sy * r.h, w, h), title, points, colour))
+    for node, _t, _p, colour in nodes:               # lines first, so the boxes sit on top
+        ln = page.slide.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Pt(cbox.x + cbox.w / 2), Pt(cbox.y + cbox.h / 2),
+                                             Pt(node.x + node.w / 2), Pt(node.y + node.h / 2))
+        ln.line.color.rgb = __import__("pptx.dml.color", fromlist=["RGBColor"]).RGBColor.from_string(colour)
+        ln.line.width = Pt(2)
+    _shape(page.slide, __import__("pptx.enum.shapes", fromlist=["MSO_SHAPE"]).MSO_SHAPE.ROUNDED_RECTANGLE, cbox, MAIN,
+           radius=G)
+    _text(page.slide, cbox.inset(0.6 * G), [centre], f.sub + 3, color=WHITE, bold=True, anchor=MSO_ANCHOR.MIDDLE,
+          align=PP_ALIGN.CENTER, after=0)
+    for node, title, points, colour in nodes:
+        _shape(page.slide, __import__("pptx.enum.shapes", fromlist=["MSO_SHAPE"]).MSO_SHAPE.ROUNDED_RECTANGLE, node,
+               ACCENT[colour], colour, 1.5, radius=0.6 * G)
+        _text(page.slide, node.inset(0.5 * G, 0.4 * G), [{"text": title, "size": f.sub, "color": colour, "bold": True,
+                                                          "after": 2}] + ["- " + x for x in points], size, after=1,
+              bullet_color=colour)
+
+
+def dashed(page, r, label):
+    s = _shape(page.slide, MSO_SHAPE.ROUNDED_RECTANGLE, r, WHITE, MAIN, 1.5, radius=page.fmt.G)
+    s.line.dash_style = 4
+    _text(page.slide, r.inset(page.fmt.G), [label], page.fmt.body, anchor=MSO_ANCHOR.MIDDLE, align=PP_ALIGN.CENTER)
+
+
+def build():
+    doc = Doc("brochure")
+    f = doc.fmt
+    G = f.G
+    title = {k: t for k, t, *_r in PAGES}
+    section = {k: sec for k, _t, _c, sec in PAGES}
+
+    def page(key):
+        return doc.page(title[key], cover=(key == "cover"), label=section[key] or ("" if key != "credits" else None))
+
+    # ============================================================ 1 cover
+    p = page("cover")
+    left, right = p.cols(p.area, 1, 1.05)
+    top, strip = p.rows(p.area, 1.55, 1)
+    left, right = p.cols(top, 1, 1.05)
+    _text(p.slide, Rect(left.x, left.y, left.w, f.small * 2), ["**Biomedical Innovation   ·   Y10 iSTEAM   ·   AT3**"], f.small)
+    _text(p.slide, Rect(left.x, left.y + 2 * G, left.w, 100), ["VISION-GUIDED", "ROBOTIC HAND"], 40, color=MAIN,
+          font=FONT_TITLE, bold=True, after=0, line=0.95, name="Cover title")
+    _text(p.slide, Rect(left.x, left.y + 2 * G + 100, left.w, 22), ["Design brochure"], f.sub + 3, bold=True, color=GREEN)
+    _text(p.slide, Rect(left.x, left.y + 2 * G + 126, left.w * 0.95, 80),
+          [{"text": "DESIGN GOAL", "size": f.small + 1, "color": MAIN, "bold": True, "after": 2},
+           "Design a robotic hand that uses one ordinary camera to plan where each finger should touch an object, with "
+           "no grasp-training data and prove the plan in simulation before moving the real hand."],
+          f.sub, name="cover goal")
+    _text(p.slide, Rect(left.x, left.b - 34, left.w, 34), ["**Ethan Bayley and Brandon Lai**"], f.sub, after=2)  # user's v16 edit
+    _picture(p.slide, COVER_PHOTO, Rect(right.x, right.y, right.w, right.h - 3 * f.small),   # user's v34 layout: real hand top right
+             "Our assembled hand wired to the servo bus adapter and the laptop")
+    _text(p.slide, Rect(right.x, right.b - 2.6 * f.small, right.w, 2.6 * f.small),
+          ["Our hand in real life."], f.small, align=PP_ALIGN.CENTER)
+    _picture(p.slide, A + "sim/sim_vision_once.png", Rect(strip.x, strip.y, strip.w, strip.h - 3 * f.small),
+             "Simulation: palm camera view with the detected outline and grip points, an overview, and the hand with the "
+             "grasp plane and camera field of view")
+    _text(p.slide, Rect(strip.x, strip.b - 2.6 * f.small, strip.w, 2.6 * f.small),
+          ["Our simulation. Left: the palm camera finds the cube and outlines it. Centre: overview. Right: the hand with "
+           "the grasp plane (green) and camera view (orange and blue lines)."], f.small, align=PP_ALIGN.CENTER)
+
+    # ============================================================ 2 contents and key events (credits: last page)
+    p = page("contents")
+    a_r, b_r = p.cols(p.area, 1.6, 1)
+    a = p.box(a_r, "planning", "Contents")
+    cols = p.cols(a.content, 1, 1)
+
+    def sec_lines(sec):
+        keys = [k for k, _t, _c, s_ in PAGES if s_ == sec]
+        return [a.head(f"{sec}   (pages {NUM[keys[0]]}-{NUM[keys[-1]]})")] + \
+            [f"**{NUM[k]:02d}**   {c}" for k, _t, c, s_ in PAGES if s_ == sec]
+    a.text(cols[0], sec_lines(S1) + sec_lines(S2) + sec_lines(S3), after=2)
+    a.text(cols[1], sec_lines(S4) + [a.head(S5), "The whole brochure, including the cover",
+                                     a.head("Credits"), f"**{NUM['credits']:02d}**   Credits and sources"], after=2)
+    b = p.box(b_r, "results", "Key events, in order")
+    events = [("Planned our own hand", "A finger and a 16-motor board drawn, not finished"),
+              ("Saw the scope was too big", "Pivoted and weighed three options"),
+              ("Chose our own edge detection", "Tested on Pollen's hand in simulation first"),
+              ("Outline found", "YOLOE mask plus a hole search: 87% match"),
+              ("Fingertips made steadier", "423 down to 193 px/s"),
+              ("Hidden edges filled in", "93% found when the object stays still"),
+              ("Picking up tested", "80 of 80 lifted in the physics simulation"),
+              ("Built the real hand", "8 of 8 servos pass our bus test"),
+              ("Moved the camera", "Palm view lost the object as the fingers closed")]
+    b.timeline(b.content, [(str(i + 1), e, n) for i, (e, n) in enumerate(events)])
+
+    # ============================================================ 3 problem and goal
+    p = page("problem")
+    top, bottom = p.rows(p.area, 0.9, 1.15)
+    a = p.box(top, "problem", "The problem")
+    a.stack(a.content, [("text", [
+        "People who use a prosthetic hand usually pick each grip themselves. They tense muscles in the arm to switch "
+        "between a few preset hand shapes, which takes training, is slow and often gives a grip that does not suit "
+        "the object. Many people stop using their prosthesis. Studies put the number anywhere from 9% to 80% and a "
+        "lack of useful function is a common reason. Hands that work well are also expensive.",
+        "It is meant for people who use a powered prosthetic hand. "
+        "Everyday life means holding many different objects and choosing each grip by hand is slow and tiring. A hand "
+        "that could look at an object and plan where each finger goes would take that work away. That is what we set "
+        "out to build: find the object's edge, plan where each finger touches and test the grip in simulation."]),
+        ("fill", 1, lambda rr: a.stats(rr, [("9% to 80%", "of people stop using their prosthesis: 9% in a US-Japan study, 30 to 80% in a narrative review"),
+                ("US$9k to $40k", "what a myoelectric hand cost in one case study (US$9,000 to $40,000)"),
+                ("4 of 5", "our proposed target: simulated grips that succeed, for each object on a plain background")], cols=3))])
+    g_r, k_r = p.cols(bottom, 1.55, 1)    # v35: the impact box moved to its own page
+    g = p.box(g_r, "planning", "Our engineering goal")
+    g.stack(g.content, [("text", ["Write a vision pipeline that plans valid grasp positions from one 2D image of an object, with at least 4 out "
+               "of 5 successful simulated grips per object on a plain background.",
+               "It breaks into three parts, each tested on its own: find the object's edge, plan where each finger "
+               f"touches and test the grip in simulation (pages {pg('stages')} to {pg('eval')}). Then the same code drives "
+               f"the real hand (pages {pg('realbuild')} to {pg('graspresults')}).",
+               f"It is mainly a software goal. We use Pollen's open-source hand, so the new work is the planning, the camera "
+               f"mount and the control apps (page {pg('options')}).",
+               f"Six criteria turn this into tests (page {pg('plan')}); each is scored on page {pg('eval')}. Who it helps "
+               f"and why it matters: page {pg('impact')}."]),
+                        ("highlight", f"**Proposed target.** How far we met it: page {pg('finaleval')}.", "caution")])
+    k = p.box(k_r, "risk", "Constraints we worked within")
+    k.text(k.content, [f"- **Time:** about two weeks of planned work before 23 October (page {pg('plan')}).",
+                       "- **Hardware:** our own hand was not finished and Pollen's hand arrived late in the project.",
+                       "- **Camera:** one small monochrome camera, with no depth.",
+                       "- **Computer:** a laptop CPU, no graphics card.",
+                       "- **Safety:** nothing goes to real motors until it has passed a dry run."], after=3)
+    p.sources("Sources: US-Japan prosthesis rejection study (PMC6571339); narrative review (Prosthesis 2025, 7, 167); "
+              f"myoelectric hand cost case study (PMC5698676). Full references on page {pg('credits')}.")
+
+    # ============================================================ impact: who it helps and why it matters (v35)
+    p = page("impact")
+    top, bottom = p.rows(p.area, 1.05, 1)
+    a = p.box(top, "research", "What changes for the person using the hand")
+    a.stack(a.content, [("fill", 1, lambda rr: a.table(rr, [
+        ["", "Today: a powered hand with preset grips", "With our planner"],
+        ["Choosing a grip", "Tense arm muscles in a learned pattern to step through a few preset hand shapes",
+         "Point the hand at the object; the camera finds it and the planner places each fingertip"],
+        ["Fit to the object", "A preset shape may not suit this object", "Contacts are planned on this object's own outline, "
+         f"holes included, like a mug handle (page {pg('outline')})"],
+        ["A new object", "The same few presets", "No grasp-training data: any object the detector can name (about 4,500 words)"],
+        ["Before it moves", "The hand closes when told to", f"Forces are checked to cancel before any finger moves (page {pg('grip')})"]],
+        col_weights=[0.8, 2, 2.2], bold_col=0)),
+        ("highlight", "**The aim:** take the work of choosing a grip away from the user, so the hand is quicker and less "
+                      "tiring to use.", "general")])
+    w_r, s_r, e_r = p.cols(bottom, 1, 1, 1)
+    w = p.box(w_r, "design", "Who it helps")
+    w.text(w.content, ["- **People with a powered prosthetic hand,** the main users: fewer muscle patterns to learn.",
+                       "- **People who fit and train prosthetic hands:** a hand that plans its own grip could take less "
+                       "time to learn.",
+                       "- **Makers and researchers:** an open-source hand, one ordinary camera and a laptop CPU, with no "
+                       "depth camera or graphics card."], after=3)
+    s = p.box(s_r, "problem", "Why it matters to society")
+    s.text(s.content, [f"- **Many people stop using their hand** (9% to 80% in the studies on page {pg('problem')}); a lack "
+                       "of useful function is a common reason. A hand that is easier to use could help more people keep "
+                       "using theirs.",
+                       "- **Cost:** hands can cost US$9,000 to $40,000. Our planner runs on parts that cost far less: a "
+                       "small camera and a laptop."], after=3)
+    e = p.box(e_r, "method", "Why it matters to engineering")
+    e.stack(e.content, [("text", [f"- **Every fingertip is placed,** where the systems on page {pg('exist')} choose one grip "
+                                  "type or one point.",
+                                  "- **No training data:** a new object needs no new photos.",
+                                  "- **Checks before moving:** force vectors must cancel first."]),
+                        ("highlight", "**Not a medical device.** Our results come from simulation and a bench hand, not "
+                                      "from people using it.", "caution")])
+    p.sources(f"Our comparison, from pages {pg('problem')} and {pg('exist')} and our own results. The 9% to 80% and cost "
+              f"figures are from the sources on page {pg('problem')}.")
+
+    # ============================================================ 4 existing work
+    p = page("exist")
+    top, bottom = p.rows(p.area, 0.75, 1)
+    a = p.box(top, "analysis", "What other groups did")
+    a.stack(a.content, [("text", ["Other groups have tried to let a prosthetic hand choose its grip from a camera. All four papers below "
+                       "train a neural network on labelled photos and two add depth hardware. They work on a fixed set of "
+                       "objects, pick a grip type or one grasp point and never place each fingertip. **Ours needs no grasp "
+                       "training and places every fingertip.**"]),
+        ("fill", 1, lambda rr: a.table(rr, [["System", "Trained on labelled photos", "What it chooses", "Extra hardware"],
+            ["Castro et al. (2022)", "Yes", "One of five hand postures", "Palm camera, Raspberry Pi"],
+            ["Wang et al. (2022)", "Yes", "A grasp type", "None built"],
+            ["Zhang et al. (2025)", "Yes, 22 objects", "One grasp point", "Depth camera"],
+            ["Stracquadanio et al. (2025)", "Yes", "Grasps from a trained generator", "RTX 3080 graphics card"],
+            ["Ours", "No", "A contact point for every fingertip", "One camera and a laptop CPU"]],
+            col_weights=[1.3, 1.2, 1.6, 1.4], bold_col=0))])
+    papers = [("papers/castro_g002.jpg", "Castro et al. (2022)", "A 3D-printed arm with a palm camera; a trained network names one of five hand postures.",
+               ["Trained on 25,000 to 39,000 labelled photos", "Tripod was called pinch 41 times out of 42"]),
+              ("papers/wang_g003.jpg", "Wang et al. (2022)", "A network names the grasp type from the first 320 ms of a reach. No hand was built.",
+               ["Vision plus muscle signals (90.06%) scored below vision alone (91.59%)", "Never says where a finger goes"]),
+              ("papers/draft_p4_img3.png", "Zhang et al. (2025)", "A depth camera and YOLOv3-tiny, trained on 22 objects; a symmetry axis picks one grasp point.",
+               ["Needs a depth camera and a trained detector", "No success rate over many trials"]),
+              ("papers/strac_fig1.png", "Stracquadanio et al. (2025)", "Guesses depth from one photo; a trained generator proposes grasps (RTX 3080).",
+               ["Mugs failed most (success 0.58)", "Only 3 amputee volunteers"])]
+    for r, (rel, nm, built, short) in zip(p.cols(bottom, 1, 1, 1, 1), papers):
+        b = p.box(r, "research", nm)
+        pic, t = p.rows(b.content, 0.64, 1)
+        b.picture(pic, A + rel, f"Figure from the paper by {nm}")
+        b.text(t, [built, b.head("Where it fell short")] + ["- " + x for x in short], after=3)
+    p.sources("Figures: Castro 2022 (CC BY), Wang 2022 (CC BY), Zhang 2025 (CC BY 4.0), Stracquadanio 2025 (arXiv, shown "
+              f"for review with credit). Full references on page {pg('credits')}.")
+
+    # ============================================================ 5 criteria and schedule, planned and actual
+    p = page("plan")
+    top, bottom = p.rows(p.area, 1, 1.25)
+    c = p.box(top, "planning", "Success criteria")
+    t_r, h_r = p.cols(c.content, 1.6, 1)
+    c.table(t_r, [["Criterion", "Proposed target"], ["1  Find the outline", "4 of 5 trials per object, plain background"],
+                  ["2  Valid grip plan", "4 of 5 trials per object"], ["3  Reach the target", "Fingertip within 3 mm"],
+                  ["4  Hold the object", "Held 5 s, 4 of 5 trials"], ["5  Unseen objects", "4 of 5 trials per unseen object"],
+                  ["6  Run fast enough", "A loop time of 200 ms or less"]], col_weights=[1, 1.6], bold_col=0)   # user's v34 targets
+    c.stack(h_r, [("text", ["We set the targets before testing. Each one can be checked with a count or a measurement, so the "
+                            f"verdicts on page {pg('eval')} are not opinions."]),
+                  ("highlight", "**Why these numbers:** 4 of 5 lets one failure through in a five-trial test, so one unlucky "
+                                "trial does not fail a method that works. 3 mm is small next to a fingertip pad, so a contact "
+                                "that close still lands on the planned spot. 200 ms gives about five plans a second, fast "
+                                "enough for the plan to keep up while the hand reaches.", "caution")])
+    s = p.box(bottom, "planning", "Our schedule: planned (green) and actual (purple)")
+    days = [(8, "T"), (9, "F"), (10, "S"), (11, "S"), (12, "M"), (13, "T"), (14, "W"), (15, "T"), (16, "F"), (17, "S"),
+            (18, "S"), (19, "M"), (20, "T"), (21, "W"), (22, "T"), (23, "F")]
+    tasks = [("Plan: set up the simulator", 8, 10, "good"), ("Actual: simulation (from 13 Oct)", 13, 22, "actual"),
+             ("Plan: edge detection, grip planner", 8, 11, "good"), ("Actual: vision code (from 28 Sep)", 8, 22, "actual"),
+             ("Plan: link to the simulation", 11, 13, "good"), ("Actual: main app", 17, 22, "actual"),
+             ("Plan: testing", 14, 16, "good"), ("Actual: real hand built and set up", 21, 22, "actual"),
+             ("Plan: write and proofread", 17, 22, "good"), ("Actual: brochure", 16, 23, "actual"),
+             ("Due, before 3:20 pm", 23, 23, "warn")]
+    s.gantt(s.content, days, tasks, label_w=s.content.w * 0.27)
+    p.sources("Planned dates: our plan. Actual: when the work first appears in our project history; the vision code was "
+              "started before this plan was written.")
+
+    # ============================================================ materials and technologies, and why (v35)
+    p = page("materials")
+    top, bottom = p.rows(p.area, 1.45, 1)
+    m = p.box(top, "design", "What we chose, what else we looked at and why")
+    m.table(m.content, [["Part", "Chosen", "Also looked at", "Why we chose it"],
+        ["Hand", "Pollen's Amazing Hand, open source", "Our own hand (page %d)" % pg("build"),
+         "Already designed and printable; Pollen's MuJoCo model gives the exact finger linkage for the simulation"],
+        ["Printed parts", "PLA", "None", "Cheap and quick to reprint when a part breaks"],
+        ["Motors", "8 Feetech SCS0009 servos", "Our N10 gearmotors and board",
+         "Two fit in each finger; one serial bus; each reports position, speed, load, volts and heat; 2.3 kg.cm at 6 V"],
+        ["Camera", "Arducam B0332 (OV9281)", "A depth camera; a phone or webcam",
+         "Small enough for the hand; global shutter, so no smear while moving; 100 frames a second over USB. "
+         "We found late that it is grey only"],
+        ["Finding the object", "YOLOE", "A detector we train; SAM",
+         "Names about 4,500 kinds of object with no training on ours; SAM took 1,896 ms an outline"],
+        ["Outline", "YOLOE's own mask", "Otsu, Canny, GrabCut, SAM",
+         f"82% match in 3.5 ms; GrabCut scored 87% but about 20 times slower (page {pg('outline')})"],
+        ["Simulator", "MuJoCo", "Building the hand first",
+         "Real contact and friction, so a grasp can be tested before the hand exists"],
+        ["Computer", "A laptop CPU", "A small board in the forearm",
+         f"Fast enough to develop on (104 ms a loop); a board is the next step (page {pg('nextver')})"],
+        ["Code and apps", "Python, Tkinter", "None", "The same planner and hand driver run in the simulation and on the real hand"]],
+        col_weights=[0.8, 1.35, 1.35, 3.4], bold_col=0)
+    d = p.box(bottom, "method", "How the parts connect")
+    d.picture(d.content, CH + "diagram_system.png",
+              "Diagram: the camera sends video over USB to the laptop, which finds the object, plans the grip and works out "
+              "eight servo angles; a USB bus adapter, powered by a 5 V supply, sends the angles to the eight servos and "
+              "reads back their position, load, volts and heat")
+    p.sources("Servo figures: Feetech SCS0009 listing and Pollen's documentation. Camera: Arducam B0332 product page. Times: "
+              f"our own runs (pages {pg('speed')} and {pg('outline')}).")
+
+    # ============================================================ risk assessment
+    p = page("risks")
+    r = p.box(p.area, "risk", "Risk assessment")
+    r.stack(r.content, [("fill", 1, lambda rr: r.table(rr, [["Risk", "Likelihood", "Consequence", "What we did about it"],
+        ["Simulation differs from real life", "High", "High: results may not hold on the hand",
+         "Labelled every result as simulation; friction assumed 0.5; tested the real hand when it came"],
+        ["The real camera has no depth", "High", "Medium: contacts off by a height error",
+         "Camera-only modes and the grasp plane; measured the error (17 to 18 mm)"],
+        ["Small tests can flatter results", "Medium", "Medium: results look better than they are", "Reported counts and failures, not only successes"],
+        ["Hands arrive late", "High (happened)", "High: no time to test on hardware",
+         "Wrote the real-hand driver in advance; built and set up the hand on 21-22 October"],
+        ["Fingers pinch or crush", "Medium", "High: injury or broken parts",
+         "Dry run first; one finger at a time; saved limits; a trip on load, heat or lag"],
+        ["Weak power supply", "Happened", "Medium: servos miss commands",
+         "Retries and a low-voltage readout; a stronger supply is the fix (4.7 V measured under load)"],
+        ["Servo overheats", "Low", "Medium: a damaged servo", "Trip at 55 degrees C (our estimate)"],
+        ["Wrong finger order", "Happened", "Medium: the wrong finger moves", "Found on the hand; renamed in the code; tests check it"],
+        ["Camera loses the object as the fingers close", "Happened", "High: the plan is blind when it matters most",
+         f"Moved the camera to the side of the hand (page {pg('camera')}); to be tested"]],
+        col_weights=[1.25, 0.75, 1.5, 2.5], bold_col=0)),
+        ("highlight", "**Our judgement:** likelihood and consequence are our own ratings; \"happened\" marks risks that came true.",
+         "caution")])
+
+    # ============================================================ 6 what we planned to build
+    p = page("build")
+    l_r, r_c = p.cols(p.area, 0.82, 1)
+    t_r, b_r = p.rows(r_c, 1.3, 1)
+    a = p.box(l_r, "design", "Our first plan")
+    a.text(a.content, [
+        "Our first plan was to build the whole hand ourselves. Each finger joint would be driven directly by a small N10 motor, "
+        "with bevel gears turning the finger. Direct drive has no long cables or gearbox between motor and finger, so the joint "
+        "can be pushed backwards by hand (it is back-drivable). The current each motor draws also tells us how hard that finger "
+        "is pushing, so we get a torque reading from every joint without a separate sensor. We aimed for a hand under US$200 "
+        "with the motors, sensing and controller built in.",
+        "We drew a finger driven by two small DC gearmotors through a linkage (top right). We also drew a custom board to "
+        "control all 16 motors for position control: eight motor drivers, a chip that makes the PWM signals, two chips that set "
+        "directions and a current sensor on every channel (bottom right).",
+        "Then we added it up. A whole hand means printing and assembling a thumb and three fingers, building and tuning the "
+        "board, writing the control code and then writing the vision software that decides where the fingers go. **We "
+        "realised the scope was far bigger than the time we had, so we had to pivot.** The next page shows the options we "
+        "came up with."])
+    b = p.box(t_r, "build", "Our finger and motor board")
+    def two_pics(rr):
+        p1, p2 = p.cols(rr, 1, 1)
+        b.picture(p1, A + "hardware/cad_finger.png", "CAD of one finger with two small DC gearmotors, orange and yellow links and grey brackets",
+                  caption="Our finger (CAD)")
+        b.picture(p2, A + "hardware/pcb_3d_top.png", "KiCad 3D view of the motor board, top side", caption="Our motor board (KiCad)")
+    b.stack(b.content, [("fill", 1, two_pics), ("highlight", "**Started, not finished.** Neither was built or tested.", "caution")])
+    c = p.box(b_r, "planning", "The plan in four parts")
+    c.stack(c.content, [("fill", 1, lambda rr: c.table(rr, [["Part of the plan", "What it means"], ["Direct drive", "No gearbox, so the joint is back-drivable"],
+                ["Bevel gears", "Small N10 motors turn the finger joints"], ["Motor board", "16 motors, position control, current sensing"],
+                ["Low cost", "An aim of under US$200, all hardware built in"]], col_weights=[1, 2.4], bold_col=0)),
+                        ("highlight", "**These are aims, not results.**", "caution")])
+    p.sources("Images: our own CAD and KiCad screenshots.")
+
+    # ============================================================ 7 three options
+    p = page("options")
+    top, bottom = p.rows(p.area, 0.22, 1)
+    a = p.box(top, "planning", "Cutting the work down")
+    a.text(a.content, [f"When we saw the scope on page {pg('build')}, we came up with three options that each cut down what we "
+                       "had to do and weighed them. Our own copies of Pollen's hand had not arrived yet, so any option that "
+                       "needed hardware had to wait for them."])
+    opts = [("A  Finish our own hand", ["We choose the motors and finger shape", "The board could read motor current for grip force"],
+             ["Needs printing, building, wiring and tuning", "Not enough time"],
+             f"**Not chosen.** Building, wiring and tuning a whole hand, then writing the vision code, would take far "
+             f"longer than we had (page {pg('build')}).",
+             (A + "hardware/cad_finger.png", "Our finger CAD", "CAD of our own finger with two small gearmotors")),
+            ("B  Open-source hand, pretrained grips", ["A proven hand to build on", "A trained network picks a grip type"],   # user's v34 names
+             ["Needs labelled photos for every object", "It only knows the objects and grips it was trained on"],
+             f"**Not chosen.** It needs labelled photos of every object and only knows what it was trained on, the limit "
+             f"the papers on page {pg('exist')} hit.",
+             (A + "pollen/Hand_Overview.jpg", "Pollen's Amazing Hand: 4 fingers, 8 motors, 195 mm tall",
+              "Pollen Robotics Amazing Hand: finger movement ranges and overall size")),
+            ("C  Open-source hand, adaptive camera feedback", ["No training data: our own edge detection works on any picture",
+                                                              "Test at once in simulation on the open-source hand"],
+             ["Results are simulation only until the hands arrive", "Friction and camera effects are assumed"],
+             "**Chosen.** No training data, works on any picture and testable at once in simulation on Pollen's hand.",
+             (G7 + "scissors_1_grabcut_4_edge.png", "Our edge detection: outline and holes",
+              "Scissors with the outline drawn in green and the finger-loop holes in orange"))]
+    for r, (name, pos, neg, why, (pic_path, cap, alt)) in zip(p.cols(bottom, 1, 1, 1), opts):
+        b = p.box(r, "design", name)
+        pic, rest = p.rows(b.content, 0.92, 1.9)               # same picture height in every option (v32: larger)
+        b.picture(pic, pic_path, alt, caption=cap)
+        b.stack(rest, [("text", [b.head("Positives")] + ["- " + x for x in pos] + [b.head("Negatives")] +
+                        ["- " + x for x in neg]),
+                       ("highlight", why, "result" if why.startswith("**Chosen") else "general")])
+    p.sources("Images: our own CAD; Pollen Robotics, AmazingHand repository (Apache 2.0 code; mechanical design CC BY 4.0); our "
+              "pipeline on a test photograph (not our own).")
+
+    # ============================================================ development: how the design developed (v35)
+    p = page("process")
+    l_r, r_r = p.cols(p.area, 1, 1.85)
+    c = p.box(l_r, "process", "Our design cycle")
+    c.stack(c.content, [("fill", 1, lambda rr: c.picture(rr, CH + "diagram_cycle.png",
+                                                        "Diagram: a loop of six steps, define, research, design, simulate, test "
+                                                        "and evaluate, repeated until the test passes")),
+                        ("text", ["Every change on the right went round this loop. A test showed a problem, we changed one "
+                                  "thing and then we measured again, so each step can be checked."]),
+                        ("highlight", "**One change at a time,** so we always knew which change caused the result.", "general")])
+    t = p.box(r_r, "evaluation", "Each change and the test that led to it")
+    t.table(t.content, [["What a test showed", "What we changed", "Result after", "Page"],
+        ["Building our own hand would take longer than we had", "Used Pollen's open hand; wrote the software first",
+         "Planner tested in simulation before the hands arrived", f"{pg('build')}-{pg('options')}"],
+        ["One frame took 2.4 s; the SAM outline was 1,896 ms", "Outline from YOLOE's mask; crop around the object",
+         "104 ms a loop", pg("speed")],
+        ["The mask missed holes such as a mug handle", "A search for inner contours", "Match 82% to 89%", pg("outline")],
+        ["Fingertips placed on the outline lifted nothing", "Force vectors must point in and cancel",
+         "Forces checked before moving", pg("grip")],
+        ["Palm-down grasps: nothing got under the object", "Grasp plane tipped 40 degrees", "80 of 80 lifted in simulation",
+         pg("plane")],
+        ["Our camera is grey only", "Kept the mask outline, the method that coped best in grey", "87% match in grey",
+         pg("plane")],
+        ["Fingertips jittered on live video", "The plan changes only when a new one is clearly better", "423 to 193 px/s",
+         pg("steady")],
+        ["A closing finger hid part of the object", "Object permanence: redraw the hidden edge", "Hidden edge found 38% to 93%",
+         pg("steady")],
+        ["Servos failed the first bus test", "Move to the middle first, then spin", "8 of 8 within 0.6 degrees",
+         pg("realtest")],
+        ["The palm camera lost the object as the fingers closed", "Moved the camera to the side of the hand",
+         "Design change, to be tested", pg("camera")]],
+        col_weights=[2, 2, 1.55, 0.5], bold_col=0)
+    p.sources("Each row is a change recorded in our design logs, with the test before and after it.")
+
+    # ============================================================ mind map and what is new (v31: first page of section 3)
+    p = page("mindmap")
+    m = p.box(p.area, "design", "Mind map of our project")   # user's v33/v34: the mind map takes the whole page
+    mind_map(p, m.content, "Vision-guided robotic hand", [
+        ("Problem", ["Grip chosen by tensing muscles: slow", "9-80% stop using their hand", "Hands cost US$9k-40k",
+                     "A preset grip may not fit the object"]),
+        ("Constraints", ["About two weeks", "One grey camera, no depth", "A laptop CPU", "The hand arrived late",
+                         "Nothing moves before a dry run"]),
+        ("Options", ["A  our own hand: too big", "B  pretrained grips: needs data", "C  adaptive camera feedback: chosen"]),
+        ("Ideas", ["Grasp plane", "Force vectors that cancel", "Object permanence", "Steadiness rule", "Camera at the side"]),
+        ("Tests", ["Simulation pick-up 80 of 80", "Outline match 87%", "Hidden edge 38% to 93%", "Servo bus 8 of 8"])],
+        size=f.body + 2)
+    p.sources(f"Mind map drawn on computer. Problem figures: page {pg('problem')}.")
+
+    # ============================================================ sketches (v31: the computer-drawn diagrams removed)
+    p = page("sketches")
+    top, bottom = p.rows(p.area, 1.9, 1)
+    a = p.box(top, "design", "Our design idea in sketches")
+    a.flow(a.content, [(SK + "gemini_palm_labelled.jpg", "Camera in the palm", "Three fingers and a thumb; the camera looks out of the palm",
+                        "Our pen sketch of the hand labelled 'Camera in palm' and '3 fingers + thumb'"),
+                       (SK + "gemini_palm_front.jpg", "The palm from the front", "The camera sits in the middle of the palm",
+                        "Our pen sketch of the hand seen from the front with a round camera in the palm")], arrows=False)
+    t = p.box(bottom, "research", "What the sketches settled")
+    t.stack(t.content, [("text", [
+        "- Use Pollen's open hand: two servos for each of the four digits.",
+        "- Add one camera in the palm, tipped towards the fingertips, so it sees what the fingers are about to grasp and moves "
+        "with the hand.",
+        "- One serial bus carries all eight servos to the laptop, where the code from the simulation plans the grasp."]),
+        ("highlight", f"**Our sketches came first:** the camera in the palm and three fingers plus a thumb became the CAD "
+                      f"design on page {pg('finaldesign')}.")])
+    p.sources("Sketches: our own pen sketches. Not to scale.")
+
+    # ============================================================ final design (CAD drawing with dimensions)
+    p = page("finaldesign")
+    d_r, r_c = p.cols(p.area, 1.75, 1)
+    d = p.box(d_r, "design", "Our hand with the palm camera")
+    d.picture(d.content, A + "hardware/hand_dimensions.png",
+              "Six CAD views of our hand with the palm camera: overall 166.7 mm wide, 193.1 mm tall and 148.9 mm deep, fingers "
+              "85.9 mm long, a 14.5 mm radius wrist mount, and the camera marked under the palm",
+              caption="Six views of the final design, with its main dimensions.")
+    k_r, w_r = p.rows(r_c, 1, 1.25)
+    k = p.box(k_r, "results", "Key dimensions")
+    k.stats(k.content, [("166.7 mm", "wide"), ("193.1 mm", "tall"), ("148.9 mm", "deep"), ("85.9 mm", "finger length")])
+    w = p.box(w_r, "method", "What the design shows")
+    w.stack(w.content, [("text", ["- **All four digits use the same finger,** for easier assembly and design.",
+                       "- **The camera sits under the palm,** looking past the fingers at the object.",
+                       "- **A round wrist mount** (14.5 mm radius) at the back holds the hand.",
+                       f"- It follows our sketches (page {pg('sketches')}) and Pollen's open design.",
+                       f"- Why each part and material was chosen: page {pg('materials')}."]),
+                        ("highlight", f"**Later change:** the camera moved to the side of the hand (page {pg('camera')}).",
+                         "general")])
+    p.sources("Drawing: our CAD of the hand with the camera mount, based on Pollen Robotics' Amazing Hand (CC BY 4.0). "
+              "Dimensions are from the CAD, not measured on the built hand.")
+
+    # ============================================================ the simulation (after the final design, user's v34 order)
+    p = page("sim")
+    left, m_r = p.cols(p.area, 2.6, 1)
+    top, bottom = p.rows(left, 0.78, 1.22)
+    a_r, b_r = p.cols(top, 0.78, 1.22)       # same split as the row below, so each box touches only the one above it
+    a = p.box(a_r, "method", "3D view")
+    a.picture(a.content, A + "sim/sim_gizmos.png", "Simulation overview with the grasp plane, camera field of view and fingertip lines",
+              caption="The grasp plane and the camera's field of view.")
+    b = p.box(b_r, "results", "Palm camera view")
+    b.picture(b.content, A + "sim/sim_palmcam_detect.png",
+              "Simulated palm camera view: the red cube with its green outline and cyan candidate points",
+              caption="The YOLO outline (green) and fingertip contacts (cyan).")
+    m = p.box(m_r, "research", "Other simulations")
+    for rr, (rel, lab) in zip(p.rows(m.content, 1, 1, 1), [("examples/menagerie_shadow_hand.png", "Shadow Hand"),
+                                                            ("examples/menagerie_franka_panda.png", "Franka Panda arm"),
+                                                            ("examples/menagerie_unitree_go2.png", "Unitree Go2 robot")]):
+        m.picture(rr, A + rel, f"{lab} in MuJoCo", caption=lab)
+    w_r, s_r = p.cols(bottom, 0.78, 1.22)
+    w = p.box(w_r, "problem", "Why we simulated")
+    w.text(w.content, ["We did not have enough time to build and test a hand and our Pollen hands had not arrived. We wanted to "
+                       "write the code first and know it works, so we built the test bench on a computer. The simulation helped "
+                       "a lot. We tuned where each fingertip goes and which fingers can reach, checked that the force vectors "
+                       "cancel before anything moved and, because it runs real contact and friction, saw whether the hand would "
+                       f"grip an object and lift it. When the hands arrived we built one and moved the same code across (page {pg('realbuild')})."])
+    s = p.box(s_r, "method", "Set-up and why these tools")
+    t, tab = p.rows(s.content, 0.55, 2.5)        # table moved up: it grows when its rows wrap
+    s.text(t, [f"MuJoCo {VERSIONS['mujoco']}, Python {VERSIONS['python']}, OpenCV {VERSIONS['opencv']}, Ultralytics "
+               f"{VERSIONS['ultralytics']}. We added collision shapes, a palm camera and our own inverse kinematics to Pollen's model."])
+    s.table(tab, [["Tool", "Why we used it"],
+                  ["MuJoCo", "Pollen's own MuJoCo model of the hand gives the exact finger linkage; it simulates contact and friction"],
+                  ["Pollen's hand", f"Open source and already designed: 4 fingers, 8 servos; we built ours when it arrived (page {pg('realbuild')})"],
+                  ["YOLOE", "Names objects from about 4,500 words without training on ours"],
+                  ["OpenCV", f"Ready-made Otsu, Canny and GrabCut outlines to compare (page {pg('outline')})"],
+                  ["Arducam B0332", f"Small USB camera, global shutter, 100 frames a second; monochrome, as we learned late (page {pg('plane')})"]],
+            col_weights=[0.95, 4.4], bold_col=0)
+    p.sources("Hand model: Pollen Robotics (Apache 2.0, made from their Onshape CAD). Other simulations: MuJoCo Menagerie, "
+              "Google DeepMind (Apache 2.0). Screenshots: our own simulation.")
+
+    # ============================================================ 9 main stages (flowchart kept) + final version
+    p = page("stages")
+    left, right = p.cols(p.area, 2.7, 1)
+    f_r, v_r = p.rows(left, 2.7, 1)
+    a = p.box(f_r, "method", "Main stages of the pipeline")
+    steps = [(G7 + "scissors_1_grabcut_1_original.png", "Camera image",
+              "One flat frame from the hand's camera (here a test photo). No depth and no object name yet."),
+             (G7 + "scissors_1_grabcut_2_boxes.png", "YOLOE finds the object",
+              "YOLOE boxes each object it can name, from about 4,500 words. We lock onto one box (green)."),
+             (G7 + "scissors_1_grabcut_3_box_pixels.png", "Only the box's pixels",
+              "Everything outside the box is dropped, so the next steps work on a small picture and run faster."),
+             (G7 + "scissors_1_grabcut_4_edge.png", "Edge detection",
+              "YOLOE's mask gives the outer contour (green); a hole search finds inner contours (orange)."),
+             (G9 + "scissors_1_P2_covered.png", "Object permanence",
+              "A remembered snapshot of the outline redraws any edge a finger covers (yellow)."),
+             (G7 + "scissors_1_grabcut_5_grip_candidates.png", "Grip candidates",
+              "A point every 8 pixels round the contour, moved out by a fingertip's thickness. Cyan: a finger can reach."),
+             (G7 + "scissors_1_grabcut_6_finger_plan.png", "Finger placement",
+              "The best pair whose pushes cancel becomes thumb and finger contacts; IK turns them into servo angles.")]
+    a.flow(a.content, [(pth, lab, cap, lab) for pth, lab, cap in steps], cols=4, cap_lines=5.4)
+    row2 = split_last_cell(a.content, p, cols=4, rows=2)
+    a.highlight(row2, "**Each arrow:** the output of one stage is the input of the next.")
+    fv = p.box(v_r, "results", "The final version")
+    fv.text(fv.content, ["The final version locks onto one object and checks only a small square around it, with a full scan "
+                         "twice a second. It remembers the object's shape so a covering finger does not change the plan. A "
+                         "detection takes about a tenth of a second, so in between it slides the outline along with the object "
+                         "using optical flow, which tracks how pixels moved from one frame to the next. It then plans each "
+                         "fingertip, runs inverse kinematics to get the two motor angles for each finger and holds the grasp steady. "
+                         f"It takes the outline straight from YOLOE's mask (page {pg('outline')})."])
+    k = p.box(right, "findings", "What is new in our solution")
+    k.table(k.content, [["What we came up with", "Page"], ["Lock on one object", pg("steady")], ["YOLOE in its own process", pg("speed")],
+                        ["Mask outline, 20 times faster", pg("outline")], ["Inner contours to grip", pg("outline")],
+                        ["Force vectors at the centre", pg("grip")], ["Grasp plane at a natural angle", pg("plane")],
+                        ["Object permanence", pg("steady")], ["Camera at the side of the hand", pg("camera")]],
+            col_weights=[3.2, 1])
+    p.sources("Images: our pipeline on a test photograph (not our own).")
+
+    # ============================================================ 10 speed
+    p = page("speed")
+    top, bottom = p.rows(p.area, 1, 1.15)
+    c_r, t_r = p.cols(top, 1, 1.1)
+    c = p.box(c_r, "analysis", "Where the time went at the start")
+    c.picture(c.content, CH + "chart_speed_start.png",
+              "Bar chart: finding the object 397 ms, outline with SAM 1,896 ms, candidate points 9 ms, pairs 38 ms, finger "
+              "plan 9 ms, total 2,349 ms",
+              caption="Median per stage with the SAM outline, on a busy laptop. Total: the five stages added up.")
+    t = p.box(t_r, "process", "Making it faster")
+    t.text(t.content, ["When we first ran the whole pipeline end to end, one frame took about 2.4 seconds (2,349 ms) with the SAM outline "
+                       "(about 1.1 seconds with GrabCut). That is far too slow to follow a moving object. Timing each stage "
+                       "showed that two of them took almost all of it: finding the object with YOLOE (397 ms) and drawing the "
+                       "outline (1,896 ms). Grip planning took under 60 ms.",
+                       "We fixed the slow stages one at a time: a faster outline, a smaller picture, looking only at a crop "
+                       "around the locked object and moving YOLO into its own process. **The finished loop takes 104 ms** "
+                       "(median, about 10 frames a second), inside our target of 200 ms (page %d)." % pg("plan")])
+    b = p.box(bottom, "results", "The biggest costs, before and after")
+    b.stack(b.content, [("fill", 1, lambda rr: b.picture(rr, CH + "chart_speed_changes.png",
+                                                         "Bar charts of the outline step, finding the object and the whole loop, "
+                                                         "before and after, and the total per frame: 2,349 ms at the start, 104 ms now")),
+                        ("highlight", "**What it cost:** smaller GrabCut crops fit worse (84% to 79% match), a 480 px picture finds small objects "
+                   "less reliably, a crop can miss a new object for up to half a second and the mask outline sometimes marks "
+                   "highlights as holes. Not tested on the single-board computer.", "caution")])
+    p.sources("The charts come from different test runs on one laptop, so the totals are a guide, not one measurement.")
+
+    # ============================================================ 11 outlines and inner contours
+    p = page("outline")
+    top, bottom = p.rows(p.area, 0.92, 1.38)
+    a = p.box(top, "testing", "Five ways to outline the mug")
+    t, fl = p.rows(a.content, 0.16, 1)
+    a.text(t, ["We tested five ways to outline an object inside YOLOE's box, on the same mug: green is the outline, "
+               "orange a hole (the handle should be one)."])
+    meths = [("mug_otsu.png", "Otsu", "27 ms: Found the handle but called the logo a hole."),
+             ("mug_canny.png", "Canny", "1 ms: Outlined only the logo."),
+             ("mug_grabcut_fast.png", "GrabCut, fast", "51 ms: Good outline, a little blocky."),
+             ("mug_grabcut_slow.png", "GrabCut, slow", "130 ms: Closer fit, but a false slot in the rim."),
+             ("mug_sam.png", "SAM", "639 ms: Closest, but far too slow.")]
+    a.flow(fl, [(C + fn, lab, cap, f"The mug outlined by {lab}") for fn, lab, cap in meths], arrows=False)
+    c_r, k_r = p.cols(bottom, 0.8, 1.5)
+    c = p.box(c_r, "results", "Match with the reference outline")
+    c.picture(c.content, CH + "chart_outline_methods.png",
+              "Bar chart of outline match with the SAM outline: Otsu 69%, GrabCut 75%, GrabCut slow 80%, YOLOE mask 82%, GrabCut from mask 87%",
+              caption="Match with SAM's outline over 8 photos (100% is exact). Green is the best score.")
+    k = p.box(k_r, "method", "What we kept and why outer and inner contours")
+    t1, pics, t2 = p.rows(k.content, 0.6, 1.2, 1.65)
+    k.text(t1, ["GrabCut started from YOLOE's mask scored highest (87%), but the mask alone scored 82% about 20 times faster, "
+                "so we kept the mask. **A search for holes lifted it to 89%** on 10 objects in colour (87% in grey). It still "
+                "fails when the detector boxes the wrong thing."])
+    for rr, (rel, alt, lab) in zip(p.cols(pics, 1, 1, 1.15), [(C + "inner_doughnut.png", "A doughnut with its hole outlined in orange", "Doughnut"),
+                                                            (C + "inner_scissors_1.png", "Scissors with both finger loops outlined in orange", "Scissors"),
+                                                            (C + "mug_grabcut_slow.png", "A mug with a false slot along its rim", "A false one")]):
+        k.picture(rr, rel, alt, caption=lab)
+    k.text(t2, ["**Why both:** the outer contour is the object's silhouette, where fingertips squeeze from outside. Many "
+                "objects have holes, like a mug handle or scissor loops. With only the outer contour the planner treats "
+                "them as solid and may put a fingertip in empty space or join two contacts across a gap. The inner "
+                "contour marks where the material really is, so a grip pair never crosses a hole and a finger can push "
+                "outward inside a loop, the way people hold scissors.",
+                "A hole counts only if it is enclosed, at least 0.5% of the object and 30 mm across, so highlights do not "
+                "make false ones."])
+    p.sources("Pictures: our pipeline on test photographs (not our own). Reference outline from SAM; no hand-labelled outlines.")
+
+    # ============================================================ 12 grip points and force vectors
+    p = page("grip")
+    top, bottom = p.rows(p.area, 1, 1.05)
+    a_r, b_r = p.cols(top, 1.2, 1)
+    a = p.box(a_r, "method", "From outline to contacts")
+    a.flow(a.content, [(G7 + "scissors_1_grabcut_5_grip_candidates.png", "Points on the contour", None,
+                        "Candidate grip points (cyan) around the scissors outline"),
+                       (G7 + "scissors_1_grabcut_6_finger_plan.png", "Chosen contacts", None,
+                        "The chosen pair and the fingertip contacts on the scissors")])
+    b = p.box(b_r, "findings", "Why the direction of push matters")
+    b.picture(b.content, CH + "chart_force_good_bad.png", "Two circles: forces at any positions slip, forces pointing at the centre hold",
+              caption="An illustration, not data. Arrows are the push of each fingertip.")
+    g_r, v_r = p.cols(bottom, 1, 1)
+    g = p.box(g_r, "method", "Grip points")
+    g.text(g.content, ["We place a point every 8 pixels around the whole contour. Each is pushed out from the edge by the "
+                       "thickness of a fingertip, measured on the grasp plane, so it marks where the fingertip pad would sit. "
+                       "Then we work out which points a finger can reach: cyan dots can, red crosses cannot.",
+                       "From the reachable points we choose pairs. The line between the two points must stay inside the object, "
+                       "so it never crosses a hole and each push must lie inside its friction cone so the fingertip grips "
+                       "instead of sliding. Narrower pairs near the centre of mass score higher."])
+    fv = p.box(v_r, "analysis", "Force vectors")
+    fv.stack(fv.content, [("text", ["In the simulation, moving fingertips to points along an object and closing the hand lifted nothing. The fingers "
+                "slipped off, or the object skidded away. What matters is the force each fingertip applies.",
+                "So for every contact we work out a force vector, the direction and size of its push and accept a set of "
+                "contacts only when the vectors point at the centre of the object and cancel out. With balanced forces the "
+                "fingers squeeze the object and it stays put."]),
+                          ("highlight", "**Balance alone is not enough:** in one test all 5 grasps balanced but only 4 were "
+                                        "real pinches, because not every finger reached the object.", "caution")])
+    p.sources("Pictures: our pipeline on a test photograph (not our own). Friction cone after Nguyen 1988 (friction 0.5 assumed).")
+
+    # ============================================================ 13 grasp plane, camera, kinematics
+    p = page("plane")
+    for r, (role, head, pics, texts) in zip(p.cols(p.area, 1, 1, 1), [
+        ("method", "The grasp plane", [(C + "viewer_side.png", "The grasp plane and camera view from the side in our 3D viewer", "Grasp plane (green)")],
+         ["A camera gives a flat picture and the fingers need 3D positions. We did not know where to put the fingertips, so we "
+          "made a grasp plane: a flat sheet in front of the hand that we assume the object's top lies on. Each contact point "
+          "becomes a ray from the camera and where the ray meets the plane is where the fingertip goes.",
+          "Tuning it taught us it must line up with the hand. Palm straight down, the thumb squeezed upward and nothing got "
+          "under the object. **Tipped 40 degrees, the way a person reaches, the fingers closed from the side and lifted 80 of "
+          "80 objects.** A height error h puts a contact 0.58 h to the side."]),
+        ("problem", "The camera", [(HW + "arducam_b0332_product.jpg",   # user's v34 picture
+                                    "Arducam B0332 camera board, 38 mm by 28 mm, with its lens in the middle", "Arducam B0332")],
+         ["Our camera (Arducam B0332) is monochrome. We found that out late. Without colour, YOLOE has less to tell objects "
+          "apart and the edge detector loses the colour difference. Our first grey test dropped the outline match from 80% to "
+          "57% and a dark mug on a dark table fell from 96% to 8%. The mask method coped best, at 87%.",
+          "The view is 70 by 47 degrees, so the thumb's reach sits at the left edge and objects there were cut off. One camera "
+          f"cannot measure distance, which is why we need the plane. Where the camera sits: pages {pg('realsetup')} and {pg('camera')}."]),
+        ("analysis", "Inverse kinematics", [(C + "reach_side.png", "Reach plot: where each fingertip can go as the finger curls", "Fingertip reach"),
+                                            (A + "pollen/Finger_Overview.jpg", "Pollen's finger: a parallel mechanism with two servos", "Pollen's finger")],
+         ["We know where a fingertip should be and need the two servo angles that put it there. We sampled Pollen's linkage "
+          "every 10 degrees; the table matches Pollen's model to 0.17 mm on average.",
+          "Each finger has two motors. We kept that design because it is simple and it is the one Pollen gave us. Turning both "
+          "the same way swings the finger sideways; opposite ways curl it."])]):
+        b = p.box(r, role, head)
+        pic_r, t = p.rows(b.content, {"The grasp plane": 0.92, "The camera": 0.68, "Inverse kinematics": 1.5}[head], 1)
+        for pr, (rel, alt, cap) in zip(p.rows(pic_r, *([1.5, 1] if len(pics) == 2 else [1])), pics):   # stacked
+            b.picture(pr, rel, alt, caption=cap)
+        b.text(t, texts)
+    p.sources("Kinematics from Pollen's model, not measured on a real hand. Pollen finger picture: AmazingHand repository "
+              "(Apache 2.0, CC BY 4.0). Camera: Arducam B0332 product photo.")
+
+    # ============================================================ 14 steady grasp and object permanence
+    p = page("steady")
+    l_r, r_r = p.cols(p.area, 1, 1)
+    a = p.box(l_r, "results", "Keeping the grasp steady")
+    a.stack(a.content, [("fill", 1, lambda rr: a.picture(rr, CH + "chart_steady.png",
+                                                         "Two bar charts for five settings: fingertip travel and plan jumps",
+                                                         caption="Each bar is one setting. Red is where we started, green is what we kept. Lower is steadier.")),
+                        ("text", ["On live video the fingertips jittered. Every detection gave a slightly different outline, so the grasp positions "
+               "moved a little each time and the fingers moved with them. We tried smoothing the positions and a rule that the "
+               "chosen target and grasp only change when a new one is clearly better. Smoothing helped little; the rule did "
+               "most of the work."]),
+                        ("highlight", "**We kept all of it.** Fingertip travel fell from 423 to 193 pixels per second and the plan jumped 1.7 "
+                   "times instead of 10 in 40 detections. The cost: about 0.6 seconds of delay when the object really changes.",
+                         "result")])
+    b = p.box(r_r, "method", "Object permanence")
+    fl, t, ch = p.rows(b.content, 0.95, 0.8, 1.05)
+    b.flow(fl, [(G9 + fn, lab, None, f"Scissors, step {i + 1}: {lab}") for i, (fn, lab) in enumerate(
+        [("scissors_1_P1_clean.png", "1 Seen clearly"), ("scissors_1_P2_covered.png", "2 Covered"),
+         ("scissors_1_P3_completed.png", "3 Edge filled in")])])
+    b.text(t, ["Two bars stand in for fingers; yellow is the remembered outline. When the fingers close on an object they cover "
+               "part of it, so the detector sees a smaller shape and the plan changes at the moment the fingers should hold "
+               "still. So we gave the planner object permanence: it takes a snapshot while the object is clear, finds where it "
+               "matches what is still visible and redraws the hidden edge."])
+    b.picture(ch, CH + "chart_ghost.png", "Bar chart: hidden edge found before and after fixes, 38% to 93% when still and 35% to 85% when moving")
+    p.sources("Steadiness: 3 photos, 40 detections each, noise added. Hidden edge: "
+              "7 photos, 168 painted covers per bar, not real fingers; not run on a live camera.")
+
+    # ============================================================ 15 results and evaluation
+    p = page("eval")
+    top, bottom = p.rows(p.area, 1.2, 1)
+    a = p.box(top, "evaluation", "Results against our criteria")   # rows 2, 3 and 5: the user's 23 Oct re-tests (DECISIONS.md)
+    a.stack(a.content, [("fill", 1, lambda rr: a.table(rr, [["Criterion (page %d)" % pg("plan"), "What we measured in simulation", "Verdict"],
+                ["1  Outline", "87% match with the reference; wrong box on 1 of 8 photos", "PARTLY MET"],
+                ["2  Grip plan", "5 of 5 plans balanced (aimed camera); 4 of 5 were real pinches", "MET"],
+                ["3  Reach the target", "10 of 10 fingertip aims within 3 mm", "MET"],
+                ["4  Hold the object", "Lifted 80 of 80 with a steady hand; 59 of 80 with a shake", "PARTLY MET"],
+                ["5  Unseen objects", "5 unseen simulated objects; 4 of 5 grasped", "MET"],
+                ["6  Speed", "Loop about 104 ms on a laptop; target 200 ms", "MET"]],
+            col_weights=[1.1, 3.6, 1], status_col=2, bold_col=0)),
+                        ("highlight", f"**The physical hand:** we built and tested the real hand after these simulation results; "
+                                      f"see pages {pg('realbuild')} to {pg('realeval')}. Hold the object is only partly met: with a "
+                                      "shake added, 59 of 80 is below 4 of 5.")])
+    c_r, b_r, l_r = p.cols(bottom, 1.7, 1, 1)
+    c = p.box(c_r, "results", "Picking up objects")
+    c.picture(c.content, CH + "chart_pickup.png", "Bar chart: 80 of 80 objects lifted with a steady hand and 59 of 80 with a shake added",
+              caption="Physics pick-up test: 5 small objects, 16 random starts each; success is lifted 50 mm.")
+    b = p.box(b_r, "findings", "Benefits")
+    b.text(b.content, ["- No grasp-training data", "- About 100 ms on a laptop CPU", "- Forces checked before moving",
+                       "- One ordinary camera",
+                       f"- Holes found: mug handle 4 of 4, doughnut and bagel 2 of 2 (page {pg('outline')})",
+                       f"- Steadier fingertips: 423 to 193 px/s (page {pg('steady')})"], after=3)
+    lim = p.box(l_r, "problem", "Limitations")
+    lim.text(lim.content, ["- Simulated camera has depth", "- Friction (0.5) is assumed", "- Small samples (5 to 10 trials)",
+                           f"- Real-hand results: page {pg('realeval')}",
+                           f"- Grey camera: outline match fell from 80% to 57% in our first test (page {pg('plane')})",
+                           f"- Hidden edges tested with painted covers, not real fingers (page {pg('steady')})"], after=3)
+    p.sources("Samples are small; these results are from the simulation.")
+
+    # ============================================================ build process (photos, in order)
+    p = page("realbuild")
+    top, bottom = p.rows(p.area, 0.2, 1)
+    a = p.box(top, "build", "The build, in the order we did it")
+    a.text(a.content, ["Our Pollen hand arrived after we had written and tested the software in simulation. We laid every part "
+                       "out, built one finger first as Pollen's guide suggests and checked it moved smoothly, then built the "
+                       "others and the whole hand, wired the eight servos to one bus and set each servo up in our tuner "
+                       f"(page {pg('realsetup')})."])
+    b = p.box(bottom, "results", "Our photos")
+    b.flow(b.content, [
+        (PH + "hand_parts_unpacked.jpg", "1  Parts laid out", "Every part on the desk first",
+         "The hand's parts, servos and cables unpacked on a classroom table"),
+        (PH + "hand_assembly.jpg", "2  Preparing parts", "Sanding and fitting printed parts",
+         "Printed parts, servos and tools spread out while the parts are prepared"),
+        (PH + "hand_one_finger.jpg", "3  One finger", "One finger on its SCS0009 servo",
+         "A single assembled finger joined to its Feetech SCS0009 servo"),
+        (PH + "hand_servo_pair.jpg", "4  The servo pair", "Two servos and the linkage rods",
+         "Close-up of a finger base: two servos side by side with the linkage rods"),
+        (PH + "hand_wiring_test.jpg", "5  The whole hand", "Wired to the bus and the laptop",
+         "The assembled hand wired through the servo bus adapter to the laptop"),
+        (APPS + "tuner_setup.png", "6  Servo setup", "Zero, range and direction in our tuner",
+         "Our servo tuner's setup table: each servo's reading, zero, minimum, maximum and closing direction")], cols=3)
+    p.sources("Photos 1 to 5: our own. Picture 6: a screenshot of our servo tuner.")
+
+    # ============================================================ setting up: servos, finger order, camera
+    p = page("realsetup")
+    left, right = p.cols(p.area, 1, 1.1)
+    a = p.box(left, "build", "Servos: zero, range and direction")
+    a.stack(a.content, [("fill", 1, lambda rr: a.table(rr, [["Step", "What happened"],
+        ["1  Servo IDs", "IDs 1 to 8 were already set. Servos 7 and 8 first did not answer: a power and adapter problem, now gone"],
+        ["2  Zero position", "All eight moved to the middle (0 degrees) and spun 30 degrees each way and back: all within 0.6 degrees"],
+        ["3  Range", "Each servo's zero, minimum, maximum and closing direction saved in a settings file; every program keeps to them"],
+        ["4  Direction", "Servos that closed the wrong way were reversed in the setup table"],
+        ["5  Finger order", "On our hand the index is servos 5 and 6 and the ring is 1 and 2, the reverse of the guide; we swapped "
+                            "the names in the code"],
+        ["6  Thumb", "The real thumb needed 68% of its travel to touch the index, where the simulation needs 44%, so its travel is "
+                     "scaled by 1.55 (one measurement)"]], col_weights=[1.05, 3.6], bold_col=0)),
+        ])   # user's v34: the "not done yet" note removed
+    c = p.box(right, "method", "The first camera mount: in the palm")   # v32: "From Pollen's guide" removed
+    c.stack(c.content, [
+        ("text", ["Pollen's guide has no camera, so the mount is our own. We measured its base: 20.7 mm left, 26.6 mm "
+                  "forward and 20.5 mm down from the centre of the round mount at the back of the hand, pointing 30 "
+                  f"degrees down. The planner uses these numbers. We later moved the camera (page {pg('camera')})."]),
+        ("fill", 1, lambda rr: c.flow(rr, [
+            (HW + "camera_palm_cad.png", "The camera in the palm (CAD) from outside", None,
+             "CAD of the underside of the palm: the camera lens looks out through a round hole"),
+            (HW + "camera_board_cad.png", "The camera in the palm (CAD) from inside", None,
+             "CAD of the camera board fixed in its mount inside the palm")], cols=1, arrows=False))])
+    p.sources("Camera mount measured by us on the real hand. CAD: our own.")
+
+    # ============================================================ camera redesign (v35, the user's change)
+    p = page("camera")
+    top, bottom = p.rows(p.area, 1.5, 1)
+    w_r, n_r = p.cols(top, 1, 1.65)
+    w = p.box(w_r, "problem", "Why the palm camera did not work")
+    w.stack(w.content, [("fill", 1, lambda rr: w.picture(rr, HW + "camera_palm_cad.png",
+                                                        "CAD of the palm from below with the camera lens in a round hole",
+                                                        caption="Before: the lens looks out of the palm.")),
+                        ("text", ["As the hand reached in and the fingers began to close, the object came very close and the "
+                                  "fingers came between it and the lens. The camera could not see the object, or the parts "
+                                  "we wanted the fingertips on, at the moment the plan mattered most."])])
+    n = p.box(n_r, "design", "The new position: outside the hand, between index and thumb")
+    n.stack(n.content, [("fill", 1, lambda rr: n.flow(rr, [
+        (HW + "camera_side_cad.png", "After: the camera on the outside", None,
+         "CAD of the hand with the camera board fixed to the outside, beside the thumb, its lens pointing past the fingers"),
+        (HW + "camera_side_fov_cad.png", "Its field of view (blue cone)", None,
+         "The same CAD with a blue cone showing the camera's field of view, aimed into the gap between the index finger and thumb")],
+        arrows=False)),
+        ("text", ["We moved the camera to the outside of the hand and tipped it to look between the index finger and the "
+                  "thumb. That is where the fingertips meet the object, so the grip area should stay in view while the "
+                  "fingers close."])])
+    t_r, s_r = p.cols(bottom, 1.45, 1)
+    t = p.box(t_r, "analysis", "Before and after")
+    t.table(t.content, [["", "Palm camera (first)", "Side camera (now)"],
+                        ["Where it sits", "Under the palm, looking out", "Outside the hand, between index and thumb"],
+                        ["While the fingers close", "Fingers and the close object block the view", "Looks into the gap the fingers close on"],
+                        ["Mount measured", "20.7, 26.6, 20.5 mm; 30 degrees down", "Not yet"],
+                        ["Tested on the hand", "Mount used by the planner", "Not yet"]],
+            col_weights=[1, 1.6, 1.8], bold_col=0)
+    s = p.box(s_r, "planning", "What happens next")
+    s.stack(s.content, [("fill", 1, lambda rr: s.steps(rr, [
+        "Fit the new mount; measure its position and angle.",
+        "Enter them in the planner.",
+        "Check the object stays in view while closing.",
+        f"Run the grasp test (page {pg('graspmethod')})."])),
+        ("highlight", "**Design change only.** Not yet tested on the hand.", "caution")])
+    p.sources("CAD: our own, based on Pollen Robotics' Amazing Hand (CC BY 4.0). The blue cone is the camera's field of view "
+              "drawn in CAD.")
+
+    # ============================================================ our apps
+    p = page("realctrl")
+    left, right = p.cols(p.area, 1.25, 1)
+    m = p.box(left, "software", "The main app")
+    m.stack(m.content, [("fill", 1, lambda rr: labelled(m, rr, APPS + "main_monitor.png",
+                                                          "The RobotHand main app: hand, camera and motor controls, the camera and grasp-plan pictures, and a card for each finger's servos",
+                                                          caption="Our main app: camera, grasp plan, motors and every servo's readings.",
+                                                          labels=[(0.27, 0.4, "Camera view", 0.13, 0.27),
+                                                                  (0.73, 0.4, "3D grasp plan", 0.87, 0.27),
+                                                                  (0.45, 0.76, "Each finger's servos", 0.24, 0.93)])),
+                        ("text", ["Tabs hold the servo table, manual control, servo setup, vision and grasp tuning and a log. "
+                                  "Written in Python (Tkinter), so the camera code, planner and hand driver are the same as in "
+                                  "the simulation."]),
+                        ("highlight", "**Screenshot with the simulated hand:** the readings are not real; it shows the layout.",
+                         "caution")])
+    t_r, s_r = p.rows(right, 1.75, 1)
+    t = p.box(t_r, "design", "The servo tuner")
+    t.flow(t.content, [(APPS + "tuner_manual.png", "Manual: a slider for each servo", None, "The servo tuner's manual tab: one slider per servo"),
+                       (APPS + "tuner_ik.png", "Fingertip targets through our IK", None, "The servo tuner's IK tab: fingertip target sliders")],
+           cols=1, arrows=False)
+    safe = p.box(s_r, "risk", "Safety built in")
+    safe.text(safe.content, [
+        "- Connecting only reads; nothing moves until motors are switched on.",
+        "- The first goal is where each servo already is, so the hand cannot jump.",
+        "- Every goal stays inside the saved limits.",
+        "- Release all (Esc) and a red STOP turn torque off.",
+        "- Our tests never move the motors."], after=2)
+    p.sources("Screenshots: our own apps.")
+
+    # ============================================================ testing the real hand
+    p = page("realtest")
+    left, g_r = p.cols(p.area, 2.3, 1)
+    top, w_r = p.rows(left, 1.05, 1)
+    a = p.box(top, "testing", "Servo bus test on the real hand")
+    a.stack(a.content, [
+        ("text", ["The test checks that every ID answers, moves all 8 servos to the middle, spins each one 30 degrees each way "
+                  "and back and passes a servo only if it ends where it was sent."]),
+        ("fill", 1, lambda rr: a.stats(rr, [("8 of 8", "servos answered, IDs 1 to 8"),
+                                            ("0.6 deg", "largest error after the spins and at the middle"),
+                                            ("5.1-5.3 V", "supply voltage at rest"),
+                                            ("4.7 V", "supply when the fingers moved")], cols=4)),
+        ("highlight", "**All pass:** every servo answered, spun and came back to the middle within 0.6 degrees.", "result")])
+    w = p.box(w_r, "problem", "What went wrong and the fix")
+    w.text(w.content, [
+        "- **False fails.** Our first test spun each servo around its start. Servos 3 to 8 started near the end of their "
+        "travel and failed by up to 317 degrees (the angle wrapped round). Fix: move to the middle first, then spin.",
+        "- **Servo 6 timeouts.** Servo 6 sometimes missed a command. The supply fell from 5.2 V to 4.7 V when the fingers "
+        "moved, below the servo's 4.8 V minimum. The app now retries and shows the low voltage; the real fix is a stronger "
+        "supply.",
+        "- **Wrong finger order.** The index and ring were swapped against the guide; we renamed them in the code."], after=3)
+    g = p.box(g_r, "results", "The test set-up")
+    g.stack(g.content, [("fill", 1, lambda rr: labelled(g, rr, PH + "hand_wiring_test.jpg",
+                                                         "The hand wired through the servo bus adapter to the laptop running our test",
+                                                         caption="The hand on the servo bus, wired to the laptop.",
+                                                         labels=[(0.45, 0.46, "Bus adapter", 0.78, 0.4),
+                                                                 (0.27, 0.68, "Our hand", 0.25, 0.86),
+                                                                 (0.38, 0.17, "Laptop running app", 0.7, 0.08)])),
+                        ("highlight", f"**Next:** grasps on real objects, planned on page {pg('graspmethod')}.", "general")])
+    p.sources("Measured on the real hand, 22 October 2026. Photo: our own.")
+
+    # ============================================================ real-hand grasp test: method (v35)
+    p = page("graspmethod")
+    l_r, r_c = p.cols(p.area, 1, 1.25)
+    a_r, o_r = p.rows(l_r, 1, 1.05)
+    a = p.box(a_r, "planning", "What the test checks")
+    a.stack(a.content, [("text", [f"Hand criterion 6 (page {pg('realeval')}): the real hand lifts an everyday object 4 times "
+                                  "out of 5. It is the first test of the whole chain on hardware: camera, plan, real fingers.",
+                                  f"The pass rule is the one we used in simulation (criterion 4, page {pg('plan')}), so the two "
+                                  "results can be compared directly."]),
+                        ("highlight", "**Pass:** held for 5 s in at least 4 of 5 tries, for each object.", "result")])
+    o = p.box(o_r, "research", "Objects and conditions")
+    o.text(o.content, ["- **Five everyday objects** of different shapes: one with a hole (like a mug), a round one, a box, "
+                       "a bottle and a soft one.",
+                       "- **The same marked spot** in front of the hand for every try, on a plain table.",
+                       "- **5 tries per object:** 25 grasps in all.",
+                       f"- **Camera:** in the position on page {pg('camera')}, once its mount is measured.",
+                       "- **Also recorded:** which fingers touched, the planning time and the supply voltage."], after=3)
+    pr_r, sf_r = p.rows(r_c, 1.45, 1)
+    pr = p.box(pr_r, "method", "Procedure, every try")
+    pr.steps(pr.content, ["Place the object on the marked spot.",
+                          "Run the planner with the motors off; check the planned contacts on screen (dry run).",
+                          "Switch the motors on and close the hand.",
+                          "Lift the hand 50 mm and hold for 5 seconds.",
+                          "Record held, slipped or missed; release and place the object again."])
+    sf = p.box(sf_r, "risk", "Safety during the test")
+    sf.text(sf.content, ["- Saved limits on every servo; goals outside them are refused.",
+                         "- One person on the STOP button (Esc) for every try.",
+                         "- Hands and loose objects clear of the fingers while they close.",
+                         "- Stop if a servo trips on load, heat or low voltage (page %d)." % pg("realtest")], after=3)
+    p.sources("Our own test plan. Results go on the next page.")
+
+    # ============================================================ real-hand grasp test: results (v35; filled in by hand)
+    p = page("graspresults")
+    top, bottom = p.rows(p.area, 1.3, 1)
+    r = p.box(top, "testing", "Results: held for 5 seconds (tick) or not (cross)")
+    blank = ["", "", "", "", "", "", "", ""]
+    r.table(r.content, [["Object", "Try 1", "Try 2", "Try 3", "Try 4", "Try 5", "Held (of 5)", "Pass?"]] + [list(blank) for _ in range(5)]
+            + [["Total", "", "", "", "", "", "of 25", ""]], col_weights=[2, 0.8, 0.8, 0.8, 0.8, 0.8, 1, 0.9], bold_col=0)
+    c_r, n_r = p.cols(bottom, 1, 1.2)
+    c = p.box(c_r, "results", "Compared with the simulation")
+    c.table(c.content, [["", "Simulation", "Real hand"],
+                        ["Lifted and held", f"80 of 80 steady; 59 of 80 shaken (page {pg('eval')})", "of 25"],
+                        ["Objects passed", "5 of 5", "of 5"]], col_weights=[1, 2, 1], bold_col=0)
+    n = p.box(n_r, "evaluation", "What we noticed")
+    n.text(n.content, ["- Fingers that touched:", "- Failures and why:", "- Supply voltage while closing:"], after=6)
+    p.sources("Filled in by hand from our test sheet.")
+
+    # ============================================================ test summary
+    p = page("tests")
+    t = p.box(p.area, "testing", "Every test, its conditions and the result")
+    t.stack(t.content, [("fill", 1, lambda rr: t.table(rr, [["Test", "Conditions and trials", "Result", "Page"],
+        ["Outline methods", "5 methods; 8 photos; match against SAM's outline", "Best 87% (GrabCut from the mask); mask alone 82%", pg("outline")],
+        ["Colour and grey", "10 objects, each in colour and grey", "89% colour, 87% grey (mask plus hole search)", pg("outline")],
+        ["Holes", "Mug, scissors, doughnut, bagel", "Mug handle 4 of 4; loops all; doughnut and bagel 2 of 2", pg("outline")],
+        ["Speed", "One recording on a laptop", "Loop 104 ms median (target 200 ms)", pg("speed")],
+        ["Grip plan", "5 plans (camera aimed at the object)", "5 of 5 balanced; 4 of 5 real pinches", pg("grip")],
+        ["Fingertip reach", "10 fingertip aims", "10 of 10 within 3 mm", pg("eval")],
+        ["Unseen objects", "5 simulated objects not used in tuning", "4 of 5 grasped", pg("eval")],
+        ["Steadiness", "3 photos, 40 detections each, 5 settings", "423 to 193 px/s; plan jumps 10 to 1.7", pg("steady")],
+        ["Hidden edge", "7 photos; 168 painted covers per bar; still and moving", "38% to 93% still; 35% to 85% moving", pg("steady")],
+        ["Pick-up (physics)", "5 objects, 16 random starts each; steady and shaken", "80 of 80 steady; 59 of 80 shaken", pg("eval")],
+        ["Servo bus (real hand)", "8 servos; spin 30 degrees each way", "All within 0.6 degrees", pg("realtest")],
+        ["Supply (real hand)", "At rest and with fingers moving", "5.2 V falling to 4.7 V", pg("realtest")],
+        ["Grasps (real hand)", "5 everyday objects, 5 tries each (planned)", "NOT TESTED yet", pg("graspresults")]],
+        col_weights=[1.15, 2.1, 2.2, 0.45], bold_col=0)),
+        ("highlight", "**Multiple conditions:** colour and grey, still and moving, steady and shaken, simulated and real. "
+                      "Every result is from our own runs.", "result")])
+    p.sources("Fingertip reach, grip plan and unseen objects: our re-tests of 23 October.")
+
+    # ============================================================ evaluating the hand and apps (our criteria)
+    p = page("realeval")
+    top, bottom = p.rows(p.area, 1.8, 1)
+    a = p.box(top, "evaluation", "Criteria for the hand and apps and what we found")
+    a.stack(a.content, [
+        ("text", [f"Our first criteria (page {pg('plan')}) were for the software. Once we had a hand and apps, we wrote criteria "
+                  "for them too, so each could be tested. The thresholds are our own."]),
+        ("fill", 1, lambda rr: a.table(rr, [["Criterion", "How we will know", "What we found", "Verdict"],
+            ["1  Servos respond", "All 8 answer; each within 1 degree of its zero after a move", "8 of 8 answer; all within 0.6 degrees", "MET"],
+            ["2  Safe control", "Nothing moves until connected and motors on; goals stay inside the saved limits",
+             "Goals clamped and refused when off; covered by tests", "MET"],
+            ["3  Camera position known", "Mount measured and used by the planner",
+             f"Palm mount measured and used; the new side mount (page {pg('camera')}) not yet", "PARTLY MET"],
+            ["4  Simulation matches the hand", "Closing travel and thumb contact agree, as far as we can judge",
+             "Tuned until it looked about right, by eye; thumb from one point", "PARTLY MET"],
+            ["5  Set up without code", "Zero, range and direction set and saved in an app", "Done in the tuner and the main app", "MET"],
+            ["6  Lift a real object", "The real hand lifts an everyday object 4 times out of 5",
+             f"Test planned (page {pg('graspmethod')})", "NOT TESTED"]],
+            col_weights=[1.15, 2.1, 2.1, 0.85], status_col=3, bold_col=0))])
+    c_r, d_r = p.cols(bottom, 1, 1)
+    c = p.box(c_r, "analysis", "What carried over from the simulation")
+    c.text(c.content, ["- The same planner and kinematics model drive both.",
+                       "- The simulated servos report the same readings as the real ones, so the same safety checks work on both.",
+                       "- The habits: dry runs first, one finger at a time."], after=3)
+    d = p.box(d_r, "problem", "What is different on the real hand")
+    d.text(d.content, ["- Directions, limits and the finger order had to be found on the hand.",
+                       "- A weak supply: 4.7 V under load.",
+                       "- The real camera is monochrome with no depth.",
+                       f"- The palm camera lost the object as the fingers closed, so we moved it (page {pg('camera')}).",
+                       "- No force sensors: a servo's load is motor effort, not fingertip force."], after=3)
+
+    # ============================================================ final evaluation
+    p = page("finaleval")
+    l_r, r_c = p.cols(p.area, 1.25, 1)
+    a = p.box(l_r, "evaluation", "Did we meet our aims?")
+    a.stack(a.content, [("text", [   # v32: one line per aim, verdict first (the user found the old paragraph hard to follow)
+        a.head("The software in simulation (criteria, page %d)" % pg("plan")),
+        "- **Find the outline: partly met.** 87% match with the reference outline, but the detector boxed the wrong object in 1 of 8 photos.",
+        "- **Plan a grip: met.** All 5 plans balanced their forces and 4 of 5 were real pinches.",
+        "- **Reach the target: met.** 10 of 10 fingertip aims landed within 3 mm.",
+        "- **Hold the object: partly met.** 80 of 80 lifted held steady, but 59 of 80 with a shake added.",
+        "- **Unseen objects: met.** 4 of 5 unseen objects grasped. **Speed: met.** 104 ms per loop, inside 200 ms.",
+        a.head("The real hand and apps (criteria, page %d)" % pg("realeval")),
+        "- **Met:** all 8 servos respond, control is safe and setup needs no code.",
+        "- **Partly met:** the simulation matches the real hand only by eye; the new camera mount is not measured yet.",
+        "- **Not tested:** lifting a real object (test plan on page %d)." % pg("graspmethod"),
+        a.head("Overall"),
+        "In simulation the planner meets four of its six aims and partly meets the other two. The real hand is built and "
+        "every servo works; next we must prove it can pick up a real object from the camera's plan."]),
+        ("highlight", "**Biggest limits:** results are from simulation with small samples and the real hand has not yet "
+                      "grasped an object.", "caution")])
+    ph_r, b_r, c_r = p.rows(r_c, 1.3, 0.8, 0.8)
+    ph = p.box(ph_r, "results", "In simulation and in real life")
+    ph.flow(ph.content, [(A + "sim/sim_gizmos.png", "Simulation: the hand grasps the cube", None,
+                          "Our simulation: Pollen's hand closed on the red cube, with the grasp plane and camera view drawn"),
+                         (PH + "hand_wiring_test.jpg", "Real life: our hand on the servo bus", None,
+                          "Photo of our assembled hand wired to the servo bus adapter and the laptop")], arrows=False)
+    b = p.box(b_r, "findings", "Major benefits and limits")
+    b.text(b.content, ["- **Benefits:** no grasp-training data; one ordinary camera and a laptop; forces checked before moving.",
+                       "- **Limits:** simulated results; small samples; friction assumed; a grey camera with no depth."], after=3)
+    c = p.box(c_r, "planning", f"Further research (page {pg('nextver')})")
+    c.text(c.content, ["- Count real grasps and compare them with the simulation.",
+                       "- Measure the side camera and check the object stays in view.",
+                       "- Add depth to replace the flat grasp plane."], after=3)
+
+    # ============================================================ the next version (proposals)
+    p = page("nextver")
+    top, bottom = p.rows(p.area, 0.9, 1.1)
+    c_r, t_r = p.cols(top, 1, 1.15)
+    f_r, l_r, b_r = p.cols(bottom, 1.1, 1, 1)
+
+    def dof_box():                                         # v32, the user's idea; drawn after the top row
+        fr = p.box(f_r, "design", "More degrees of freedom")
+        fr.stack(fr.content, [("text", [
+        "- Pollen's hand has 8 servos, so 8 degrees of freedom: two per finger and each finger curls as one piece.",
+        "- A human hand has about 21 in the fingers and thumb (27 with the wrist), so each joint can bend on its own.",
+        f"- 16 or more would let each finger bend at more than one joint, closer to a real hand. Our first board was "
+        f"already drawn for 16 motors (page {pg('build')})."]),
+        ("highlight", "**Our aim: 16 or more,** to mimic a real hand. The cost: more motors, weight and power.", "general")])
+    c = p.box(c_r, "research", "A colour depth camera with a wider view")
+    c.stack(c.content, [("text", [
+        "- **Depth** gives each fingertip a real 3D target, so the flat grasp plane is no longer needed.",
+        "- **Colour** gives the detector and the outline more to work with: in our first grey test the outline match fell "
+        f"from 80% to 57% (page {pg('plane')}).",
+        "- **A wider view** keeps objects in sight near the thumb; at 70 by 47 degrees the thumb's reach sits at the edge "
+        "of the picture and objects there were cut off."]),
+        ("highlight", "**Why it matters:** the camera is the limit we hit most often in testing.", "general")])
+    t = p.box(t_r, "software", "Custom moves the user teaches the hand")
+    t.stack(t.content, [
+        ("text", ["A user terminal lets each person save the shapes they need every day, beside the automatic grasp. "
+                  "For example, a pointed finger to flip a light switch, a flat hand to push a door or a pinch for a key."]),
+        ("fill", 1, lambda rr: t.steps(rr, [
+            "Shape the hand with the sliders, or move it by hand with the motors relaxed.",
+            "Name the shape, for example \"light switch\" and save it.",
+            "Call it up with one command or button; the same saved limits keep it safe."]))])
+    dof_box()
+    l = p.box(l_r, "method", "All the computing on the hand")
+    l.stack(l.content, [("text", [
+        "- Run the camera, detector and planner on a small computer in the forearm, so no laptop is needed.",
+        f"- Our loop takes 104 ms on a laptop and the detector is most of it (page {pg('speed')}); a board needs a faster "
+        "detector or an AI accelerator.",
+        "- We have not tested the pipeline on a single-board computer yet."]),
+        ("highlight", "**First step:** time the pipeline on the board before choosing it.", "caution")])
+    b = p.box(b_r, "build", "A battery in or on the forearm")
+    b.stack(b.content, [("text", [
+        "- A battery built into a forearm shell, or a pack strapped to the forearm, so the hand works away from a wall socket.",
+        "- It must hold 5 to 6 V at several amps: our supply fell to 4.7 V when the fingers moved, below the servos' "
+        f"4.8 V minimum (page {pg('realtest')}).",
+        "- The forearm also houses the computer and wiring, mounted on the hand's round wrist mount."]),
+        ("highlight", "**Design target:** a full day of use on one charge (to be measured).", "caution")])
+    p.sources("These are proposals for the next version: none of them has been built or tested. Numbers are from pages "
+              f"{pg('plane')}, {pg('speed')} and {pg('realtest')}. Human hand: about 27 degrees of freedom with the wrist, "
+              "a commonly used count.")
+
+    # ============================================================ 20 reflection
+    p = page("realhand")
+    top, bottom = p.rows(p.area, 1.2, 1)
+    k_r, d_r = p.cols(top, 1.1, 1)
+    k = p.box(k_r, "build", "Engineering skills we used")
+    k.table(k.content, [["Skill", "What we did", "Page"],
+                        ["Programming", "Vision pipeline, grasp planner, hand tools; 387 automated tests", f"{pg('stages')}-{pg('steady')}"],
+                        ["Simulation modelling", "Collision shapes, a palm camera and six objects added to Pollen's hand", pg("sim")],
+                        ["Kinematics", "Our IK table matches Pollen's model to 0.17 mm", pg("plane")],
+                        ["Force analysis", "Friction cones and force vectors that must cancel", pg("grip")],
+                        ["Hardware build", "Assembled the hand; wired 8 servos; set IDs, directions, limits", f"{pg('realbuild')}-{pg('realtest')}"],
+                        ["CAD and electronics", "Our finger CAD; a 16-motor board with current sensing", pg("build")],
+                        ["Testing", "Random starts, painted covers, grey copies, servo bus test", f"{pg('outline')}-{pg('eval')}, {pg('realtest')}"]],
+            col_weights=[1.2, 3.4, 0.7], bold_col=0)
+    d = p.box(d_r, "conclusion", "Decisions we made")
+    d.text(d.content, [f"- Stopped building our own hand and wrote the software first (pages {pg('build')}-{pg('options')}).",
+                       f"- Chose our own edge detection over a trained detector (page {pg('options')}).",
+                       f"- Kept YOLOE's mask over GrabCut: about 20 times faster and better on grey (page {pg('outline')}).",
+                       f"- Added force-vector checks when fingertip placement alone lifted nothing (page {pg('grip')}).",
+                       f"- Tipped the grasp plane 40 degrees after palm-down grasps failed (page {pg('plane')}).",
+                       f"- Let the plan change only when a new one is clearly better (page {pg('steady')}).",
+                       f"- Tested every servo on its own before letting the planner move the hand (page {pg('realtest')}).",
+                       f"- Moved the camera to the side when the palm view was blocked (page {pg('camera')})."], after=2)
+    r_r, n_r = p.cols(bottom, 1.2, 1)
+    r = p.box(r_r, "evaluation", "Reflection")
+    r.text(r.content, ["We planned to build a hand, drew a finger and a motor board, then saw that building, wiring and tuning a "
+                       "hand would take longer than we had. Pollen's hand was already designed, so we wrote the software first "
+                       "and tested it on a simulated hand. The simulation changed the code more than we expected: it showed that "
+                       "the thumb sits on one side, that balanced forces can still miss the object and that our fingertips shook "
+                       "until the chosen target stopped changing at every detection. Finding that our camera has no colour was a "
+                       "late surprise.",
+                       f"Pollen's hand arrived late. We built it and every servo passed our test (page {pg('realtest')}). Putting "
+                       "the camera on the hand showed us that a palm camera cannot see what the fingers are closing on, so we "
+                       f"moved it (page {pg('camera')}). The planner's angles are mapped to the real servos, but that mapping has "
+                       "not yet been checked against real fingertip positions and the real camera sees no depth."])
+    n = p.box(n_r, "planning", "Next steps")
+    n.steps(n.content, ["Fit and measure the side camera mount.",
+                        "Check the angle mapping against real fingertip positions.",
+                        "Repeat the simulated pick-up on the real hand and compare.",
+                        "Trigger each safety trip on purpose to check it.",
+                        "Save the limits inside the servos themselves (their angle-limit settings)."])
+
+    # ============================================================ credits and sources
+    p = page("credits")
+    c = p.box(p.area, "research", "Credits and sources")
+    c1, c2 = p.cols(c.content, 1, 1)
+    c.text(c1, [c.head("Hand, software and images"),
+                "- Pollen Robotics Amazing Hand: hand model and images (Apache 2.0 code; mechanical design CC BY 4.0).",
+                "- YOLOE (Ultralytics), OpenCV, NumPy, SciPy, MuJoCo, SAM. Simulation examples: MuJoCo Menagerie, Google DeepMind "
+                "(Apache 2.0).",
+                "- Test photographs of everyday objects are from other photographers (many from Wikimedia Commons; licences in our "
+                "project files), not our own.",
+                "- Our own: build photos, app screenshots, CAD (including both camera positions), board and simulation "
+                "images.",
+                "- Arducam B0332 product photo and camera figures: Arducam product page. SCS0009 servo figures: Feetech, "
+                "via a retail listing and Pollen's documentation.",
+                "- Our own pen sketches; the mind map and diagrams were drawn on computer."], f.body + 0.5, after=5)
+    c.text(c2, [c.head("Papers and problem statement"),
+                "- Castro et al. 2022 (Front Neurorobot 15:751282, Figs 1, 2, CC BY).",
+                "- Wang et al. 2022 (Front Robot AI 9:948238, Fig 3, CC BY).",
+                "- Zhang et al. 2025 (Biomimetics 10(4):242, Figs 9, 19, CC BY 4.0).",
+                "- Stracquadanio et al. 2025 (arXiv:2503.00466, Fig 1 shown for review).",
+                "- US-Japan prosthesis rejection study (PMC6571339); narrative review (Prosthesis 2025, 7, 167); myoelectric hand "
+                "cost case study (PMC5698676).",
+                c.head("Our records"),
+                "- Every number comes from our own project runs, recorded in our design logs as we worked."], f.body + 0.5, after=5)
+
+    assert len(doc.pages) == len(PAGES), (len(doc.pages), len(PAGES))
+    return doc
+
+
+def split_last_cell(r, page, cols, rows):
+    """The empty last cell of a flow grid (same split as Box.flow), for a note beside the second row."""
+    from design_system import split
+    f = page.fmt
+    row = split(r, [1] * rows, 0.6 * f.G, vertical=True)[-1]
+    cell = split(row, [1] * cols, 1.6 * f.G)[-1]
+    return cell.inset(0, 0.1 * cell.h, 0, 0.25 * cell.h)
+
+
+if __name__ == "__main__":
+    doc = build()
+    if "--draft" in sys.argv:
+        print(doc.save(sys.argv[-1]), *doc.notes, sep="\n  ")
+    else:
+        out = doc.save_versioned("at3_brochure", "brochure_a4",   # own name since 2026-10-23: the v12-style line also uses brochure_vNN
+                                  sys.argv[1] if len(sys.argv) > 1 else
+                                 "v32: camera CAD on pages 17 and 21, guide box removed, final-evaluation photos and clearer aims, degrees-of-freedom idea, bigger option images" or "v26: full-marks checklist items done from the repo: risk page (likelihood, consequence, 3 more risks), planned vs actual schedule, threshold reasons, comparison table, mind map and before/after table, test summary, final evaluation, labelled photos, credits page; 27 pages")
+        print("wrote", out, *doc.notes, sep="\n  ")

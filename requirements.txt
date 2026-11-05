@@ -1,0 +1,6 @@
+python-pptx
+pillow
+lxml
+pymupdf
+pytest
+matplotlib
