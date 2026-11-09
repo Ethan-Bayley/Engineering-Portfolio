@@ -176,15 +176,15 @@ def team(doc):
     members = [("Ethan B.", "Lead design", "assembly"), ("Brandon L.", "CAD", "assembly"),
                ("Isaac H.", "Lead code", "CAD, assembly"), ("Ryan T.", "Driver", "CAD"),
                ("Will Q.", "Lead strategy", "drive coach"), ("Ivy W.", "Programming", "HR"),
-               ("Tina X.", "Code", "assembly"), ("Chelsea W.", "Code", "assembly"),
+               ("Tina X.", "Code", "assembly, strategy"), ("Chelsey W.", "Assembly", "scouting"),
                ("Chloe L.", "Electrical", "assembly"), ("Chloe S.", "Strategy", "code, assembly"),
-               ("Cooper C.", "Scouting", "assembly"), ("Jemima C.", "Programming", "scouting"),
+               ("Jemima C.", "Programming", "scouting"),
                ("Lucas T.", "CAD", "assembly")]
     t = p.box(top, "Our team")
     t.team(t.content, [(n, r, None, note) for n, r, note in members], cols=2)
     o = p.box(mid, "Outreach")
     o.text(o.content, [
-        "- **7 members** teach robotics to Darkinjung students once a fortnight (<number> students since <month>)",
+        "- **6 members** teach robotics to Darkinjung students once a fortnight (<number> students since <month>)",
         "- Ethan B. and Isaac H. mentor <number> VEX teams",
         "- Ethan B., Isaac H. and Brandon L. volunteered at the Barker VEX competition (<date>)",
         "- We ran the robotics part of the Round Square International Conference at Barker (<date>, <number> people)"])

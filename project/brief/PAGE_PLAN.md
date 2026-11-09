@@ -10,7 +10,7 @@ needed (the hand-in check fails until it is filled).
 | Cover | Engineering Portfolio | (not judged) | team number, name, school, Barker Robotics, full-size robot line drawings | cover, inbox line drawings | layout done; needs full-size drawings |
 | 1 | Meet the team | I | 13 team cards (name, role), how roles are split (design, CAD, code, strategy, assembly), how we meet and decide | you; team photo (inbox) | needs team/head-shot photos |
 | 2 | Our season | I T | timeline Sept-Nov 2026 (code history dates, build dates), planned against actual | git history of Pinkbacks, BUILD_LOG | needs build dates / schedule |
-| 3 | Outreach and community | I | Darkinjung students fortnightly (7 members), VEX mentoring, Barker VEX competition volunteers, Round Square conference robotics | you; photos (inbox) | needs dates and numbers (students, sessions, teams) |
+| 3 | Outreach and community | I | Darkinjung students fortnightly (6 members), VEX mentoring, Barker VEX competition volunteers, Round Square conference robotics | you; photos (inbox) | needs dates and numbers (students, sessions, teams) |
 | 4 | How we engineer | T | our design cycle (strategy -> CAD -> simulate -> build -> test), git branches per subsystem merged into one robot, lessons from last season (background only, A201.E) | code (branch/merge history) | ready to draft |
 | 5 | Strategy and requirements | T D | what we score, where we shoot from, requirements each mechanism must meet | strategy (skipped for now) | **needs strategy from Will Q. / Chloe S.** |
 | 6 | Robot overview | D | labelled line drawing; size 407.7 x 327.0 x 290.9 mm; subsystem list; motor and servo count | code (CAD geometry), Onshape views | needs Onshape capture |

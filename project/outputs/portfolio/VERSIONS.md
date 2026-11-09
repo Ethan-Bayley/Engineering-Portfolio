@@ -12,3 +12,4 @@
 | portfolio_v04.pptx | 2026-11-06 | v04: option A for printing (white page, yellow bands, dark-line drawings), yellow stays F5E660; same content as v03 |
 | portfolio_v05.pptx | 2026-11-06 | v05: removed the theme shadow on table rules and straight arrows (showed as a grey smudge on white); same content as v04 |
 | portfolio_v06.pptx | 2026-11-06 | v06: filled the empty space with more team drawings and real detail from the code; shot logic corrected to the solver |
+| portfolio_v07.pptx | 2026-11-09 | v07: people corrections (Chelsey W., Cooper C. removed, Tina X. strategy, outreach names, scouts); larger cover drawing |

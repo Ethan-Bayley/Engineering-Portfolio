@@ -13,10 +13,10 @@ Competition portfolio (engineering build + software).
 
 ## People and dates
 - Team (cover only): 11143 Barker Yellowbacks, Barker College. Students as first name + last initial only (A201).
-  Members (13; user, 2026-11-05): Ethan B. (lead design, assembly), Brandon L. (CAD, assembly), Isaac H. (CAD,
+  Members (12; user, 2026-11-05, changed 2026-11-09): Ethan B. (lead design, assembly), Brandon L. (CAD, assembly), Isaac H. (CAD,
   assembly, lead code), Ryan T. (CAD, driver), Will Q. (lead strategy, drive coach), Ivy W. (programming, HR), Tina X.
-  (code, assembly), Chelsea W. (code, assembly), Chloe L. (assembly, electrical), Chloe S. (strategy, code,
-  assembly), Cooper C. (assembly, scouting), Jemima C. (programming, scouting), Lucas T. (CAD, assembly).
+  (code, assembly, strategy), Chelsey W. (assembly, scouting), Chloe L. (assembly, electrical), Chloe S. (strategy, code,
+  assembly), Jemima C. (programming, scouting), Lucas T. (CAD, assembly).
 - Sponsor/supporter: Barker Robotics (Barker College).
 - Event: FTC Wollongong, **Thursday 12 November 2026**. Hand-in: **PDF upload before the event** (under 15 MB);
   upload deadline TODO (ask the Event Director; assume it is before 2026-11-12). Bring a printed spare (A202).

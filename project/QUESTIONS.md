@@ -37,7 +37,7 @@ Tests: say how many tries, the date and the conditions (e.g. "8 of 10 from the f
 
 ## Outreach (page 3)
 12. **Darkinjung students:** how many students, how many sessions, since which month? (3)
-    **Answer:** (2026-11-05) 7 students from our team go, once every fortnight, since about February. Number of Darkinjung students not given. (used in v03)
+    **Answer:** (2026-11-05) 7 students from our team go (corrected 2026-11-09: **6**: Ethan B., Brandon L., Chloe S., Ivy W., Ryan T. and Will Q.), once every fortnight, since about February. Number of Darkinjung students not given. (used in v03)
 13. **Darkinjung students:** what did they build or learn? One example. (3)
     **Answer:** (2026-11-05) They built robots for this year's VEX IQ game and learnt how to build, how to code, how to do interviews and how to write portfolios. Some of the Darkinjung kids were in competitive teams and won Skills, Teamwork Champion and Excellence awards. (used in v03)
 14. **VEX mentoring:** how many VEX teams do Ethan B. and Isaac H. mentor, how many students, how often? (3)
@@ -60,7 +60,7 @@ Tests: say how many tries, the date and the conditions (e.g. "8 of 10 from the f
 ## Strategy (pages 5, 10)
 21. **How we play:** what do you score first, where do you shoot from, what is your role with the alliance partner? (5)
     **Answer:**
-22. **Scouting:** what do Cooper C. and Jemima C. record, and how has it changed a plan? (5)
+22. **Scouting:** what do Jemima C., Chelsey W., Chloe L. and Tina X. record, and how has it changed a plan? (5)
     **Answer:**
 23. **Matchloader:** what problem does it fix in the game, and how long does it take to load the flower (s)? (5, 10)
     **Answer:**

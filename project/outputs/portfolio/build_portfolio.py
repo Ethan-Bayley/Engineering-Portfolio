@@ -78,7 +78,7 @@ def cover(doc):
                                                   {"text": "Barker College", "size": 11, "colour": MUTED, "after": 0},
                                                   {"text": "Supported by Barker Robotics", "size": 11, "colour": MUTED,
                                                    "after": 0}], sizes=p.sizes)
-    _picture(s, ROBOT_B, Rect(a.x + 0.42 * a.w, a.b - 230, 0.58 * a.w, 230), "Second line drawing of our robot",
+    _picture(s, ROBOT_B, Rect(a.x + 0.35 * a.w, a.b - 245, 0.65 * a.w, 245), "Second line drawing of our robot",
              "right")
     return p
 
@@ -107,18 +107,18 @@ def p01_team(doc):
     members = [("Ethan B.", "Lead design", "assembly"), ("Brandon L.", "CAD", "assembly"),
                ("Isaac H.", "Lead code", "CAD, assembly"), ("Ryan T.", "Driver", "CAD"),
                ("Will Q.", "Lead strategy", "drive coach"), ("Ivy W.", "Programming", "HR"),
-               ("Tina X.", "Code", "assembly"), ("Chelsea W.", "Code", "assembly"),
+               ("Tina X.", "Code", "assembly, strategy"), ("Chelsey W.", "Assembly", "scouting"),
                ("Chloe L.", "Electrical", "assembly"), ("Chloe S.", "Strategy", "code, assembly"),
-               ("Cooper C.", "Scouting", "assembly"), ("Jemima C.", "Programming", "scouting"),
+               ("Jemima C.", "Programming", "scouting"),
                ("Lucas T.", "CAD", "assembly")]
-    t = p.box(top, "13 members")
+    t = p.box(top, "12 members")
     t.team(t.content, [(n, r, None, note) for n, r, note in members], cols=2)
     l, r = p.cols(bottom, 1, 1)
     h = p.box(l, "How we split the work")
     h.text(h.content, ["- **CAD:** 4 members in Onshape, with our lead designer",
-                       "- **Code:** 6 members write and test the code",
-                       "- **Strategy:** 2 strategists plus 2 scouts",
-                       "- **Assembly:** 9 of 13 members build"])
+                       "- **Code:** 5 members write and test the code",
+                       "- **Strategy:** 3 members plan it; 4 members scout",
+                       "- **Assembly:** 8 of 12 members build"])
     w = p.box(r, "How we work")
     w.text(w.content, ["- We meet **every week or two**",
                        "- Each specialty decides its own area (mechanics decide mechanical changes), then tells "
@@ -160,24 +160,25 @@ def p02_season(doc):
 
 def p03_outreach(doc):
     p = doc.page("Outreach")
-    top, a_r, mid, bottom, ph = p.rows(p.area, 0.34, 1.5, 0.95, 0.42, 1.25)
-    stats(p, top, [("7", "members teach Darkinjung students"), ("Fortnightly", "since about February 2026"),
+    top, a_r, mid, bottom, ph = p.rows(p.area, 0.34, 1.55, 0.95, 0.5, 1.12)
+    stats(p, top, [("6", "members teach Darkinjung students"), ("Fortnightly", "since about February 2026"),
                    ("1,500+", "people at Round Square"), ("About 32", "countries at Round Square")])
     a = p.box(a_r, "Teaching Darkinjung students", accent=True)
-    a.story(a.content, [("What", "**7 members** of our team teach robotics to Darkinjung students **once a "
-                                 "fortnight**, since about February 2026."),
+    a.story(a.content, [("What", "**6 members** of our team (Ethan B., Brandon L., Chloe S., Ivy W., Ryan T. and "
+                                 "Will Q.) teach robotics to Darkinjung students **once a fortnight**, since about "
+                                 "February 2026."),
                         ("What they learn", "They built robots for this year's **VEX IQ** game and learnt how to "
                                             "build, how to code, how to do interviews and how to write portfolios."),
                         ("Impact", "Some of the students were in competitive teams and won **Skills**, "
                                    "**Teamwork Champion** and **Excellence** awards.")])
     d = p.box(mid, "Round Square International Conference")
-    d.story(d.content, [("What", "On **28 September 2026** about **7** of us ran the robotics part of the conference "
-                                 "at Barker."),
+    d.story(d.content, [("What", "On **28 September 2026** Ivy W., Ethan B., Ryan T., Chelsey W., Chloe L., Isaac H., "
+                                 "Tina X. and Will Q. ran the robotics part of the conference at Barker."),
                         ("Reach", "We showed our robotics program to **over 1,500 people** from around **32 "
                                   "countries**, and introduced them to FIRST.")])
     l, r = p.cols(bottom, 1, 1)
     b = p.box(l, "Mentoring VEX teams")
-    b.text(b.content, ["Ethan B. and Isaac H. mentor VEX teams."])
+    b.text(b.content, ["Ethan B., Isaac H. and Brandon L. mentor VEX teams."])
     c = p.box(r, "Barker VEX competition")
     c.text(c.content, ["Ethan B., Isaac H. and Brandon L. volunteered."])
     f = p.box(ph, "Photos")
@@ -238,7 +239,7 @@ def p05_strategy(doc):
                         ["Find pollen and the goal", "drive and aim without guessing", "front + rear cameras"]],
             col_weights=[1.25, 1.35, 1.25])
     s = p.box(bottom, "Scouting")
-    s.text(s.content, ["Cooper C. and Jemima C. scout: <what we record and how it changes our plan>"])
+    s.text(s.content, ["Jemima C., Chelsey W., Chloe L. and Tina X. scout: <what we record and how it changes our plan>"])
 
 
 # ---------------------------------------------------------------- 6-10: the robot

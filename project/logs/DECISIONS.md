@@ -228,3 +228,11 @@ Append new entries at the bottom, with the date. See skill `log-work`.
   branch either: question 76. Also removed "print, cut, assemble" from page 4 (not stated by the team).
 - **Result:** `portfolio_v06.pdf`, 16 pages. Placeholders: 18 (one more than v05, the photo frame). Labels on drawings are my
   reading: question 77.
+
+## 16. Portfolio v07: people corrections (2026-11-09)
+- **What:** the user's corrections (PREFERENCES.md, 2026-11-09), plus the counts they change on page 1: 12 members; code 5
+  (Isaac H., Ivy W., Tina X., Chloe S., Jemima C.); strategy planned by 3 (Will Q., Chloe S., Tina X.) and 4 scout (Jemima
+  C., Chelsey W., Chloe L., Tina X.); assembly 8 of 12. Round Square now names 8 people instead of "about 7". Cover's second
+  drawing about 12 % larger (box 0.65 of the width, 245 pt high, was 0.58 and 230 pt).
+- Also changed: PROJECT.md members, NEXT_STEPS suggested names, QUESTIONS 12 and 22, PAGE_PLAN, and the old format sample's
+  source (its saved files were not rebuilt). Older log entries still say 13 members and 7: they were right when written.

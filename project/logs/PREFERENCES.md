@@ -100,3 +100,12 @@ Append new entries at the bottom, with the date. See skill `log-work`.
 - Yellow on paper: **keep #F5E660** (offered #F7E339, #F2DC12, #FDD711).
 - "Can you add more because there is lots of empty": asked mid-way through a commit, so nothing was committed; asked to fill
   the empty space on the pages.
+
+## 2026-11-09: corrections to people and names (user)
+- Cover: the bottom-right robot drawing slightly larger.
+- "Chelsea W." is **Chelsey W.**; her roles are assembly and scouting. Tina X. also does strategy.
+- **Cooper C. removed from the portfolio entirely** (team is now 12).
+- Darkinjung: **6** members (Ethan B., Brandon L., Chloe S., Ivy W., Ryan T., Will Q.), not 7.
+- VEX mentoring: Ethan B., Isaac H. and Brandon L.
+- Round Square: Ivy W., Ethan B., Ryan T., Chelsey W., Chloe L., Isaac H., Tina X. and Will Q.
+- Scouting: Jemima C., Chelsey W., Chloe L. and Tina X.

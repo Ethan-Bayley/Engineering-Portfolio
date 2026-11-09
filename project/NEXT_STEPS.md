@@ -7,8 +7,8 @@ date, then uses it on the pages. Notes are the team's words: Claude does not add
 
 - Event: FTC Wollongong, **Thursday 12 November 2026**. The portfolio is **printed** (user, 2026-11-06); earlier a PDF
   upload was recorded: **ask the Event Director** if an upload is also needed, and by when.
-- Current version: `outputs/portfolio/portfolio_v06.pdf` (cover + 15 pages, option A; pictures in
-  `outputs/portfolio/pages_v06/`). Marking review: `outputs/reviews/marking_loop.md` (57 / 100 on v03's content,
+- Current version: `outputs/portfolio/portfolio_v07.pdf` (cover + 15 pages, option A; pictures in
+  `outputs/portfolio/pages_v07/`). Marking review: `outputs/reviews/marking_loop.md` (57 / 100 on v03's content,
   judgement). **The robot is not built yet** (2026-11-05): every robot test shows "not built yet / NOT TESTED" until it is.
 
 ---
@@ -30,11 +30,11 @@ Look: **A chosen** (white, yellow bands), the default. Yellow: **keep #F5E660** 
 | 3 | Outreach: number of Darkinjung students and sessions and since when; VEX teams mentored; dates of the Barker VEX competition and Round Square conference; people reached | 3 | Ethan B. | partly, v03: Darkinjung and Round Square in; VEX mentoring and Barker comp numbers unknown |
 | 4 | Photos: team, members, outreach (into `assets/inbox/`); page 3 has a frame waiting for them | 1, 3 | anyone | |
 | 5 | Scores comparing swerve / mecanum / tank, and intake V1 / V2 (a decision matrix) | 7, 8 | Ethan B., Brandon L. | |
-| 6 | Strategy: how we play, what scouting records, why the matchloader | 5, 10 | Will Q., Chloe S., Cooper C. | |
+| 6 | Strategy: how we play, what scouting records, why the matchloader | 5, 10 | Will Q., Chloe S., Tina X. | |
 | 7 | Build and maintenance: robot mass, time to swap a pod, printed vs bought parts, part count | 6, 7 | Lucas T., Chloe L. | |
 | 8 | Intake V1: what worked and what went wrong; any V2 downsides | 8 | Tina X. | |
 | 9 | What the blocker stops; are the cameras working on the robot; when we meet and how we decide | 1, 10 | anyone | meetings and decisions done (v03); blocker and cameras open |
-| 10 | Print one page of v06 (page 8 or 9): check the yellow and whether the edge bar reaches the paper's edge | | anyone | |
+| 10 | Print one page of v07 (page 8 or 9): check the yellow and whether the edge bar reaches the paper's edge | | anyone | |
 | 11 | Confirm the meeting notes in part B marked **check** | | Ethan B. | |
 
 ### Claude (when the team's items come in)
