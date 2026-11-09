@@ -20,6 +20,7 @@ Competition portfolio (engineering build + software).
 - Sponsor/supporter: Barker Robotics (Barker College).
 - Event: FTC Wollongong, **Thursday 12 November 2026**. Hand-in: **PDF upload before the event** (under 15 MB);
   upload deadline TODO (ask the Event Director; assume it is before 2026-11-12). Bring a printed spare (A202).
+  2026-11-06: the user says the portfolio is **printed**; two light options made for that. Confirm if a PDF upload is also needed.
 - Contact for the rules: the team coach / Event Director (TODO: name)
 - Code: https://github.com/BarkerRedbacks-FTC/Pinkbacks, branches `Isaac` (this season's robot: swerve, intake,
   rear shooter, simulation) and `ball-tracking-greyvision` (mostly June-July 2026, last season's DECODE robot and
@@ -34,7 +35,9 @@ Competition portfolio (engineering build + software).
 See [brief/ASSESSMENT.md](brief/ASSESSMENT.md) (rules and the award criteria, from the manual saved beside it).
 
 ## Look
-The team's own cover look on every page (2026-11-05; rules in `project/design/PORTFOLIO_STYLE.md`, this project
+**2026-11-06: option A is the look, because the portfolio is printed:** white page, yellow bands with dark text,
+near-black text, labels and arrows (`PORTFOLIO_THEME=paper`, now the default; `project/design/PORTFOLIO_STYLE.md`
+section 8). Earlier look, still buildable with `PORTFOLIO_THEME=dark`: the team's own cover look on every page (2026-11-05; rules in `project/design/PORTFOLIO_STYLE.md`, this project
 only): page #171616, one yellow #F5E660 (no gold or cream), near-white text, a yellow bar down the left edge, a
 slanted yellow title banner with hazard stripes, square thin-outline boxes, white robot line drawings, handwritten
 yellow labels with curved arrows, Montserrat. Judges get a printed copy by default, so print one test page early.
@@ -50,6 +53,8 @@ yellow labels with curved arrows, Montserrat. Judges get a printed copy by defau
 - Hand-in check: `python general/tools/hand_in_check.py --deliverable portfolio --max-pages 16 --max-mb 15 --min-pt 10`.
 
 ## Status
+**Next steps and the team's meeting notes: [NEXT_STEPS.md](NEXT_STEPS.md)** (skill `portfolio-notes`; read it with this file).
+
 2026-11-04: set up from project-template in the user's empty Engineering-Portfolio repo. Evidence the team has: robot
 photos, Onshape CAD, the code repo (not yet linked here).
 2026-11-05: members, event, hand-in, sponsor, outreach, mechanisms and code filled in; AI credit decided (endnote);

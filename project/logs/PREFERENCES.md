@@ -70,3 +70,33 @@ Append new entries at the bottom, with the date. See skill `log-work`.
   wheels 32, used to minimise backspin into the shooter; spacings 45, 58.5, 54 and 44 are belt (centre) spacings;
   70.413 is the ball's cross-section on the sketch plane, because the two rows of gecko wheels sit apart.
 - Go-ahead to build the 15 real pages in the format of format sample v02.
+
+## 2026-11-05: meeting notes and a context file (spoken, typed up from a transcript)
+- Wants a markdown file of what comes next, kept as context, with a skill that refers to it: made
+  `project/NEXT_STEPS.md` and the project-only skill `.claude/skills/portfolio-notes/`.
+- Notes from the team (their words; details in NEXT_STEPS.md part B): 6 mm polycarbonate ramps for a low-friction
+  surface on the ball (heard as "6 ml"); gecko wheels grip the ball; motors unclear ("any mark motors"); swerve
+  chosen to move more efficiently, a big advantage; turret wanted but time restrictions, so a fixed shooter with a
+  hood to shoot from different places; a lookup table gives flywheel speed and hood angle from where localisation
+  says the robot is; weight saving to keep the robot light so it moves more efficiently.
+- "Just say what we said in meetings": add nothing beyond what the team said (no ramp details).
+- (later) Swerve also chosen for X-lock: wheels positioned in an X, a lot harder to defend or push because of the
+  friction. Asked for a set of questions to answer, with the answers then used in the portfolio.
+
+## 2026-11-05: answers to QUESTIONS.md 1-20 (user's words in QUESTIONS.md)
+- Tests: don't know yet, **the robot has not been built**.
+- Darkinjung: 7 team members, fortnightly since about February; students built robots for this year's VEX IQ game;
+  learnt building, coding, interviews, portfolios; some were in competitive teams and won Skills, Teamwork Champion
+  and Excellence awards. VEX mentoring and the Barker VEX competition: don't know.
+- Round Square: 28 September, about 7 team members, over 1,500 people from around 32 countries, introduced to FIRST.
+- Meetings about every week or second week; decisions made within each specialty, then shared with the team.
+- Build dates: not now.
+
+## 2026-11-06: light page for printing
+- "It is printed portfolio and black doesn't print nicely": asked for a draft with a white or near-white background,
+  "a couple options". Earlier the hand-in was recorded as a PDF upload (2026-11-05): the portfolio will be printed;
+  whether a PDF upload is also needed is still to confirm.
+- Chose option A ("the top row is best"). Asked whether it is wise to change the yellow.
+- Yellow on paper: **keep #F5E660** (offered #F7E339, #F2DC12, #FDD711).
+- "Can you add more because there is lots of empty": asked mid-way through a commit, so nothing was committed; asked to fill
+  the empty space on the pages.

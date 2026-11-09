@@ -81,3 +81,21 @@ under 10 pt are the 7.3 pt bullet squares, not words; no upload deadline in PROJ
 6. Build and maintenance facts (pod swap time, part count, printed vs bought): Design.
 7. Intake V1: what worked and what went wrong; V2 downsides: Think.
 8. Blocker: what it stops; camera status on the robot; meeting times and how decisions are made.
+
+## Round 3: portfolio_v03 (2026-11-05)
+- From QUESTIONS.md 1-20: **the robot is not built yet**, so every robot test now reads "not built yet" with status
+  NOT TESTED, and no line suggests a built robot (the shooter drawing's alt text said "we built"; fixed). Outreach,
+  meetings and decision-making filled in; build-dates table dropped (no dates). Meeting notes added: X-lock friction,
+  efficiency, polycarbonate ramps (thickness still to confirm), lookup table from localisation (values still to be
+  measured), keeping the robot light.
+- Hand-in check: 17 placeholders left (pages 5, 8, 10, 14, 15), all team items; everything else passes.
+- **Estimate: 57 / 100 (range 50-63)**, judgement. Up from 55: Inspire evidence is now real (Darkinjung awards,
+  1,500 people from 32 countries). Held back mostly because nothing can be tested before the robot is built: Control
+  and Design judges look for a working, reliable robot.
+- Left for the team: QUESTIONS.md 21-74 (strategy, option scores, intake V1, blocker, auto route, subsystems).
+
+## Round 4: portfolio_v06 (2026-11-06)
+- More evidence shown, none invented. Stronger: Control (order of checks before a shot, limits in code, parts table),
+  Think (bugs and fixes, sketch to CAD, code milestones), Design (chassis, parts breakdown).
+- **Estimate: 62 / 100 (range 55-68)**, judgement. Still held back by no real robot, the auto route, strategy text, option
+  scores and photos. Mismatches to settle: lookup table vs solver, X-lock not in code (QUESTIONS 75, 76).

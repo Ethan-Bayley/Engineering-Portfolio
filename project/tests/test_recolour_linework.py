@@ -32,3 +32,16 @@ def test_strength_sets_fill_and_correction_keeps_the_yellow_hue():
         assert abs(Lp - Lc) < 1e-3                # same lightness, so the strength looks the same
         assert abs(hc - hy) < 0.5                 # the team yellow's hue
         assert cp <= cc <= cy + 1e-6              # at least as much colour as the plain mix, never more than the yellow
+
+
+def test_alpha_puts_back_the_same_pixels_on_a_light_page():
+    import numpy as np
+    from recolour_linework import LIGHT, LIGHT_FILL, with_alpha
+    img = Image.new("RGB", (3, 1), LIGHT["bg"])
+    img.putpixel((1, 0), LIGHT["line"])
+    img.putpixel((2, 0), LIGHT_FILL)
+    a = np.asarray(with_alpha(img, LIGHT["bg"]), dtype=float)
+    assert a[0, 0, 3] == 0                                 # the page is see-through
+    page = np.array(LIGHT["bg"], float)
+    back = page + (a[..., :3] - page) * a[..., 3:] / 255
+    assert abs(back - np.asarray(img, dtype=float)).max() <= 1

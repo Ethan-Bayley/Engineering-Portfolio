@@ -2,6 +2,7 @@
 
     python project/src/recolour_linework.py              # every drawing -> assets/cad/linework_page/*.png (100 % fills, see-through page)
     python project/src/recolour_linework.py --strengths  # also highlighted drawings at fill 50..100 %, colour-corrected
+    python project/src/recolour_linework.py --light      # dark-line copies for a white page -> assets/cad/linework_light
 
 Each pixel of a drawing is read as a mix of three colours: the background (#333333), the white lines and the orange
 highlight (#FFA500). The mix is solved per pixel (least squares) and rebuilt with the portfolio's colours: page
@@ -26,9 +27,13 @@ ROOT = Path(__file__).resolve().parents[2]
 SRC = ROOT / "project" / "assets" / "cad" / "linework"
 DST = ROOT / "project" / "assets" / "cad" / "linework_page"
 DST_STRENGTH = DST / "strengths"
+DST_LIGHT = ROOT / "project" / "assets" / "cad" / "linework_light"
 
 OLD = {"bg": (51, 51, 51), "line": (255, 255, 255), "hi": (255, 165, 0)}       # sampled 2026-11-05
 NEW = {"bg": (0x17, 0x16, 0x16), "line": (0xF2, 0xF2, 0xF2), "hi": (0xF5, 0xE6, 0x60)}
+# light pages: near-black lines, yellow fills with a dark outline (yellow lines alone would vanish on white)
+LIGHT = {"bg": (255, 255, 255), "line": (0x17, 0x16, 0x16), "hi": (0x17, 0x16, 0x16)}
+LIGHT_FILL = (0xF5, 0xE6, 0x60)
 FILL = 0.40                       # measured mode of the highlight fills (5 of 6 drawings), 2026-11-05
 STRENGTHS = (50, 60, 70, 80, 90, 100)
 NOISE = 0.03                      # weights under this are JPEG noise, not drawing
@@ -102,14 +107,15 @@ def _weights(img, old):
     return a.shape, w
 
 
-def recolour(img, old=OLD, new=NEW, strength=None, correct=True, fill=FILL):
-    """Return a recoloured copy of an RGB image (PIL). strength=None keeps the fills as drawn."""
+def recolour(img, old=OLD, new=NEW, strength=None, correct=True, fill=FILL, fill_rgb=None):
+    """Return a recoloured copy of an RGB image (PIL). strength=None keeps the fills as drawn. fill_rgb sets the fill
+    colour directly, so new["hi"] is used only for the highlight's lines."""
     shape, (wl, wh) = _weights(img, old)
     nbg, nline, ny = (np.array(new[k], float)[:, None] for k in ("bg", "line", "hi"))
     if strength is None:
         hi_part = wh * (ny - nbg)
     else:
-        f = fill_colour(strength, correct, new)[:, None]
+        f = (np.array(fill_rgb, float) if fill_rgb is not None else fill_colour(strength, correct, new))[:, None]
         t1 = np.clip(wh / fill, 0, 1)                             # 0..fill: page -> fill colour
         t2 = np.clip((wh - fill) / (1 - fill), 0, 1)              # fill..1: fill colour -> full yellow line
         hi_part = np.where(wh <= fill, t1 * (f - nbg), (f - nbg) + t2 * (ny - f))
@@ -118,21 +124,22 @@ def recolour(img, old=OLD, new=NEW, strength=None, correct=True, fill=FILL):
 
 
 def with_alpha(img, bg=NEW["bg"]):
-    """Make the page colour see-through (RGBA): every colour here is lighter than the page in each channel, so
-    alpha = max over channels of (c - bg) / (255 - bg), and the colour is un-mixed from the page. Put back on the
-    page it gives the same pixels, and no box edge shows (a JPEG cannot hold #171616 exactly: it drifted to 161616)."""
+    """Make the page colour see-through (RGBA). For each channel, alpha is how far the colour is from the page as a
+    share of the furthest it could be on that side; the colour is then un-mixed from the page. Put back on the page it
+    gives the same pixels, and no box edge shows (a JPEG cannot hold the page colour exactly)."""
     a = np.asarray(img.convert("RGB"), dtype=float)
     b = np.array(bg, float)
-    alpha = np.clip(((a - b) / (255 - b)).max(2), 0, 1)
+    room = np.where(a >= b, 255 - b, b)
+    alpha = np.clip((np.abs(a - b) / np.where(room > 0, room, 1)).max(2), 0, 1)
     safe = np.where(alpha > 0, alpha, 1)[..., None]
     rgb = np.clip(b + (a - b) / safe, 0, 255)
     return Image.fromarray(np.dstack([rgb, alpha * 255]).round().astype(np.uint8), "RGBA")
 
 
-def _save(img, out):
+def _save(img, out, bg=NEW["bg"]):
     out.parent.mkdir(parents=True, exist_ok=True)
     if out.suffix == ".png":
-        with_alpha(img).save(out, optimize=True)
+        with_alpha(img, bg).save(out, optimize=True)
     else:
         img.save(out, quality=95, subsampling=0)
     print(out.relative_to(ROOT))
@@ -141,10 +148,17 @@ def _save(img, out):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--strengths", action="store_true", help="also save highlighted drawings at 50..100 %% fill")
+    ap.add_argument("--light", action="store_true", help="make only the dark-line copies for a white page")
     a = ap.parse_args(argv)
     files = sorted([*SRC.rglob("*.jpg"), *SRC.rglob("*.png")])
     if not files:
         sys.exit(f"no drawings in {SRC}")
+    if a.light:
+        for f in files:
+            img = recolour(Image.open(f), new=LIGHT, strength=DEFAULT_STRENGTH, fill_rgb=LIGHT_FILL)
+            _save(img, (DST_LIGHT / f.relative_to(SRC)).with_suffix(".png"), LIGHT["bg"])
+        print(f"{len(files)} drawings made for a light page")
+        return
     for f in files:
         _save(recolour(Image.open(f), strength=DEFAULT_STRENGTH), (DST / f.relative_to(SRC)).with_suffix(".png"))
     n = 0

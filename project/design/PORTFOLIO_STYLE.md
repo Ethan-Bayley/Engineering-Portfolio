@@ -76,3 +76,10 @@ layout, too soft to print. Replace them with the full-size drawings the team mad
 - Only placeholder pages so far; no real content (see PROJECT.md, AI credit).
 - The text-height check uses Pillow measurements of Montserrat; checked against PowerPoint only for line height.
 - Charts in this look are not done (`general/design/charts.py` draws the default look).
+
+## 8. Light themes for printing (2026-11-06)
+**The portfolio now uses `paper` by default (user chose it 2026-11-06, because it is printed):** A, white page, yellow
+bands with dark text and thin dark outlines. `PORTFOLIO_THEME=band` (B, near-white page, near-black bands with yellow
+text) and `PORTFOLIO_THEME=dark` (the look in sections 2 to 7) still build. On a light theme key words, labels and arrows are near-black, because yellow on white
+is 1.28:1; yellow is only a fill. Drawings come from `assets/cad/linework_light/`. Colours and tokens: `_THEMES` in
+`portfolio_style.py`; measured contrast in `project/logs/DECISIONS.md` section 13.

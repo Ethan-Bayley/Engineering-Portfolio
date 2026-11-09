@@ -159,3 +159,72 @@ Append new entries at the bottom, with the date. See skill `log-work`.
 - **Montserrat has no ω:** written as "turn rate"; √, ², −, × are in the font.
 - **Not done / not proven:** 53 placeholders; not printed (A202 printed spare; upload is a PDF); no autonomous
   drawing; upload deadline unknown.
+
+## 11. Question sheet for the team (2026-11-05)
+- `project/QUESTIONS.md`: 38 questions for every placeholder, then 36 subsystem questions (39-74) written from the
+  drawings and the code, so each page can say why a part is built that way. Read by the skill `portfolio-notes`.
+- **Found in the code while writing them** (branch `Isaac`, ShooterConstants.java): flywheel limit 3500 RPM, ready
+  within 50 RPM; hood 33.579 to 67 degrees, ready within 2 degrees; shooter motors 28 counts per turn (bare
+  motors); drive encoders 537.7 counts per turn (a 19.2:1 gearbox, while the user said "bare motor": question 39);
+  intake motors at 50 % power. **The shot table is empty** (`SHOT_VALUES = {}`), so pages 9 and 13 must not say
+  it has been measured until question 64 is answered.
+
+## 12. Portfolio v03: robot not built yet (2026-11-05)
+- **Why:** the user said none of the tests can be answered because the robot has not been built. Every robot test
+  now reads "not built yet" (status NOT TESTED) instead of a `<RESULT>` placeholder, so the pages are honest and the
+  hand-in check only fails on real team gaps. Page 2 says where we are (CAD + simulation, not built). One wrong
+  phrase fixed: the shooter drawing's alt text said "the fixed rear shooter we built".
+- **Answers used (QUESTIONS.md 12-19):** Darkinjung (7 members, fortnightly since about February 2026, VEX IQ,
+  Skills / Teamwork Champion / Excellence awards); Round Square (28 September 2026, about 7 of us, over 1,500 people,
+  around 32 countries); meetings every week or two; decisions within specialties. VEX mentoring and the Barker VEX
+  competition stay without numbers; the build-dates table was removed.
+- **Meeting notes used:** X-lock friction, efficiency, polycarbonate ramps (no thickness until "6 mm" is confirmed),
+  lookup table from localisation ("values still to be measured", since the code's table is empty), keep it light.
+- **Result:** `portfolio_v03.pdf`, 16 pages, 2.5 MB; 17 placeholders left; page images in `pages_v03/`.
+
+## 13. Two light options for printing (2026-11-06)
+- **What:** themes in `project/design/portfolio_style.py`, chosen with `PORTFOLIO_THEME=paper|band`; the default stays
+  dark and portfolio v03 is unchanged. Same content as v03. Outputs: `outputs/portfolio/portfolio_paper_v01.pdf`
+  (**A**, white page, yellow bands with dark text and thin dark outlines) and `portfolio_band_v01.pdf` (**B**,
+  near-white #FAF9F5, near-black bands with yellow text, yellow hazard stripes). Comparison:
+  `outputs/reviews/light_options_v01.png`. Neither is chosen yet.
+- **Why more than a new background:** yellow on white measures 1.28:1, so key words, sub-headings, handwritten labels
+  and arrows became near-black, and yellow is only a fill. Pros and cons were darkened. Contrast on the page, measured
+  with the WCAG formula: A text 18.1, grey 8.5, green 5.4, red 5.6, outlines 3.4; B text 17.1, grey 8.0, green 5.1,
+  red 5.3, outlines 3.2; text on bands 14.1 in both.
+- **Drawings:** `src/recolour_linework.py --light` makes `assets/cad/linework_light/` (46 PNGs): near-black lines, yellow
+  fills with dark outlines, page see-through. Faint yellow specks around some highlights come from the JPEG sources.
+- **Checks:** 16 pages, A4, fonts embedded, 1.3 MB each (half the dark PDF); same 17 placeholders as v03. Tests: 49 pass
+  (added theme contrast, light build, see-through page).
+- **Not done / not proven:** neither has been printed. The full-height edge bar and B's tinted page may stop at the
+  printer's unprintable margin, leaving a thin white border unless printed borderless or scaled to fit. White (A) has
+  no such border except at the edge bar.
+
+## 14. Option A is the look; yellow compared on white (2026-11-06)
+- **What:** `PORTFOLIO_THEME` now defaults to `paper`, so the next save is `portfolio_v04` in option A. Dark and band still
+  build (`portfolio_dark_vNN`, `portfolio_band_vNN`). Existing files were not rebuilt.
+- **Yellow on white, measured (`outputs/reviews/yellow_on_white_v01.png`):** #F5E660 now: 1.28:1 on white, dark text on it
+  14.1:1, OKLCH chroma 0.153, hue 103. #F7E339: 1.31, 13.8, chroma 0.175 (114 %), hue 102. #F2DC12: 1.40, 12.9, chroma
+  0.183 (120 %), hue 102. #FDD711: 1.41, 12.8, chroma 0.180 (118 %), hue 96, starts towards gold.
+- **Advice given:** a small move to #F7E339 for paper; not the warmer one (the user called gold ugly). No change made: the
+  user decides, and only a printed page can settle it. Note: the earlier "keep #F5E660" was about softer yellows for the
+  dark page, the opposite direction.
+- **Decided (user, 2026-11-06):** keep #F5E660 on the white page. Saved as `portfolio_v04` (same content as v03, option A; 1.3 MB; same 17 placeholders).
+- **Mistake found:** the v03 update to `NEXT_STEPS.md` was never saved (the script changed the text but did not write the file), so it still said v02. Fixed with this update.
+- **v05 (2026-11-06):** table rules and straight arrows inherited a theme shadow (`effectRef idx=1`), hidden on the dark page but a grey smudge on white. `_straight` now sets an empty `a:effectLst`; test added. Same content as v03 and v04.
+
+## 15. Portfolio v06: fuller pages (2026-11-06)
+- **Why:** the user said there was lots of empty space. Filled with what already exists, nothing invented: more of the team's
+  drawings (chassis, odometry exploded, transition, shaded shooter exploded view, whose flat #333333 background is keyed out
+  into `assets/cad/screenshots_page/`) and more detail from the code report and code on branch `Isaac`.
+- **Added:** page 2 code milestones from commit dates; page 3 number tiles and a photo frame; page 4 sketch beside its CAD;
+  page 5 one scoring cycle; page 6 chassis, parts breakdown; page 8 sketch beside the maths; page 9 exploded view, hood range;
+  page 10 how pollen is held and released; page 11 odometry exploded, code limits; page 12 the bugs found when merging; page 13
+  the order of checks before a shot (`Robot.java`: no trajectory, calibration, aiming, spinning up, settling 0.1 s, empty,
+  feeding); page 14 what the autonomous can use; page 15 more simulation results.
+- **Found and corrected:** pages 9 and 13 implied the lookup table sets the shot. On branch `Isaac` the table is empty and not
+  called: `Robot.update` uses `RearAim` and `Ballistics` (a gravity solver). Page 13 now says solver, page 9 says the table is
+  started and measured once the robot is built. **Mismatch with the team's meeting note, question 75.** No X-lock code on the
+  branch either: question 76. Also removed "print, cut, assemble" from page 4 (not stated by the team).
+- **Result:** `portfolio_v06.pdf`, 16 pages. Placeholders: 18 (one more than v05, the photo frame). Labels on drawings are my
+  reading: question 77.
