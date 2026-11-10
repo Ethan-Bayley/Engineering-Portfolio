@@ -236,3 +236,25 @@ Append new entries at the bottom, with the date. See skill `log-work`.
   drawing about 12 % larger (box 0.65 of the width, 245 pt high, was 0.58 and 230 pt).
 - Also changed: PROJECT.md members, NEXT_STEPS suggested names, QUESTIONS 12 and 22, PAGE_PLAN, and the old format sample's
   source (its saved files were not rebuilt). Older log entries still say 13 members and 7: they were right when written.
+
+## 17. Portfolio v08: Round Square photo (2026-11-10)
+- **What:** `assets/photos/raw/round_square_2026-09-28.jpg` (800 x 600 px, from the inbox; an identical second copy was
+  removed), prepared to `photos/ready/` with `photo_prep.py` (no crop, no edits). On page 3 it sits beside the Round Square
+  story, in the space the empty "Photos" frame took; that frame and its placeholder are gone (18 -> 17 placeholders).
+- **Not proven:** 800 px wide prints at about 160 dpi at this size, a little soft; a larger original would print sharper.
+  No Darkinjung photo yet. Photographer not recorded (CREDITS.md).
+
+## 18. Portfolio v09: the turret meeting and plan against what happened (2026-11-10)
+- **From the team's notes (NEXT_STEPS.md part B, 2026-11-10):** page 2 now shows the plan made at the 10 October meeting
+  against what happened each week (12 Oct to 1 Nov; 2-8 Nov left for the team), the scheduling spreadsheet and its
+  lesson. Page 9 gives the meeting's reasons for cutting the turret (regionals 4 weeks away, goBILDA parts delayed, least
+  necessary part; kept swerve and the blocker; consistency first). Page 3 adds the Round Square demos and that many
+  delegates had not heard of FIRST. Page 7: custom pod parts, machined. Page 14: ball tracking for autos started 12-18
+  Oct. Page 15: two lessons (cut the least necessary part; plan around exams and outreach).
+- **Removed from page 2:** the code-milestones table and "what we kept from last season" (pages 4 and 9 cover the same).
+- **Wording:** "not built" became "not finished" everywhere, because the notes say the swerve was assembled.
+- **Not used:** the mentoring write-up (its author asked not to put it into Claude). **To check:** Round Square in the
+  Term 2-3 holidays (notes) or 28 September (user); Dhupuma or Darkinjung.
+
+## 19. Portfolio v10: bigger cover drawing (2026-11-10)
+- **What (user asked):** the cover's top robot drawing fills most of the white space. It is now cut to what is drawn (`trimmed()` in the build script saves `<name>_trim.png`; the original had empty margins of about 10 %) and placed in a box 330 pt high instead of 270 pt, about 1.4 x wider on the page. The team-number box grows to the same height. Nothing else changed.

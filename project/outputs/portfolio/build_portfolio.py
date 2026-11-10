@@ -33,6 +33,18 @@ NAME = DELIVERABLE if THEME == "paper" else f"portfolio_{THEME}"    # PORTFOLIO_
 TEAM, TEAM_NAME = "11143", "Barker Yellowbacks"
 
 
+def trimmed(path):
+    """A copy of a see-through drawing cut to what is drawn (no empty margin), so it can be placed larger.
+    Saved beside the original as <name>_trim.png and remade when the original is newer."""
+    from PIL import Image
+    out = path.with_name(path.stem + "_trim.png")
+    if not out.exists() or out.stat().st_mtime < path.stat().st_mtime:
+        im = Image.open(path)
+        box = im.split()[3].getbbox() if im.mode == "RGBA" else im.getbbox()
+        im.crop(box).save(out, optimize=True)
+    return out
+
+
 def cover(doc):
     """The user's cover (2026-11-05) with one yellow instead of gold and cream; no FIRST logo yet (add the official
     file if the team wants it, following FIRST's logo rules)."""
@@ -62,13 +74,14 @@ def cover(doc):
               anchor=MSO_ANCHOR.MIDDLE, sizes=p.sizes)
     # robot line art, team number box on the right
     ry = py + 80
-    nb = Rect(a.r - 64, ry, 64, 270)
+    rh = 330                                   # down to just above the bottom drawing (user, 2026-11-10: fill the space)
+    nb = Rect(a.r - 64, ry, 64, rh)
     _shape(s, MSO_SHAPE.RECTANGLE, nb, None, MUTED, 2)
     write(s, Rect(nb.x + nb.w / 2 - nb.h / 2, nb.y + nb.h / 2 - nb.w / 2, nb.h, nb.w),
           [{"text": TEAM, "size": 54, "bold": True, "colour": MUTED, "align": PP_ALIGN.CENTER, "after": 0}],
           anchor=MSO_ANCHOR.MIDDLE, rotation=90, sizes=p.sizes)
     bar(s, nb.x - 0.8 * G - 5, nb.y + 0.15 * nb.h, nb.h * 0.7, 5)
-    _picture(s, ROBOT_A, Rect(a.x - 0.5 * G, ry, nb.x - a.x - 2 * G, 270), "Line drawing of our robot", "left")
+    _picture(s, trimmed(ROBOT_A), Rect(a.x, ry, nb.x - a.x - 2 * G, rh), "Line drawing of our robot", "left")
     # season block bottom-left, second drawing bottom-right
     yb = a.b - 150
     bar(s, a.x, yb + 0.6 * G, 92, 4)
@@ -86,6 +99,7 @@ def cover(doc):
 ENDNOTE = ("Endnote: text drafted and laid out with help from an AI assistant. All results, photos, CAD, code and "
            "decisions are the team's own; the team checked every page.")
 SW, SH, OD, TU, TR, RB = (LW / k for k in ("swerve", "shooter", "odometry", "turret", "transition", "robot"))
+PHOTOS = A / "photos" / "ready"                    # team photos, prepared with general/tools/photo_prep.py
 SHOTS = A / "cad" / "screenshots_page" / "shooter"     # shaded Onshape views with the background taken out
 
 
@@ -128,39 +142,39 @@ def p01_team(doc):
 
 def p02_season(doc):
     p = doc.page("Our season")
-    top, mid, bottom = p.rows(p.area, 0.5, 0.8, 1.15)
+    top, plan, bottom = p.rows(p.area, 0.5, 1.2, 0.95)
     tl = p.box(top, "2026 so far")
-    tl.timeline(tl.content, [("23 Sep", "Shooter", "first shooter code"), ("12 Oct", "No turret", "turret removed"),
-                             ("20 Oct", "Intake", "intake and transfer"), ("25 Oct", "One robot", "subsystems merged"),
+    tl.timeline(tl.content, [("10 Oct", "Turret cut", "team meeting"), ("12-18 Oct", "Design done", "intake, transfer, shooter"),
+                             ("19-25 Oct", "Machining", "assembly began"), ("26 Oct-1 Nov", "Swerve built", "goBILDA parts here"),
                              ("12 Nov", "Wollongong", "first event")])
-    l, r = p.cols(mid, 1, 1)
-    a = p.box(l, "What we kept from last season")
-    a.text(a.content, ["Last season's robot (background only) taught us:",
-                       "- ++Swerve works for us:++ we kept it",
-                       "- ~~A turret takes months to tune:~~ April to June 2026, so this year we dropped it",
-                       "- Logging and replay carried over to this season's code"])
-    b = p.box(r, "This season's goals", accent=True)
+    pv = p.box(plan, "Planned on 10 October, and what happened", accent=True)
+    pv.table(pv.content, [["Week", "Planned", "What happened"],
+                          ["12-18 Oct", "finish the CAD; make the custom swerve parts",
+                           "goBILDA parts ordered; shooter redesigned and simplified; intake and transfer design done; "
+                           "ball tracking for autos started; hood and shooter code started"],
+                          ["19-25 Oct", "goBILDA parts may arrive; make the shooter and transition; assembly",
+                           "parts machined; assembly began"],
+                          ["26 Oct-1 Nov", "wiring, programming, fixing mechanical issues",
+                           "goBILDA parts arrived; swerve assembled"],
+                          ["2-8 Nov", "programming and drive practice", "<what happened>"]],
+             col_weights=[0.8, 1.7, 2.3])
+    l, r = p.cols(bottom, 1.15, 1)
+    sc = p.box(l, "How we schedule")
+    sc.story(sc.content, [("How", "A spreadsheet shared with students and mentors shows who is free each week and what "
+                                  "work they are given."),
+                          ("Lesson", "It mostly worked, but an exam block and outreach made it hard to judge what each "
+                                     "week could really fit.")])
+    b = p.box(r, "This season's goals")
     b.text(b.content, ["- Shoot from **anywhere** on the field",
                        "- **Less waiting** between shots",
                        "- Collect along the wall and shoot **without turning round**",
                        "- Hold our spot against **defence**",
                        "- Keep the robot **light**, so it moves more efficiently"])
-    m = p.box(bottom, "Where we are: robot not built yet")
-    m.table(m.content, [["Date", "What we finished (from our code history)"],
-                        ["22-23 Sep", "Code repository and simulator set up; a folder for each subsystem"],
-                        ["6 Oct", "Speed controller (PIDF) working for the shooter"],
-                        ["7 Oct", "Hardware and controller bindings added"],
-                        ["12 Oct", "Turret removed; hood angle limits added; lookup table started"],
-                        ["16 Oct", "Lookup table can work out values between its points"],
-                        ["20-23 Oct", "Intake and transfer code finished"],
-                        ["25 Oct", "Shooter and intake merged; robot CAD in the simulator; 3 of 3 scored in simulation"],
-                        ["26 Oct", "Simulated pollen now rolls, bounces and makes contact with the robot"]],
-            col_weights=[0.8, 4.2])
 
 
 def p03_outreach(doc):
     p = doc.page("Outreach")
-    top, a_r, mid, bottom, ph = p.rows(p.area, 0.34, 1.55, 0.95, 0.5, 1.12)
+    top, a_r, mid, bottom = p.rows(p.area, 0.34, 1.12, 1.7, 0.5)
     stats(p, top, [("6", "members teach Darkinjung students"), ("Fortnightly", "since about February 2026"),
                    ("1,500+", "people at Round Square"), ("About 32", "countries at Round Square")])
     a = p.box(a_r, "Teaching Darkinjung students", accent=True)
@@ -172,17 +186,21 @@ def p03_outreach(doc):
                         ("Impact", "Some of the students were in competitive teams and won **Skills**, "
                                    "**Teamwork Champion** and **Excellence** awards.")])
     d = p.box(mid, "Round Square International Conference")
-    d.story(d.content, [("What", "On **28 September 2026** Ivy W., Ethan B., Ryan T., Chelsey W., Chloe L., Isaac H., "
+    ds, dp = p.cols(d.content, 1, 1.15)
+    d.picture(dp, PHOTOS / "round_square_2026-09-28.jpg",
+              "Photo from above of our robotics showcase at the Round Square conference: fields, robots and visitors",
+              "Our robotics showcase at Round Square, 28 September 2026")
+    d.story(ds, [("What", "On **28 September 2026** Ivy W., Ethan B., Ryan T., Chelsey W., Chloe L., Isaac H., "
                                  "Tina X. and Will Q. ran the robotics part of the conference at Barker."),
-                        ("Reach", "We showed our robotics program to **over 1,500 people** from around **32 "
-                                  "countries**, and introduced them to FIRST.")])
+                        ("Demos", "At the opening fair we showed robots driving, shooting, intaking and "
+                                  "scoring."),
+                        ("Reach", "**Over 1,500 people** from around **32 countries**, many of whom had not heard of "
+                                  "FIRST before.")])
     l, r = p.cols(bottom, 1, 1)
     b = p.box(l, "Mentoring VEX teams")
     b.text(b.content, ["Ethan B., Isaac H. and Brandon L. mentor VEX teams."])
     c = p.box(r, "Barker VEX competition")
     c.text(c.content, ["Ethan B., Isaac H. and Brandon L. volunteered."])
-    f = p.box(ph, "Photos")
-    f.text(f.content, ["<photos of the Darkinjung sessions and Round Square>"])
 
 
 def p04_process(doc):
@@ -287,7 +305,7 @@ def p07_swerve(doc):
         "- **Aim while driving:** drive one way, face the goal",
         "- We built swerve last season, so the risk was low",
         k.head("Key features"),
-        "- **4 pods**, each with a drive motor and a steering servo",
+        "- **4 pods**, each with a drive motor and a steering servo; custom parts we designed, machined",
         "- An **absolute angle sensor** in every pod, so each wheel knows where it points from the start",
         "- Pod centres **239 x 239 mm** apart; wheels **60.9 mm**"])
     l, r = p.cols(mid, 1, 1)
@@ -304,8 +322,8 @@ def p07_swerve(doc):
                        (0.17, 0.66, "wheel fork", 0.04, 0.9), (0.55, 0.88, "wheel", 0.98, 0.9)],
                caption="Servo and ring gear turn the whole pod")
     t = p.box(bottom, "Tests")
-    t.table(t.content, [["Test", "Result", "Status"], ["Top speed", "not built yet", "NOT TESTED"],
-                        ["Pushed by another robot in X-lock", "not built yet", "NOT TESTED"]],
+    t.table(t.content, [["Test", "Result", "Status"], ["Top speed", "not finished yet", "NOT TESTED"],
+                        ["Pushed by another robot in X-lock", "not finished yet", "NOT TESTED"]],
             col_weights=[1.6, 1.2, 1], status_col=2)
 
 
@@ -332,7 +350,7 @@ def p08_intake(doc):
                        "- 2 motors drive the intake and transition",
                        "- **Polycarbonate ramps** give the pollen a low-friction surface",
                        "- **3 beam sensors** count the pollen (empty, one, two, full); the intake stops when full",
-                       "- Jams: not tested yet (robot not built)"])
+                       "- Jams: not tested yet (robot not finished)"])
     m = p.box(bottom, "Maths: where the pollen touches")
     l, r = p.cols(m.content, 1, 1.2)
     m.picture(l, TR / "transition_ball_path_sketch.png", "Layout sketch of the pollen's path past each roller")
@@ -350,7 +368,7 @@ def p09_shooter(doc):
         ("Turret, last season", None, "", ["aims without turning the robot"], ["months of tuning (Apr-Jun 2026)"]),
         ("Turret, this season", TU / "turret_iso_rotation_highlight.png",
          "Line drawing of this season's turret design with the turntable highlighted", ["what we wanted first"],
-         ["weight and space", "1 more motor or servo", "no time to build it"]),
+         ["weight and space", "goBILDA parts delayed", "no time: regionals 4 weeks away"]),
         ("Fixed rear shooter", SH / "shooter_iso_rear_a.png", "Line drawing of our fixed rear shooter design",
          ["fewer parts", "shoots out of the flowers without turning"], ["the whole robot must turn to aim"])])
     l, r = p.cols(mid, 1, 1.12)
@@ -360,11 +378,13 @@ def p09_shooter(doc):
         "- **Moving hood:** shoot from anywhere on the field. Range in our code: **33.6 to 67 degrees**",
         "- **Facing backwards:** pollen collects along the wall, so we drive up to the wall and aim, instead of "
         "collecting and then turning round",
-        "- **Lookup table:** flywheel speed and hood angle from where localisation says we are. The table is "
-        "started in code; values are measured once the robot is built",
-        w.head("What we changed"),
-        "The turret got as far as CAD and code, never built: not enough time. On **12 October** we removed it, and the "
-        "swerve base turns the robot to aim instead (page 13)."])
+        "- **Lookup table:** speed and hood angle from where localisation says we are; values measured once the "
+        "robot is finished",
+        w.head("Why we cut the turret (meeting, 10 October)"),
+        "Regionals were **4 weeks** away and our goBILDA parts were delayed, so something had to go. The turret was "
+        "the least necessary part. We kept swerve and the blocker, which still speed up shooting, and spent the time "
+        "on a consistent intake, transfer, swerve, autos and code. The swerve base now turns the robot to aim "
+        "(page 13)."])
     a, b = p.rows(r, 1, 1.25)
     d = p.box(a, "Hood drive")
     d.labelled(d.content.inset(0.5 * G, 0.8 * G), SH / "shooter_side_hood_drive_highlight.png",
@@ -376,8 +396,8 @@ def p09_shooter(doc):
     e.labelled(e.content, SHOTS / "shooter_exploded_iso.png", "Exploded CAD view of the fixed shooter",
                labels=[(0.42, 0.65, "flywheels", 0.08, 0.72), (0.62, 0.32, "hood", 0.88, 0.1)])
     t = p.box(bottom, "Tests")
-    t.table(t.content, [["Test", "Result", "Status"], ["Shots in from 3 distances", "not built yet", "NOT TESTED"],
-                        ["Time between shots", "not built yet", "NOT TESTED"]], col_weights=[1.6, 1.2, 1], status_col=2)
+    t.table(t.content, [["Test", "Result", "Status"], ["Shots in from 3 distances", "not finished yet", "NOT TESTED"],
+                        ["Time between shots", "not finished yet", "NOT TESTED"]], col_weights=[1.6, 1.2, 1], status_col=2)
 
 
 def p10_loader(doc):
@@ -388,7 +408,7 @@ def p10_loader(doc):
     m.story(m.content, [("Idea", "Four of us played VEX **Push Back**, a very similar game. We used the same kind "
                                  "of matchloader for the flower."),
                         ("Problem", "<what the matchloader fixes, with a number>"),
-                        ("Result", "Not tested yet: the robot is not built.")])
+                        ("Result", "Not tested yet: the robot is not finished.")])
     b = p.box(r, "Blocker and gate")
     b.story(b.content, [("Blocker", "<what the blocker stops> (1 Axon Max servo)"),
                         ("Gate", "Stops pollen going into the shooter until the shot is ready (1 Axon servo).")])
@@ -398,7 +418,7 @@ def p10_loader(doc):
                labels=[(0.05, 0.12, "front camera", 0.2, -0.02), (0.88, 0.12, "rear camera", 0.78, -0.02)])
     c.text(r2, ["- **Front camera:** finds pollen, so we can path to it",
                 "- **Rear camera:** reads AprilTags, so we know where the goal is",
-                "- Status: not tested yet (robot not built)"])
+                "- Status: not tested yet (robot not finished)"])
     h = p.box(bottom, "How pollen is held, then released")
     l3, r3 = p.cols(h.content, 1, 1.15)
     h.picture(l3, TR / "transition_front.png", "Front line drawing of the intake and transition")
@@ -438,7 +458,7 @@ def p11_control(doc):
                                      "voltage, so a flat battery does not change the shot."),
                         ("In our code", "Flywheels are limited to **3500 RPM** and count as ready within **50 RPM** "
                                         "of the target; the hood within **2 degrees**."),
-                        ("Result", "Not tested yet: the robot is not built.")])
+                        ("Result", "Not tested yet: the robot is not finished.")])
 
 
 def p12_software(doc):
@@ -448,11 +468,11 @@ def p12_software(doc):
     a.table(a.content, [["Part", "What it holds", "Why"],
                         ["RobotCode", "behaviour: driving, aiming, shooting", "written once, used everywhere"],
                         ["TeamCode", "the real motors, servos and sensors", "only place that touches hardware"],
-                        ["RobotSim", "simulated robot, field and pollen", "test before the robot is built"]],
+                        ["RobotSim", "simulated robot, field and pollen", "test before the robot is finished"]],
             col_weights=[0.9, 1.6, 1.5])
     l, r = p.cols(mid, 1, 1)
     s = p.box(l, "Why we simulate")
-    s.story(s.content, [("Challenge", "The robot is not built yet, but the code needs testing now."),
+    s.story(s.content, [("Challenge", "The robot is not finished yet, but the code needs testing now."),
                         ("Solution", "The same TeleOp runs in our simulator on the official field CAD."),
                         ("Result", "Simulation: scores **3 of 3** for both alliances, also while moving.")])
     t = p.box(r, "Automated tests")
@@ -507,8 +527,8 @@ def p13_aim(doc):
                        "(r = where the pollen leaves, from the robot's centre). The code looks **0.07 s** ahead to "
                        "where the robot will be at release, then a gravity solver finds the speed and hood angle."])
     t = p.box(bottom, "Tests")
-    t.table(t.content, [["Test", "Simulation", "Robot"], ["Score while still", "3 of 3", "not built yet"],
-                        ["Score while moving", "3 of 3", "not built yet"]], col_weights=[1.4, 1, 1.2])
+    t.table(t.content, [["Test", "Simulation", "Robot"], ["Score while still", "3 of 3", "not finished yet"],
+                        ["Score while moving", "3 of 3", "not finished yet"]], col_weights=[1.4, 1, 1.2])
 
 
 def p14_auto(doc):
@@ -521,7 +541,9 @@ def p14_auto(doc):
     s.table(s.content, [["Step", "What", "Points"], ["1", "<step>", "<pts>"], ["2", "<step>", "<pts>"],
                         ["3", "<step>", "<pts>"]], col_weights=[0.6, 2, 0.8])
     st = p.box(rr, "Status")
-    st.text(st.content, ["- The autonomous for this robot is **not written yet**: NOT TESTED",
+    st.text(st.content, ["- Started 12-18 Oct: a **ball-tracking** setup so the robot can find, map and intake "
+                         "pollen by itself",
+                         "- The full autonomous is **not finished**: NOT TESTED",
                          "- <date we plan to have it running>"])
     u = p.box(bottom, "What it can use")
     u.table(u.content, [["Part", "What it gives the autonomous"],
@@ -541,26 +563,28 @@ def p15_tests(doc):
                         ["Simulation: score 3 of 3, still and moving", "3 of 3", "PASS"],
                         ["Simulation: pick up 3, aim, score 3", "3 of 3", "PASS"],
                         ["Simulation: lost heading sensor", "stops drive and feeding", "PASS"],
-                        ["Robot: shots in from 3 distances", "not built yet", "NOT TESTED"],
-                        ["Robot: time between shots", "not built yet", "NOT TESTED"],
-                        ["Robot: top speed", "not built yet", "NOT TESTED"],
-                        ["Robot: X-lock push", "not built yet", "NOT TESTED"],
-                        ["Robot: jams per 20 pickups", "not built yet", "NOT TESTED"],
+                        ["Robot: shots in from 3 distances", "not finished yet", "NOT TESTED"],
+                        ["Robot: time between shots", "not finished yet", "NOT TESTED"],
+                        ["Robot: top speed", "not finished yet", "NOT TESTED"],
+                        ["Robot: X-lock push", "not finished yet", "NOT TESTED"],
+                        ["Robot: jams per 20 pickups", "not finished yet", "NOT TESTED"],
                         ["Autonomous", "not written yet", "NOT TESTED"]], col_weights=[2, 1.1, 0.9], status_col=2)
     l, r = p.cols(mid, 1, 1)
     a = p.box(l, "Lessons we applied")
     a.text(a.content, ["- A turret cost months last season, so we let the drivetrain aim",
                        "- Sketch the pollen path before CAD: sizes and spacing first",
                        "- One unit for each value in code (RPM, radians)",
-                       "- Merge subsystems early: the bugs on page 12 only showed when they met"])
+                       "- Merge subsystems early: the bugs on page 12 only showed when they met",
+                       "- Short on time? Cut the least necessary part, make the rest consistent (10 Oct)",
+                       "- Plan weeks around exams and outreach"])
     b = p.box(r, "Next")
-    b.text(b.content, ["- Build the robot, then run every test on this page",
+    b.text(b.content, ["- Finish the robot, then run every test on this page",
                        "- Calibrate the shooter on the real robot",
                        "- Measure the lookup table",
                        "- Write and test the autonomous",
                        "- <next design change>"])
     c = p.box(bottom, "Reliability")
-    c.text(c.content, ["No matches yet: the robot is not built. For every match we will record whether it worked "
+    c.text(c.content, ["No matches yet: the robot is not finished. For every match we will record whether it worked "
                        "all match, and any fault and its fix."])
     write(p.slide, foot, [{"text": ENDNOTE, "size": 10, "colour": MUTED, "after": 0}], sizes=p.sizes)
 

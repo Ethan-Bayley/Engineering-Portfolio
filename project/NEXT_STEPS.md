@@ -7,9 +7,10 @@ date, then uses it on the pages. Notes are the team's words: Claude does not add
 
 - Event: FTC Wollongong, **Thursday 12 November 2026**. The portfolio is **printed** (user, 2026-11-06); earlier a PDF
   upload was recorded: **ask the Event Director** if an upload is also needed, and by when.
-- Current version: `outputs/portfolio/portfolio_v07.pdf` (cover + 15 pages, option A; pictures in
-  `outputs/portfolio/pages_v07/`). Marking review: `outputs/reviews/marking_loop.md` (57 / 100 on v03's content,
-  judgement). **The robot is not built yet** (2026-11-05): every robot test shows "not built yet / NOT TESTED" until it is.
+- Current version: `outputs/portfolio/portfolio_v10.pdf` (cover + 15 pages, option A; pictures in
+  `outputs/portfolio/pages_v10/`). Marking review: `outputs/reviews/marking_loop.md` (57 / 100 on v03's content,
+  judgement). **The robot is not finished** (2026-11-05: user said not built; 2026-11-10 notes: swerve assembled
+  26 Oct-1 Nov): every robot test shows "not finished yet / NOT TESTED" until it is.
 
 ---
 
@@ -28,13 +29,13 @@ Look: **A chosen** (white, yellow bands), the default. Yellow: **keep #F5E660** 
 | 1 | Real-robot tests: shots in from 3 distances (out of 10), time between shots (s), top speed (m/s), X-lock push (mm moved), jams per 20 pickups, aim error (degrees). Write each one down with the date and number of tries. | 7, 8, 9, 13, 15 | Ryan T., Will Q., Isaac H. | waiting: robot not built (the pages say so) |
 | 2 | Photo of the hand-drawn autonomous route into `assets/inbox/`, plus what each step scores | 14 | Isaac H., Chloe S. | |
 | 3 | Outreach: number of Darkinjung students and sessions and since when; VEX teams mentored; dates of the Barker VEX competition and Round Square conference; people reached | 3 | Ethan B. | partly, v03: Darkinjung and Round Square in; VEX mentoring and Barker comp numbers unknown |
-| 4 | Photos: team, members, outreach (into `assets/inbox/`); page 3 has a frame waiting for them | 1, 3 | anyone | |
+| 4 | Photos: team, members, outreach (into `assets/inbox/`); Round Square photo added in v08; a Darkinjung photo would help | 1, 3 | anyone | |
 | 5 | Scores comparing swerve / mecanum / tank, and intake V1 / V2 (a decision matrix) | 7, 8 | Ethan B., Brandon L. | |
 | 6 | Strategy: how we play, what scouting records, why the matchloader | 5, 10 | Will Q., Chloe S., Tina X. | |
 | 7 | Build and maintenance: robot mass, time to swap a pod, printed vs bought parts, part count | 6, 7 | Lucas T., Chloe L. | |
 | 8 | Intake V1: what worked and what went wrong; any V2 downsides | 8 | Tina X. | |
 | 9 | What the blocker stops; are the cameras working on the robot; when we meet and how we decide | 1, 10 | anyone | meetings and decisions done (v03); blocker and cameras open |
-| 10 | Print one page of v07 (page 8 or 9): check the yellow and whether the edge bar reaches the paper's edge | | anyone | |
+| 10 | Print one page of v10 (page 8 or 9): check the yellow and whether the edge bar reaches the paper's edge | | anyone | |
 | 11 | Confirm the meeting notes in part B marked **check** | | Ethan B. | |
 
 ### Claude (when the team's items come in)
@@ -72,3 +73,13 @@ pushing, aim while driving); intake V1 printed funnels with front gecko wheels; 
 hood, rear-facing because pollen collects along the wall); matchloader from VEX Push Back; cameras (front: pathing to
 pollen, rear: AprilTags); transition sketch sizes (pollen 71.12 mm, rollers 50 mm, gecko 48 and 32 mm, belt spacing
 45, 58.5, 54, 44 mm, cross-section 70.413 mm).
+
+### 2026-11-10: team notes pasted in by Ethan B. (meeting notes and draft write-ups)
+| What the team wrote | Goes on | Status |
+|---|---|---|
+| **Turret removal meeting, 10 October 2026.** Present: Brandon L., Ethan B., Isaac H., Ryan T., Will Q., Ivy W. Regionals only four weeks away, so something had to be cut to leave time for assembly and programming. goBILDA parts delayed (school purchasing issues pushed back assembly). The turret was the least necessary part and would take too long: fixed shooter instead. Kept swerve and the blocker, which still speed up shooting. Prioritised consistency in the intake, autos and code, ball transfer and swerve. | 2, 9 | ok (code removed the turret 12 Oct) |
+| **Plan from that meeting:** 12-18 Oct finish CAD and make custom swerve parts; 19-25 Oct maybe receive goBILDA parts, make shooter and transition, assembly; 26 Oct-1 Nov wiring, programming, fixing mechanical issues; 2-8 Nov programming and drive practice. | 2 | ok |
+| **What happened:** 12-18 Oct goBILDA parts ordered, shooter redesigned and simplified, intake and ball transfer design complete, ball-tracking environment for autos begun (detect, map and intake balls), initial hood/shooter code. 19-25 Oct parts machined, assembly began. 26 Oct-1 Nov goBILDA parts arrived, swerve assembled. 2-8 Nov not recorded. | 2, 7, 14 | ok; **so the robot is partly assembled**: pages now say "not finished" instead of "not built" |
+| **Scheduling:** an Excel spreadsheet shared with students and mentors, with availabilities for the season, to track who comes and what work they get. Largely successful, but external commitments (an exam block a fortnight before camp, outreach) made it hard to judge how feasible each week's goals were. | 2, 15 | ok |
+| **Round Square write-up:** showcased to international delegates from many schools and backgrounds, many not previously aware of FIRST; demonstrations of robot driving, shooting, intaking and scoring at the RSIC opening fair; shared FIRST culture. | 3 | ok. **check**: it says the conference was in the **Term 2-3 holidays**, but the page says **28 September 2026** (your answer): which is right? |
+| **Mentoring write-up ("D teams", Dhupuma or Darkinjung):** its author wrote "PLEASE DO NOT JUST PUT THIS INTO CLAUDE - I HAVE NO IDEA WHAT I'M DOING". | 3 | **not used**: waiting for Ethan B. to confirm with its author; also check Dhupuma or Darkinjung |

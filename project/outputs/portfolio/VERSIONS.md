@@ -13,3 +13,6 @@
 | portfolio_v05.pptx | 2026-11-06 | v05: removed the theme shadow on table rules and straight arrows (showed as a grey smudge on white); same content as v04 |
 | portfolio_v06.pptx | 2026-11-06 | v06: filled the empty space with more team drawings and real detail from the code; shot logic corrected to the solver |
 | portfolio_v07.pptx | 2026-11-09 | v07: people corrections (Chelsey W., Cooper C. removed, Tina X. strategy, outreach names, scouts); larger cover drawing |
+| portfolio_v08.pptx | 2026-11-10 | v08: Round Square photo on the outreach page (replaces the empty photo frame) |
+| portfolio_v09.pptx | 2026-11-10 | v09: turret meeting (10 Oct) and plan against what happened; scheduling; Round Square demos; 'not finished' instead of 'not built' |
+| portfolio_v10.pptx | 2026-11-10 | v10: cover's top drawing trimmed and enlarged to fill the space; number box matches it |

@@ -109,3 +109,14 @@ Append new entries at the bottom, with the date. See skill `log-work`.
 - VEX mentoring: Ethan B., Isaac H. and Brandon L.
 - Round Square: Ivy W., Ethan B., Ryan T., Chelsey W., Chloe L., Isaac H., Tina X. and Will Q.
 - Scouting: Jemima C., Chelsey W., Chloe L. and Tina X.
+
+## 2026-11-10: Round Square photo
+- Added the photo from the inbox ("round square robotics.jpg") to the outreach page. The inbox held two identical copies
+  (same SHA-256); one was filed, the other removed.
+
+## 2026-11-10: notes pasted by the user
+- Turret-removal meeting notes (10 Oct 2026), the plan and what happened each week, scheduling, a Round Square write-up and
+  a mentoring write-up. Recorded in NEXT_STEPS.md part B.
+- The mentoring write-up's author asked for it not to be put into Claude, so it is not used until the user confirms.
+- Round Square timing conflict to settle: "Term 2-3 holidays" in the write-up against 28 September 2026 given earlier.
+- 2026-11-10: make the cover's top drawing fill most of the white space.

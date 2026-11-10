@@ -55,7 +55,7 @@ Tests: say how many tries, the date and the conditions (e.g. "8 of 10 from the f
 19. **Decisions:** how does the team decide (vote, leads decide, test both)? An example. (1)
     **Answer:** (2026-11-05) People usually make decisions within their specialty (e.g. mechanics decide about mechanical things) and tell the team about the changes. (used in v03)
 20. **Build dates:** planned and actual dates for CAD finished, robot built, first drive. (2)
-    **Answer:** (2026-11-05) Not now ("can't be bothered to find the dates"). (v03 drops the build-dates table)
+    **Answer:** (2026-11-10) Partly, from the 10 Oct meeting notes: planned and actual work for 12 Oct to 1 Nov (no dates for 2-8 Nov). (used in v09, page 2)
 
 ## Strategy (pages 5, 10)
 21. **How we play:** what do you score first, where do you shoot from, what is your role with the alliance partner? (5)
@@ -190,9 +190,9 @@ Deeper questions per subsystem, from your drawings and the code (branch `Isaac`)
 ## Turret, this season (page 9)
 66. **Design:** how did the CAD turret turn (servo or motor on the ring gear), how far could it turn, and roughly how
     much mass did it add?
-    **Answer:**
+    **Answer:** (2026-11-10, meeting notes) Turret got as far as CAD and code. Not answered: how it turned, range, mass.
 67. **The decision:** when did you decide to drop it, who decided, and was anything from it reused?
-    **Answer:**
+    **Answer:** (2026-11-10, meeting notes) Decided at a team meeting on 10 October 2026 (Brandon L., Ethan B., Isaac H., Ryan T., Will Q., Ivy W.): regionals four weeks away, goBILDA parts delayed, turret least necessary. (used in v09, page 9)
 
 ## Matchloader, blocker and gate (page 10)
 68. **Matchloader:** how does it work (what moves, which servo), and what did you copy or change from the VEX Push
