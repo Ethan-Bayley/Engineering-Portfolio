@@ -117,90 +117,113 @@ def stats(p, r, items):
 # ---------------------------------------------------------------- 1-5: team, season, outreach, process, strategy
 def p01_team(doc):
     p = doc.page("Meet the team")
-    top, bottom = p.rows(p.area, 3.3, 1)
+    top, bottom = p.rows(p.area, 1.45, 1)
     members = [("Ethan B.", "Lead design", "assembly"), ("Brandon L.", "CAD", "assembly"),
                ("Isaac H.", "Lead code", "CAD, assembly"), ("Ryan T.", "Driver", "CAD"),
                ("Will Q.", "Lead strategy", "drive coach"), ("Ivy W.", "Programming", "HR"),
-               ("Tina X.", "Code", "assembly, strategy"), ("Chelsey W.", "Assembly", "scouting"),
+               ("Tina X.", "Programming", "assembly, strategy"), ("Chelsey W.", "Assembly", "scouting"),
                ("Chloe L.", "Electrical", "assembly"), ("Chloe S.", "Strategy", "code, assembly"),
                ("Jemima C.", "Programming", "scouting"),
                ("Lucas T.", "CAD", "assembly")]
     t = p.box(top, "12 members")
-    t.team(t.content, [(n, r, None, note) for n, r, note in members], cols=2)
-    l, r = p.cols(bottom, 1, 1)
+    t.team(t.content, [(n, r, None, note) for n, r, note in members], cols=3)
+    l, r = p.cols(bottom, 1.1, 1)
     h = p.box(l, "How we split the work")
-    h.text(h.content, ["- **CAD:** 4 members in Onshape, with our lead designer",
-                       "- **Code:** 5 members write and test the code",
-                       "- **Strategy:** 3 members plan it; 4 members scout",
-                       "- **Assembly:** 8 of 12 members build"])
+    h.text(h.content, [
+        "- **CAD:** 4 of us design in Onshape with our lead designer. We did most of the CAD early in the season. Once "
+        "the design was done we joined assembly, so the build went faster",
+        "- **Code:** 5 of us wrote the code's basic structure and our simulator, so we were ready to test as soon as "
+        "the robot was finished. The work never stalled",
+        "- **Strategy:** 3 of us plan our strategy. Together we planned autonomous routes that suit our robot and our "
+        "likely alliance partners. 4 of us scout",
+        "- **Assembly:** 8 of 12 of us assembled the manufactured parts with the design team once the CAD was done"])
     w = p.box(r, "How we work")
-    w.text(w.content, ["- We meet **every week or two**",
-                       "- Each specialty decides its own area (mechanics decide mechanical changes), then tells "
-                       "the whole team",
-                       "- Each subsystem has its own code branch, merged into one robot"])
+    w.text(w.content, [
+        "- We meet **every week or two**",
+        "- **Subgroup meetings:** each area reports in turn. The programmers give updates on the shooter, the swerve "
+        "and the ball transfer",
+        "- **Whole-team meetings:** we share changes that affect everyone. When the design team removed the turret, "
+        "the programmers needed to know",
+        "- Whole-team meetings also keep us on time, so deadlines do not slip",
+        "- Each specialty decides its own area, then tells the whole team"])
 
 
 def p02_season(doc):
     p = doc.page("Our season")
-    top, plan, bottom = p.rows(p.area, 0.5, 1.2, 0.95)
-    tl = p.box(top, "2026 so far")
-    tl.timeline(tl.content, [("10 Oct", "Turret cut", "team meeting"), ("12-18 Oct", "Design done", "intake, transfer, shooter"),
-                             ("19-25 Oct", "Machining", "assembly began"), ("26 Oct-1 Nov", "Swerve built", "goBILDA parts here"),
-                             ("12 Nov", "Wollongong", "first event")])
-    pv = p.box(plan, "Planned on 10 October, and what happened", accent=True)
-    pv.table(pv.content, [["Week", "Planned", "What happened"],
-                          ["12-18 Oct", "finish the CAD; make the custom swerve parts",
-                           "goBILDA parts ordered; shooter redesigned and simplified; intake and transfer design done; "
-                           "ball tracking for autos started; hood and shooter code started"],
-                          ["19-25 Oct", "goBILDA parts may arrive; make the shooter and transition; assembly",
-                           "parts machined; assembly began"],
-                          ["26 Oct-1 Nov", "wiring, programming, fixing mechanical issues",
-                           "goBILDA parts arrived; swerve assembled"],
-                          ["2-8 Nov", "programming and drive practice", "<what happened>"]],
-             col_weights=[0.8, 1.7, 2.3])
-    l, r = p.cols(bottom, 1.15, 1)
+    top, plan, bottom = p.rows(p.area, 1.05, 1.15, 1.08)
+    tl = p.box(top, "2026-2027 season timeline")
+    r1, r2 = p.rows(tl.content, 1, 1)
+    tl.timeline(r1, [("15 Sep", "Schedule", "everyone adds free times"),
+                     ("17 Sep", "First meeting", "subgroups and roles chosen"),
+                     ("18 Sep", "Start", "design and code begin"),
+                     ("10 Oct", "Refocus", "turret cut"),
+                     ("26 Oct-1 Nov", "Swerve built", "goBILDA parts arrive"),
+                     ("12 Nov", "Wollongong", "first event")])
+    a, b = p.cols(r2, 3, 1.15)
+    tl.timeline(a, [("28 Nov", "Macquarie", "second event"),
+                    ("4-5 Dec", "Macquarie", "national competition"),
+                    ("28 Apr-1 May", "Worlds", "FTC World Championship")], dashed=True)
+    tl.text(b, [{"text": "Dotted line: events after Wollongong that we are planning for.", "size": 10,
+                 "colour": MUTED}])
+    pv = p.box(plan, "Planned on 10 October vs what happened", accent=True)
+    pv.stack(pv.content, [
+        ("text", ["On 10 October we held a major meeting to refocus our timeline, so the robot would be finished in "
+                  "time. We cut the turret (page 9) and planned each week:"]),
+        ("fill", 1, lambda rr: pv.table(rr, [
+            ["Week", "Planned", "What happened"],
+            ["12-18 Oct", "finish the CAD; make the custom swerve parts",
+             "goBILDA parts ordered; shooter redesigned and simplified; intake and transfer design done; ball "
+             "tracking for autos started; hood and shooter code started"],
+            ["19-25 Oct", "goBILDA parts may arrive; make the shooter and transition; assembly",
+             "parts machined; assembly began"],
+            ["26 Oct-1 Nov", "wiring, programming, fixing mechanical issues", "goBILDA parts arrived; swerve assembled"],
+            ["2-8 Nov", "programming and drive practice", "<what happened>"]], col_weights=[0.8, 1.7, 2.3]))])
+    l, r = p.cols(bottom, 1.55, 1)
     sc = p.box(l, "How we schedule")
-    sc.story(sc.content, [("How", "A spreadsheet shared with students and mentors shows who is free each week and what "
-                                  "work they are given."),
-                          ("Lesson", "It mostly worked, but an exam block and outreach made it hard to judge what each "
-                                     "week could really fit.")])
-    b = p.box(r, "This season's goals")
-    b.text(b.content, ["- Shoot from **anywhere** on the field",
-                       "- **Less waiting** between shots",
-                       "- Collect along the wall and shoot **without turning round**",
-                       "- Hold our spot against **defence**",
-                       "- Keep the robot **light**, so it moves more efficiently"])
+    sc.stack(sc.content, [
+        ("fill", 1, lambda rr: sc.picture(rr, A / "screenshots" / "scheduling_page.png",
+                                          "Our shared availability spreadsheet: who is free in each time slot, "
+                                          "subgroups and weekly meetings",
+                                          "Our availability spreadsheet (part)")),
+        ("text", ["A shared spreadsheet shows who is free each week and what work they are given. It mostly worked, "
+                  "but an exam block and outreach made it hard to judge what each week could really fit."])])
+    b2 = p.box(r, "This season's goals")
+    b2.text(b2.content, ["- Shoot from **anywhere** on the field",
+                         "- **Less waiting** between shots",
+                         "- Collect along the wall and shoot **without turning round**",
+                         "- Hold our spot against **defence**",
+                         "- Keep the robot **light**, so it moves more efficiently"])
 
 
 def p03_outreach(doc):
     p = doc.page("Outreach")
-    top, a_r, mid, bottom = p.rows(p.area, 0.34, 1.12, 1.7, 0.5)
-    stats(p, top, [("6", "members teach Darkinjung students"), ("Fortnightly", "since about February 2026"),
-                   ("1,500+", "people at Round Square"), ("About 32", "countries at Round Square")])
+    top, a_r, mid, bottom = p.rows(p.area, 0.34, 1.2, 1.78, 0.62)
+    stats(p, top, [("6", "of us teach Darkinjung students"), ("Fortnightly", "since February 2026"),
+                   ("1,500+", "people at Round Square"), ("32", "countries at Round Square")])
     a = p.box(a_r, "Teaching Darkinjung students", accent=True)
-    a.story(a.content, [("What", "**6 members** of our team (Ethan B., Brandon L., Chloe S., Ivy W., Ryan T. and "
-                                 "Will Q.) teach robotics to Darkinjung students **once a fortnight**, since about "
-                                 "February 2026."),
+    a.story(a.content, [("What", "Six of us (Ethan B., Brandon L., Chloe S., Ivy W., Ryan T. and Will Q.) teach "
+                                 "robotics to Darkinjung students **once a fortnight**, since February 2026."),
                         ("What they learn", "They built robots for this year's **VEX IQ** game and learnt how to "
                                             "build, how to code, how to do interviews and how to write portfolios."),
                         ("Impact", "Some of the students were in competitive teams and won **Skills**, "
                                    "**Teamwork Champion** and **Excellence** awards.")])
     d = p.box(mid, "Round Square International Conference")
-    ds, dp = p.cols(d.content, 1, 1.15)
-    d.picture(dp, PHOTOS / "round_square_2026-09-28.jpg",
+    ds, dp = p.cols(d.content, 1.15, 1)
+    d.picture(dp, PHOTOS / "round_square_rsic_2026.jpg",
               "Photo from above of our robotics showcase at the Round Square conference: fields, robots and visitors",
-              "Our robotics showcase at Round Square, 28 September 2026")
-    d.story(ds, [("What", "On **28 September 2026** Ivy W., Ethan B., Ryan T., Chelsey W., Chloe L., Isaac H., "
-                                 "Tina X. and Will Q. ran the robotics part of the conference at Barker."),
-                        ("Demos", "At the opening fair we showed robots driving, shooting, intaking and "
-                                  "scoring."),
-                        ("Reach", "**Over 1,500 people** from around **32 countries**, many of whom had not heard of "
-                                  "FIRST before.")])
+              "Our robotics showcase at Round Square")
+    d.story(ds, [("What", "In the Term 2-3 holidays eight of us (Ivy W., Ethan B., Ryan T., Chelsey W., Chloe L., "
+                          "Isaac H., Tina X. and Will Q.) ran the robotics part of the conference at Barker."),
+                 ("Demos", "At the opening fair we showed robots driving, shooting, intaking and scoring."),
+                 ("Reach", "**Over 1,500 people** from **32 countries**. Many of them had not heard of FIRST before."),
+                 ("For us", "It was a very rewarding experience, and it was great to see so many people there.")])
     l, r = p.cols(bottom, 1, 1)
-    b = p.box(l, "Mentoring VEX teams")
-    b.text(b.content, ["Ethan B., Isaac H. and Brandon L. mentor VEX teams."])
+    b = p.box(l, "Mentoring a VEX team")
+    b.text(b.content, ["Ethan B., Isaac H. and Brandon L. mentor the Darkinjung VEX team <team name>. It is very "
+                       "rewarding to watch the students flourish in VEX games and competitions."])
     c = p.box(r, "Barker VEX competition")
-    c.text(c.content, ["Ethan B., Isaac H. and Brandon L. volunteered."])
+    c.text(c.content, ["On **14 November 2026** Ethan B., Isaac H. and Brandon L. will referee and queue teams, and "
+                       "help the competition run smoothly."])
 
 
 def p04_process(doc):
@@ -229,14 +252,14 @@ def p04_process(doc):
                        "- Units were mixed (RPM, ticks, degrees): one unit per value now",
                        "- All the fixes are on page 12"])
     v = p.box(r, "Ideas we brought in")
-    v.story(v.content, [("From VEX", "Ethan B., Will Q., Ryan T. and Tina X. played VEX **Push Back**. The game was "
+    v.story(v.content, [("From VEX", "Ethan B., Will Q., Ryan T. and Tina X. competed in VEX **Push Back**. The game was "
                                      "very similar, so our matchloader follows the same idea (page 10)."),
                         ("From last season", "Swerve and logging carried over; the turret did not (page 9).")])
 
 
 def p05_strategy(doc):
     p = doc.page("Strategy and requirements")
-    top, mid, tab, bottom = p.rows(p.area, 0.42, 0.62, 1.1, 0.27)
+    top, mid, tab, bottom = p.rows(p.area, 0.4, 0.6, 1.3, 0.27)
     g = p.box(top, "How we play")
     g.text(g.content, ["<our scoring plan: what we score first, where we shoot from, our role with the alliance "
                        "partner>",
@@ -246,7 +269,10 @@ def p05_strategy(doc):
                            ("3", "Spin up", "flywheels and hood reach target"), ("4", "Settle", "ready for 0.1 s"),
                            ("5", "Feed", "pollen goes to the shooter")])
     r = p.box(tab, "Requirements, and how the robot meets each", accent=True)
-    r.table(r.content, [["We need to", "Why", "Our answer"],
+    rt, rn = p.rows(r.content, 3.4, 1)
+    r.text(rn, [r.head("How well it worked"),
+                "<a few sentences on how well each answer worked on the robot>"])
+    r.table(rt, [["We need to", "Why", "Our answer"],
                         ["Shoot from anywhere", "fewer trips across the field", "moving hood"],
                         ["Shoot quickly, again and again", "less waiting between shots", "two flywheels"],
                         ["Shoot without turning round", "pollen collects along the wall", "rear-facing shooter"],
@@ -405,8 +431,8 @@ def p10_loader(doc):
     top, mid, bottom = p.rows(p.area, 0.92, 0.95, 0.82)
     l, r = p.cols(top, 1, 1)
     m = p.box(l, "Matchloader", accent=True)
-    m.story(m.content, [("Idea", "Four of us played VEX **Push Back**, a very similar game. We used the same kind "
-                                 "of matchloader for the flower."),
+    m.story(m.content, [("Idea", "Four of us competed in VEX **Push Back**. That game is very similar, so we used the "
+                                 "same kind of matchloader for the flower."),
                         ("Problem", "<what the matchloader fixes, with a number>"),
                         ("Result", "Not tested yet: the robot is not finished.")])
     b = p.box(r, "Blocker and gate")

@@ -26,6 +26,7 @@ from pathlib import Path
 
 from lxml import etree
 from pptx import Presentation
+from pptx.enum.dml import MSO_LINE
 from pptx.enum.shapes import MSO_CONNECTOR, MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.oxml.ns import qn
@@ -461,19 +462,23 @@ class Box:
                         {"text": role.upper(), "colour": KEY, "bold": True, "size": SMALL, "after": 2}]
                        + ([{"text": note, "colour": MUTED, "size": SMALL}] if note else []), anchor=MSO_ANCHOR.MIDDLE)
 
-    def timeline(self, r, items):
-        """Horizontal season timeline: [(when, title, text)]; square yellow nodes on a yellow line."""
+    def timeline(self, r, items, dashed=False):
+        """Horizontal season timeline: [(when, title, text)]; square yellow nodes on a yellow line.
+        dashed=True: a dotted line and hollow nodes, for planned events that have not happened yet."""
         n = len(items)
         cw = r.w / n
         when_h = SMALL * LEADING + 0.3 * G
         node = 0.9 * G
         ly = r.y + when_h + node / 2
-        _straight(self.page.slide, r.x + cw / 2, ly, r.r - cw / 2, ly, STROKE, 2)
+        ln = _straight(self.page.slide, r.x + cw / 2, ly, r.r - cw / 2, ly, STROKE, 2)
+        if dashed:
+            ln.line.dash_style = MSO_LINE.ROUND_DOT
         for i, (when, title, text) in enumerate(items):
             cx = r.x + (i + 0.5) * cw
             self.write(Rect(cx - cw / 2, r.y, cw, when_h), [{"text": when.upper(), "size": SMALL, "bold": True,
                        "colour": KEY, "align": PP_ALIGN.CENTER, "after": 0}])
-            s = _shape(self.page.slide, MSO_SHAPE.RECTANGLE, Rect(cx - node / 2, ly - node / 2, node, node), NODE, SHAPE_LINE, 0.75)
+            s = _shape(self.page.slide, MSO_SHAPE.RECTANGLE, Rect(cx - node / 2, ly - node / 2, node, node),
+                       None if dashed else NODE, STROKE if dashed else SHAPE_LINE, 1.2 if dashed else 0.75)
             s.rotation = 45
             body = Rect(cx - cw / 2 + 0.2 * G, ly + node / 2 + 0.5 * G, cw - 0.4 * G, r.b - (ly + node / 2 + 0.5 * G))
             paras = [{"text": title, "bold": True, "align": PP_ALIGN.CENTER, "after": 2},
