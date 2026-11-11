@@ -7,8 +7,8 @@ date, then uses it on the pages. Notes are the team's words: Claude does not add
 
 - Event: FTC Wollongong, **Thursday 12 November 2026**. The portfolio is **printed** (user, 2026-11-06); earlier a PDF
   upload was recorded: **ask the Event Director** if an upload is also needed, and by when.
-- Current version: `outputs/portfolio/portfolio_v10.pdf` (cover + 15 pages, option A; pictures in
-  `outputs/portfolio/pages_v10/`). Marking review: `outputs/reviews/marking_loop.md` (57 / 100 on v03's content,
+- Current version: `outputs/portfolio/portfolio_v12.pdf` (cover + 15 pages, option A; pictures in
+  `outputs/portfolio/pages_v12/`). Marking review: `outputs/reviews/marking_loop.md` (57 / 100 on v03's content,
   judgement). **The robot is not finished** (2026-11-05: user said not built; 2026-11-10 notes: swerve assembled
   26 Oct-1 Nov): every robot test shows "not finished yet / NOT TESTED" until it is.
 
@@ -18,6 +18,24 @@ date, then uses it on the pages. Notes are the team's words: Claude does not add
 
 ### Decide first (2026-11-06)
 Look: **A chosen** (white, yellow bands), the default. Yellow: **keep #F5E660** (user, 2026-11-06). Both done.
+
+### What the example portfolios have that ours still lacks (2026-11-11)
+Looked at 22105, 1002 and 12635 again. All three have, on almost every page: **real photos** of the robot, the build and
+prototypes; **hand sketches and brainstorming**; **V1 to V4 iteration rows with photos** and pros and cons for each
+mechanism; **graphs and test data** next to the maths; **comparison tables** that show why one option won; a **team photo**
+with every member; **quotes** from named members; and an outreach section with photos and numbers. Ours has CAD line
+drawings, tables and plain text, but **no photos at all** except Round Square. What the team can add (best first):
+1. Photos of the robot and the build (any stage, labelled with the date), and a team photo (page 1).
+2. Photos of hand sketches, whiteboards and brainstorming (page 4).
+3. For one mechanism, two or more versions with a photo of each and what was wrong or right about it (turret, swerve pod).
+4. A scored comparison table for drivetrain and shooter (QUESTIONS 25, 26).
+5. Test data and graphs once the robot runs (QUESTIONS 1-11).
+6. One short quote from a named member on each mechanism page.
+7. Photos from outreach (Darkinjung sessions, the Barker VEX competition on 14 November).
+
+**Rule from the user (2026-11-11):** the "How well it worked" note on page 5 needs a few sentences on how well each answer
+worked. If it is still empty five versions after v11 (v16), ask the user before writing that the answers were "overall
+successful", and write only what the logs prove.
 
 ### The team (most marks first)
 **Easiest way: answer the questions in [QUESTIONS.md](QUESTIONS.md)** (77 questions, each tied to a page; 1-20 answered). The table below is the same work, grouped.
@@ -31,11 +49,11 @@ Look: **A chosen** (white, yellow bands), the default. Yellow: **keep #F5E660** 
 | 3 | Outreach: number of Darkinjung students and sessions and since when; VEX teams mentored; dates of the Barker VEX competition and Round Square conference; people reached | 3 | Ethan B. | partly, v03: Darkinjung and Round Square in; VEX mentoring and Barker comp numbers unknown |
 | 4 | Photos: team, members, outreach (into `assets/inbox/`); Round Square photo added in v08; a Darkinjung photo would help | 1, 3 | anyone | |
 | 5 | Scores comparing swerve / mecanum / tank, and intake V1 / V2 (a decision matrix) | 7, 8 | Ethan B., Brandon L. | |
-| 6 | Strategy: how we play, what scouting records, why the matchloader | 5, 10 | Will Q., Chloe S., Tina X. | |
+| 6 | Strategy: how we play, what scouting records, why the flower mechanism | 5, 10 | Will Q., Chloe S., Tina X. | |
 | 7 | Build and maintenance: robot mass, time to swap a pod, printed vs bought parts, part count | 6, 7 | Lucas T., Chloe L. | |
 | 8 | Intake V1: what worked and what went wrong; any V2 downsides | 8 | Tina X. | |
 | 9 | What the blocker stops; are the cameras working on the robot; when we meet and how we decide | 1, 10 | anyone | meetings and decisions done (v03); blocker and cameras open |
-| 10 | Print one page of v10 (page 8 or 9): check the yellow and whether the edge bar reaches the paper's edge | | anyone | |
+| 10 | Print one page of v12 (page 8 or 9): check the yellow and whether the edge bar reaches the paper's edge | | anyone | |
 | 11 | Confirm the meeting notes in part B marked **check** | | Ethan B. | |
 
 ### Claude (when the team's items come in)
@@ -70,7 +88,7 @@ Look: **A chosen** (white, yellow bands), the default. Yellow: **keep #F5E660** 
 ### Earlier answers (2026-11-05, in `logs/PREFERENCES.md`)
 Turret reasons (time, weight and space, complex, fewer motors/servos); why swerve (X-lock, knew it, speed and
 pushing, aim while driving); intake V1 printed funnels with front gecko wheels; shooter goals (two flywheels, moving
-hood, rear-facing because pollen collects along the wall); matchloader from VEX Push Back; cameras (front: pathing to
+hood, rear-facing because pollen collects along the wall); flower mechanism from VEX Push Back; cameras (front: pathing to
 pollen, rear: AprilTags); transition sketch sizes (pollen 71.12 mm, rollers 50 mm, gecko 48 and 32 mm, belt spacing
 45, 58.5, 54, 44 mm, cross-section 70.413 mm).
 

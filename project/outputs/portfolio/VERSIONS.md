@@ -16,3 +16,5 @@
 | portfolio_v08.pptx | 2026-11-10 | v08: Round Square photo on the outreach page (replaces the empty photo frame) |
 | portfolio_v09.pptx | 2026-11-10 | v09: turret meeting (10 Oct) and plan against what happened; scheduling; Round Square demos; 'not finished' instead of 'not built' |
 | portfolio_v10.pptx | 2026-11-10 | v10: cover's top drawing trimmed and enlarged to fill the space; number box matches it |
+| portfolio_v11.pptx | 2026-11-11 | v11: your 2026-11-10 page edits (roles, how we split and run the work, season timeline, 10 Oct meeting, schedule image, outreach, requirements note); first-person and wording clean-up not yet done |
+| portfolio_v12.pptx | 2026-11-11 | v12: your 2026-11-11 corrections, plain first-person wording, CAD process example, game points table, flower mechanism, new shooter drawing |

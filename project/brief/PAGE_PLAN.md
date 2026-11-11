@@ -17,7 +17,7 @@ needed (the hand-in check fails until it is filled).
 | 7 | Swerve drivetrain | N T D | why swerve (compared with mecanum and tank, scored table), 4 pods, goBILDA motors + super servos, 239 x 239 mm module spacing, 60.9 mm wheels, calculated top speed (marked calculated) | you, code, CAD | needs pod photos/CAD; real speed `<RESULT>` |
 | 8 | Intake and transition | N D | vector + gecko wheels linked to the transition, 2 motors, 3 beam sensors count balls, gate servo; iterations | you, code, photos | needs versions tried and why changed |
 | 9 | Shooter and hood | N T | 2-motor wheel, PIDF speed control, Axon Max hood, shot lookup table; maths: launch angle and speed from distance | code, photos | real shots in per 10 `<RESULT>` |
-| 10 | Matchloader, blocker and gate | N D | Push Back-style matchloader for the flower, blocker, gate (3 Axon servos); challenge -> solution for each | you, photos/CAD | needs what each one fixed |
+| 10 | Flower mechanism, blocker and gate | N D | Push Back-style flower mechanism for the flower, blocker, gate (3 Axon servos); challenge -> solution for each | you, photos/CAD | needs what each one fixed |
 | 11 | Control system map | C | every motor, servo and sensor: the challenge it solves and its function (table + wiring sketch); control hub / expansion hub | code (hardware names) | ready to draft |
 | 12 | Software and simulation | C N | shared code runs on the robot and in our simulator; logging and replay; battery and motor-current health checks; 24 automated tests | code | ready to draft |
 | 13 | Auto-aim and shooting on the move | C T | rear shooter, so the chassis turns to aim (heading PD + feedforward, 2.5 degree tolerance); shot solver allows for robot speed; maths shown | code | sim results only; real `<RESULT>` |
@@ -35,5 +35,5 @@ needed (the hand-in check fails until it is filled).
 Judges want to know **why**, not only what is there. Each mechanism page (7-10, 13) gets: what we wanted (goals),
 what we tried (iterations with pros and cons), what we changed and why, then tests. Stories so far: turret (last
 season, then CAD + code this season, removed 12 Oct 2026) -> fixed rear shooter; intake (printed funnels with gecko
-wheels at the front -> vector + gecko wheels linked to the transition); shooter and hood goals; matchloader from VEX
+wheels at the front -> vector + gecko wheels linked to the transition); shooter and hood goals; flower mechanism from VEX
 Push Back (Ethan B., Will Q., Ryan T., Tina X.). Shown in `outputs/portfolio/format_sample_v02` page 3.

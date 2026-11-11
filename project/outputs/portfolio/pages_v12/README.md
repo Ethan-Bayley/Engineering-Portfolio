@@ -1,6 +1,6 @@
-# Portfolio v10 pages
+# Portfolio v12 pages
 
-Images of `../portfolio_v10.pdf` (1240 px wide), for viewing on GitHub. The PDF is the print copy.
+Images of `../portfolio_v12.pdf` (1240 px wide), for viewing on GitHub. The PDF is the print copy.
 
 ![Page 0](00_cover.png)
 ![Page 1](01_team.png)

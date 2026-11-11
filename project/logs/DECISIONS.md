@@ -258,3 +258,27 @@ Append new entries at the bottom, with the date. See skill `log-work`.
 
 ## 19. Portfolio v10: bigger cover drawing (2026-11-10)
 - **What (user asked):** the cover's top robot drawing fills most of the white space. It is now cut to what is drawn (`trimmed()` in the build script saves `<name>_trim.png`; the original had empty margins of about 10 %) and placed in a box 330 pt high instead of 270 pt, about 1.4 x wider on the page. The team-number box grows to the same height. Nothing else changed.
+
+## 20. Portfolio v11: saved as it stood (2026-11-11)
+- The user asked for v11 "as it is" while I was partway through a first-person pass. `portfolio_v11.pdf` has their
+  2026-11-10 page edits (roles, how we split and run the work, season timeline, 10 Oct meeting, schedule image, outreach,
+  requirements note) but not the wording clean-up. Superseded by v12.
+
+## 21. Portfolio v12: corrections, plain wording, and what the examples have (2026-11-11)
+- **Manual TU08** (read for this): max 4 scoring elements controlled (G407) and 4 pollen preloaded per robot: so 4, not 3;
+  a HIVE TIP is 20 points in auto and in teleop and needs a launch into the upward cell (10.5.1); tips also give ranking
+  points at 4 and 7 tips at most events; R503 limits a robot to 8 motors and 8 servos (we use 8 and 8); portfolio rules
+  A201/A202 unchanged (printed copy by default). Page 5 now has "What scores points" from Table 10-2.
+- **Examples** (22105, 1002-2, 12635, all US Letter, 16 pages): see NEXT_STEPS "What the example portfolios have that ours
+  still lacks": mainly real photos, iteration photos, graphs, comparison tables, team photo and quotes. v12 adds the CAD
+  process example, a game-points table and design choices; the rest needs the team's evidence.
+- **Rewritten** (all 15 pages) in the first person with plain headings. Removed: Numbers, belt spacing, pollen-touch maths,
+  V1 printed funnels, "again", "in our code", the AI-sounding box names. Renamed matchloader to flower mechanism everywhere
+  in the pages, questions and notes (older logs keep the team's words).
+- **Beam sensors:** the pages say 4 (user, and G407). The code on branch `Isaac` still counts to 3: QUESTIONS 82.
+- **Two readings to check:** the user said "exploded turret isometric" but the image shows the fixed shooter, so it is on
+  page 9 labelled flywheel, hood and motor (QUESTIONS 83); first team meeting was 17 Sep, then 18 Sep (QUESTIONS 81).
+- **Not done:** the Darkinjung team name (placeholder), "champs, Wollongong, Macquarie" for the 14 Nov competition (not
+  clear what to say: QUESTIONS 79), more season goals (80).
+- **Image:** new line drawing saved as `assets/cad/linework_light/shooter/shooter_exploded_iso_lines.png` (black lines made
+  see-through, original in `assets/cad/screenshots/shooter/`).

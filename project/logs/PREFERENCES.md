@@ -120,3 +120,20 @@ Append new entries at the bottom, with the date. See skill `log-work`.
 - The mentoring write-up's author asked for it not to be put into Claude, so it is not used until the user confirms.
 - Round Square timing conflict to settle: "Term 2-3 holidays" in the write-up against 28 September 2026 given earlier.
 - 2026-11-10: make the cover's top drawing fill most of the white space.
+
+## 2026-11-11: corrections and answers (user, pasted)
+- Answers: Round Square was in the **Term 2-3 holidays**; the mentoring team is **Darkinjung**.
+- Writing: first person for the team ("we learned"); never the "noun, noun phrase," construction; do not sound like AI
+  (slogan headings such as "One robot, many branches" were removed). Saved to memory.
+- Page 1: Tina X. is Programming; add what CAD, code, strategy and assembly did; meetings every week, subteam and
+  whole-team meetings. Page 2: timeline named "2026-2027 season timeline" with 15 Sep, 18 Sep, 10 Oct and a dotted line for
+  28 Nov (Macquarie), 4-5 Dec (nationals) and 28 Apr-1 May (worlds); plan vs what happened; schedule image; season goals
+  (win nationals, qualify for worlds). Page 3: no "about"; Round Square "very rewarding"; mentoring team; Barker VEX
+  competition on 14/11 as referee and queuer.
+- Page 4: show the CAD process; replace "One robot, many branches"; "competed in" Push Back; drop "the turret did not".
+- Possession limit is 4 (rule G407), so 4 beam sensors. Removed: the Numbers box, belt spacing, the pollen-touch maths, the
+  V1 printed funnels. "Chassis", "Why swerve" without "again", "Range" without "in our code".
+- There is no matchloader in this game: call it the **flower mechanism**. The blocker stops opponents from shooting.
+  The robot has a very small frame perimeter, which makes defence easier to avoid.
+- New image: an exploded shooter line drawing (the user called it "turret"; it shows the fixed shooter).
+- Asked me to look at the three example portfolios again (22105, 1002, 12635) and the manual TU08.

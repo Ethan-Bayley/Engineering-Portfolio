@@ -62,7 +62,7 @@ Tests: say how many tries, the date and the conditions (e.g. "8 of 10 from the f
     **Answer:**
 22. **Scouting:** what do Jemima C., Chelsey W., Chloe L. and Tina X. record, and how has it changed a plan? (5)
     **Answer:**
-23. **Matchloader:** what problem does it fix in the game, and how long does it take to load the flower (s)? (5, 10)
+23. **Flower mechanism:** what problem does it fix in the game, and how long does it take to load the flower (s)? (5, 10)
     **Answer:**
 24. **Blocker:** what does the blocker stop? (10)
     **Answer:**
@@ -194,8 +194,8 @@ Deeper questions per subsystem, from your drawings and the code (branch `Isaac`)
 67. **The decision:** when did you decide to drop it, who decided, and was anything from it reused?
     **Answer:** (2026-11-10, meeting notes) Decided at a team meeting on 10 October 2026 (Brandon L., Ethan B., Isaac H., Ryan T., Will Q., Ivy W.): regionals four weeks away, goBILDA parts delayed, turret least necessary. (used in v09, page 9)
 
-## Matchloader, blocker and gate (page 10)
-68. **Matchloader:** how does it work (what moves, which servo), and what did you copy or change from the VEX Push
+## Flower mechanism, blocker and gate (page 10)
+68. **Flower mechanism:** how does it work (what moves, which servo), and what did you copy or change from the VEX Push
     Back design?
     **Answer:**
 69. **Blocker:** where is it, what does it block, and when does it move?
@@ -228,4 +228,24 @@ Deeper questions per subsystem, from your drawings and the code (branch `Isaac`)
     **Answer:**
 77. **Labels:** please check what I called the parts in the drawings, especially "flywheel(s)" and "hood" on page 9,
     "angle sensor" on page 7 and "in, up, out" on page 6. (6, 7, 9)
+    **Answer:**
+
+## From the 2026-11-11 corrections (added 2026-11-11)
+78. **Darkinjung VEX team:** what is the team's name and number? (3)
+    **Answer:**
+79. **Barker VEX competition, 14 November:** you asked me to mention "champs, Wollongong, Macquarie". What should it say
+    (for example how this competition leads to those events)? (3)
+    **Answer:**
+80. **Season goals:** page 2 lists "win the national competition" and "qualify for the FTC World Championship". What else
+    do you want (you wrote "etc")? (2)
+    **Answer:**
+81. **First team meeting:** you first said 17 September (subteams and roles chosen) and 18 September (design and
+    programming began), then "our first team meeting was 18 September". The portfolio now says 18 September: what did you
+    plan at that meeting? (2)
+    **Answer:**
+82. **Beam sensors:** the page now says 4 (you asked, and rule G407 allows 4). The code on branch `Isaac` still counts to 3
+    (empty, one, two, full). Which is right on the robot? (8, 10, 11)
+    **Answer:**
+83. **Exploded shooter image:** I used your new image as the shooter's exploded view and labelled the flywheel, hood and
+    motor. Is that what it shows, and are the labels right? (9)
     **Answer:**
