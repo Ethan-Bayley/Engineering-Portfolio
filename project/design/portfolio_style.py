@@ -201,7 +201,7 @@ def write(slide, r, paras, size=BODY, colour=TEXT, bold=False, italic=False, fon
             pPr.set("indent", str(-Pt(s * 1.1)))
             bc = etree.SubElement(pPr, qn("a:buClr"))
             etree.SubElement(bc, qn("a:srgbClr"), val=KEY)
-            etree.SubElement(pPr, qn("a:buSzPct"), val="70000")
+            etree.SubElement(pPr, qn("a:buSzPct"), val="100000")
             etree.SubElement(pPr, qn("a:buChar"), char="■")        # square bullet, shrunk (Montserrat has U+25A0, not U+25AA)
         for t, c, b in runs(txt, p.get("colour", colour)):
             run = para.add_run()

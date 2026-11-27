@@ -53,6 +53,8 @@ yellow labels with curved arrows, Montserrat. Judges get a printed copy by defau
 - Hand-in check: `python general/tools/hand_in_check.py --deliverable portfolio --max-pages 16 --max-mb 15 --min-pt 10`.
 
 ## Status
+**2026-11-11: the robot is built and tested; first results are on pages 7, 8, 9, 13 and 14 (tries and dates still missing).**
+
 **Next steps and the team's meeting notes: [NEXT_STEPS.md](NEXT_STEPS.md)** (skill `portfolio-notes`; read it with this file).
 
 2026-11-04: set up from project-template in the user's empty Engineering-Portfolio repo. Evidence the team has: robot

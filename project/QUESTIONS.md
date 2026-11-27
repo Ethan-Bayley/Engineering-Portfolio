@@ -13,19 +13,19 @@ Tests: say how many tries, the date and the conditions (e.g. "8 of 10 from the f
 
 ## Robot tests (pages 7, 8, 9, 11, 13, 15)
 1. **Shots in from 3 distances:** how many go in out of 10 from close, middle and far? Distances in metres? (9, 15)
-   **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested)
+   **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested) (2026-11-11) All but 1 from the furthest distance made it in. Missing: how many shots, and the other two distances. (page 9)
 2. **Shooting while moving:** how many in out of 10 while driving? While still? (13)
-   **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested)
+   **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested) (2026-11-11) While still 3 of 3; while moving 2 of 3. (page 13)
 3. **Time between shots:** seconds from one shot to the next in a burst. (9)
-   **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested)
+   **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested) (2026-11-11) Less than 0.1 s. Missing: how you measured it. (page 9)
 4. **Flywheel speed drop:** how far does the speed drop per shot, and how long to recover? (11) If not measured, say so.
-   **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested)
+   **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested) (2026-11-11) About 200 encoder ticks (page 11). Not given: the unit (ticks per second?), the recovery time.
 5. **Top speed:** metres per second, or seconds to cross the field. (7, 15)
-   **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested)
+   **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested) (2026-11-11) 250 cm/s. (page 7)
 6. **X-lock push test:** when another robot pushes us in X-lock, how far do we move (mm), compared with not locked? (7)
-   **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested)
+   **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested) (2026-11-11) It did not move. Missing: what pushed it, how hard, how many tries. (page 7)
 7. **Intake jams:** how many jams in 20 pickups? (8, 15)
-   **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested)
+   **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested) (2026-11-11) 1 jam, solved by reversing the rollers. Missing: out of how many pickups. (page 8)
 8. **Aim error:** how far off the goal (degrees) does auto-aim stop on the real robot? (13)
    **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested)
 9. **Shooter calibration:** have you measured hood travel, the release point and wheel speed to ball speed? When? (12)
@@ -33,13 +33,13 @@ Tests: say how many tries, the date and the conditions (e.g. "8 of 10 from the f
 10. **Matches:** how many matches or practice matches, and in how many did the robot work all match? Faults and fixes? (15)
     **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested)
 11. **Cameras:** are the front (pollen) and rear (AprilTag) cameras working on the robot yet? (10)
-    **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested)
+    **Answer:** (2026-11-05) Don't know yet: the robot has not been built. (used in v03: shown as not tested) (2026-11-11) Yes, both cameras work (page 10). Not given: how well pollen pathing and AprilTags work.
 
 ## Outreach (page 3)
 12. **Darkinjung students:** how many students, how many sessions, since which month? (3)
-    **Answer:** (2026-11-05) 7 students from our team go (corrected 2026-11-09: **6**: Ethan B., Brandon L., Chloe S., Ivy W., Ryan T. and Will Q.), once every fortnight, since about February. Number of Darkinjung students not given. (used in v03)
+    **Answer:** (2026-11-05) 7 students from our team go (corrected 2026-11-09: **6**: Ethan B., Brandon L., Chloe S., Ivy W., Ryan T. and Will Q.), once every fortnight, since about February. Number of Darkinjung students not given. (used in v03) (2026-11-12) **Over 20** Darkinjung students, **about 15** sessions since February. (used in v37)
 13. **Darkinjung students:** what did they build or learn? One example. (3)
-    **Answer:** (2026-11-05) They built robots for this year's VEX IQ game and learnt how to build, how to code, how to do interviews and how to write portfolios. Some of the Darkinjung kids were in competitive teams and won Skills, Teamwork Champion and Excellence awards. (used in v03)
+    **Answer:** (2026-11-05) They built robots for this year's VEX IQ game and learnt how to build, how to code, how to do interviews and how to write portfolios. Some of the Darkinjung kids were in competitive teams and won Skills, Teamwork Champion and Excellence awards. (used in v03) (2026-11-12) Students formed their own teams and competed for the first time; they won a couple of awards with our help. For our team: teaching made us better at explaining (e.g. interviews) and taught leadership. (used in v37)
 14. **VEX mentoring:** how many VEX teams do Ethan B. and Isaac H. mentor, how many students, how often? (3)
     **Answer:** (2026-11-05) Don't know. (v03 keeps the activity without numbers)
 15. **VEX mentoring:** any result, e.g. a team's award or first competition? (3)
@@ -55,17 +55,17 @@ Tests: say how many tries, the date and the conditions (e.g. "8 of 10 from the f
 19. **Decisions:** how does the team decide (vote, leads decide, test both)? An example. (1)
     **Answer:** (2026-11-05) People usually make decisions within their specialty (e.g. mechanics decide about mechanical things) and tell the team about the changes. (used in v03)
 20. **Build dates:** planned and actual dates for CAD finished, robot built, first drive. (2)
-    **Answer:** (2026-11-10) Partly, from the 10 Oct meeting notes: planned and actual work for 12 Oct to 1 Nov (no dates for 2-8 Nov). (used in v09, page 2)
+    **Answer:** (2026-11-10) Partly, from the 10 Oct meeting notes: planned and actual work for 12 Oct to 1 Nov (no dates for 2-8 Nov). (used in v09, page 2) (2026-11-11) Dropped: the plan-vs-happened box was removed from page 2.
 
 ## Strategy (pages 5, 10)
 21. **How we play:** what do you score first, where do you shoot from, what is your role with the alliance partner? (5)
-    **Answer:**
+    **Answer:** (2026-11-12) Our strategy: score pollen to maximise RP; outscore teams to maximise output; cycle fast and be robust; a simple robot that can be made quickly (page 5). Not given: what we score first, where we shoot from, our role with an alliance partner.
 22. **Scouting:** what do Jemima C., Chelsey W., Chloe L. and Tina X. record, and how has it changed a plan? (5)
-    **Answer:**
+    **Answer:** (2026-11-11) I wrote two sentences on why scouting helps and what we use it for (page 5), from general purpose only: please check they match what you do.
 23. **Flower mechanism:** what problem does it fix in the game, and how long does it take to load the flower (s)? (5, 10)
-    **Answer:**
+    **Answer:** (2026-11-11) It empties the flower really well, in under a second (page 10). Not given: the problem it fixes in the game, how many tries.
 24. **Blocker:** what does the blocker stop? (10)
-    **Answer:**
+    **Answer:** (2026-11-11) Not needed: there will be no blocker at competition, so it was removed from the portfolio.
 
 ## Comparing options (pages 7, 8)
 25. **Drivetrain scores:** score swerve, mecanum and tank out of 5 for each: speed, pushing power, aim while driving,
@@ -83,7 +83,7 @@ Tests: say how many tries, the date and the conditions (e.g. "8 of 10 from the f
 29. **Weight saving:** robot mass (kg), and what you lightened or cut out (e.g. pocketed plates, printed parts). (6, 7)
     **Answer:**
 30. **Maintenance:** how long does it take to swap a swerve pod or fix the intake? (6, 7)
-    **Answer:**
+    **Answer:** (2026-11-11) 3 minutes to swap a pod (my reading of your answer; page 7). Fixing the intake: not given.
 31. **Parts:** which parts are printed, cut or bought? Any custom parts you are proud of? (6)
     **Answer:**
 32. **Polycarbonate ramps:** is "6 mm" right? Is the curved guide on page 8 the ramp? (8)
@@ -93,11 +93,11 @@ Tests: say how many tries, the date and the conditions (e.g. "8 of 10 from the f
 
 ## Autonomous (page 14)
 34. **Route:** photo of the hand-drawn route into `project/assets/inbox/`. Done? (14)
-    **Answer:**
+    **Answer:** (2026-11-11) Sent the hand-drawn route and a blank field. Redrawn on page 14 in v15 (DECISIONS 24): please check the line and its direction.
 35. **Steps:** each step of the route and the points it scores. (14)
-    **Answer:**
+    **Answer:** (2026-11-11) 1 shoot (causing a tip), 2 get pollen from the flower, 3 go to the shooting position on the other side, 4 shoot, 5 collect pollen from the flower, 6 shoot, 7 park. Used in v21. Still open: do shots 4 and 6 cause tips (20 points each), or score something else? (2026-11-11) Shot 2 (step 4) scores nothing; shot 3 (step 6) scores 20 (a tip). Total 45 with park. Used in v23.
 36. **When:** when will the autonomous be running, and has any part been tested? (14)
-    **Answer:**
+    **Answer:** (2026-11-11) Not needed: the autonomous routes are running and very consistent. Missing: how many runs and how many scored.
 
 ## Looking back (page 15)
 37. **Next design change:** what is the next thing you want to change on the robot, and why? (15)
@@ -137,7 +137,7 @@ Deeper questions per subsystem, from your drawings and the code (branch `Isaac`)
 47. **Frame:** what material and thickness is the chassis, and why the triangle pocketing in the drawings?
     **Answer:**
 48. **Weight saving:** robot mass now (kg)? Mass before pocketing or an earlier version, if you know it?
-    **Answer:**
+    **Answer:** (2026-11-11) Robot mass 6.5 kg (page 6). What was lightened: not given.
 49. **Layout:** why pods in the corners at 239 x 239 mm, and why this robot size (407.7 x 327.0 mm)?
     **Answer:**
 
@@ -145,7 +145,7 @@ Deeper questions per subsystem, from your drawings and the code (branch `Isaac`)
 50. **What it is:** what encoders and wheels are in the odometry pod, and is it spring-loaded onto the floor?
     **Answer:**
 51. **Why:** why design your own pod, and what will it fix compared with wheel + IMU odometry? When will the code use it?
-    **Answer:**
+    **Answer:** (2026-11-11) Page 11 has a placeholder for the reason: please answer. (2026-11-11) We chose odometry and the IMU instead of motor encoders because it is much more accurate (page 11).
 
 ## Intake (page 8)
 52. **Mecanum rollers:** why mecanum (vector) rollers at the front: do they centre the pollen? How wide is the intake?
@@ -199,7 +199,7 @@ Deeper questions per subsystem, from your drawings and the code (branch `Isaac`)
     Back design?
     **Answer:**
 69. **Blocker:** where is it, what does it block, and when does it move?
-    **Answer:**
+    **Answer:** (2026-11-11) No blocker at competition: removed.
 70. **Gate:** how far does the gate servo move, and why a gate instead of just stopping the transition?
     **Answer:**
 
@@ -222,7 +222,7 @@ Deeper questions per subsystem, from your drawings and the code (branch `Isaac`)
 75. **Lookup table or solver:** the team said a lookup table picks flywheel speed and hood angle. On branch `Isaac` the
     table exists but is empty and nothing calls it: the robot's code uses a gravity solver (`RearAim`, `Ballistics`).
     Which will the robot really use? Pages 9 and 13 currently say both: solver now, table once measured. (9, 13)
-    **Answer:**
+    **Answer:** (2026-11-11) Not answered: page 13 says the solver, with the table as the alternative.
 76. **X-lock:** page 7 gives X-lock as a reason for swerve, but there is no X-lock code on branch `Isaac` yet. Is it
     planned, or on another branch? (7)
     **Answer:**
@@ -232,20 +232,36 @@ Deeper questions per subsystem, from your drawings and the code (branch `Isaac`)
 
 ## From the 2026-11-11 corrections (added 2026-11-11)
 78. **Darkinjung VEX team:** what is the team's name and number? (3)
-    **Answer:**
+    **Answer:** (2026-11-11) Darkinjung Maliyan. (used in v13, page 3)
 79. **Barker VEX competition, 14 November:** you asked me to mention "champs, Wollongong, Macquarie". What should it say
     (for example how this competition leads to those events)? (3)
     **Answer:**
 80. **Season goals:** page 2 lists "win the national competition" and "qualify for the FTC World Championship". What else
     do you want (you wrote "etc")? (2)
-    **Answer:**
+    **Answer:** (2026-11-11) "Just add whatever season goals, make them up." I drafted three more from what you have told me (judged awards, a consistent robot, keep teaching): please confirm or change them. (used in v13, page 2)
 81. **First team meeting:** you first said 17 September (subteams and roles chosen) and 18 September (design and
     programming began), then "our first team meeting was 18 September". The portfolio now says 18 September: what did you
     plan at that meeting? (2)
-    **Answer:**
+    **Answer:** (2026-11-11) 18 September (used on page 2). What you planned at that meeting: not given.
 82. **Beam sensors:** the page now says 4 (you asked, and rule G407 allows 4). The code on branch `Isaac` still counts to 3
     (empty, one, two, full). Which is right on the robot? (8, 10, 11)
-    **Answer:**
+    **Answer:** (2026-11-11) 3 beam sensors. (used in v13, pages 8, 10, 11) Open: the rule allows holding 4 pollen: how many can the robot hold?
 83. **Exploded shooter image:** I used your new image as the shooter's exploded view and labelled the flywheel, hood and
     motor. Is that what it shows, and are the labels right? (9)
+    **Answer:** (2026-11-11) It is the shooter, not the turret. (used on page 9)
+84. **How many pollen can the robot hold?** Rule G407 allows 4 at a time and each robot starts with 4. The robot has 3 beam
+    sensors and the code treats 3 as full. Does the robot hold 3, or 4 (for example 3 in the transition and 1 in the
+    shooter)? (5, 8)
+    **Answer:** (2026-11-11) The robot holds 4 pollen. Used on pages 5, 8 and 10. Open: where the 4th one sits (the 3 beam sensors count up to 3).
+
+## For the "Choices we compared" sections (added 2026-11-11)
+85. **Ramps (page 8):** what did you compare the polycarbonate ramps with (for example printed ramps, or no ramp)? What thickness?
+    **Answer:** (2026-11-11) Compared with 3D printed ramps (page 8). Thickness not given.
+86. **Flower mechanism and blocker (page 10):** what else did you consider for each, and why did you choose these?
+    **Answer:** (2026-11-11) Flower mechanism instead of side vertical intake wheels (page 10) (my reading of the order of the answers: please confirm). Blocker removed. (2026-11-11) Yes, correct: side vertical intake wheels are the alternative to the flower mechanism.
+87. **Shooter (page 9):** please check the three "instead of" cells I filled from your words: two flywheels instead of one, a moving
+    hood instead of a fixed hood, a rear-facing shooter instead of a front-facing one. Are those the options you compared?
+    **Answer:** (2026-11-11) Yes, correct: two flywheels instead of one, a moving hood instead of a fixed one, rear-facing instead of front-facing.
+88. **Other pages:** is there a choice you compared that is not on its page (intake rollers, the beam sensors, the cameras,
+    the gate, the shooter motors)? Give me the options and the reason.
     **Answer:**

@@ -99,3 +99,111 @@ under 10 pt are the 7.3 pt bullet squares, not words; no upload deadline in PROJ
   Think (bugs and fixes, sketch to CAD, code milestones), Design (chassis, parts breakdown).
 - **Estimate: 62 / 100 (range 55-68)**, judgement. Still held back by no real robot, the auto route, strategy text, option
   scores and photos. Mismatches to settle: lookup table vs solver, X-lock not in code (QUESTIONS 75, 76).
+
+## Round 5: portfolio_v35 (2026-11-12)
+Marked against the FTC award criteria in `project/brief/ASSESSMENT.md`. FTC has no mark bands (judges deliberate), so
+the verdicts use `general/guides/RUBRIC_GUIDE.md` for what "strong" means. The number is a judgement, not a score.
+
+| Award | Verdict | Evidence |
+|---|---|---|
+| Think | strong | design loop and CAD process (p4); "Choices we compared" on every subsystem page (p7-13); turret iterations (p9); maths for aiming and shooting while moving (p13); lessons and code fixes (p15) |
+| Control | strong, partly proven | parts table with the problem each part solves (p11); checks before every shot (p13); simulator and 24 tests (p12); sensors used for feedback (beam sensors, IMU, angle sensors, cameras); robot results on p7-9 and p13, but few tries are counted |
+| Innovate | partly | flower mechanism idea from VEX (p10) has no picture; shooting while moving (p13) and the shared robot/simulator code (p12) are the most original parts |
+| Design | partly | small frame, 6.5 kg, 3-minute pod swap, CAD views and exploded views (p6-9); no photo of the real robot anywhere |
+| Inspire | strong | every member on p1 with a photo and roles; outreach with numbers (p3); season goals (p2) |
+
+**Estimate: 70 / 100 (range 64-76)**, judgement. Up from 62 (v06): real robot results, strategy, the auto route,
+team photos and choice tables. Held back by no real-robot photos, results with no count of tries and one
+contradiction (solver or lookup table).
+
+### [High] No photo of the real robot or the build
+- Location: whole portfolio (every robot picture is CAD). Evidence: the robot is built and tested (p7-9, p13), but a
+  judge cannot see it. Fix: 2-4 photos (whole robot, intake or pod close-up, build day) into `assets/inbox/`; they go on
+  p6 and p8. Who: **You**.
+
+### [High] Solver or lookup table: the pages disagree
+- Location: p13 "Choices we compared" (gravity solver instead of a lookup table) and p15 fix row ("Lookup table divided
+  by zero"). The 10 Oct meeting notes say a lookup table from localisation; the code has both. Fix: say which one the
+  robot uses for matches, then one row changes. Who: **You**.
+
+### [High] Results with no count of tries
+- Location: p9 "all but 1 went in" (out of how many?), p8 "1 jam" (in how many pickups?), p14 "very consistent" (how
+  many runs, how many points?), p7 X-lock push (by what?). Fix: the numbers behind each. Who: **You**.
+
+### [Medium] Speed control result shows the problem, not the fix
+- Location: p11 Speed control, Result. Evidence: "drops by about 200 encoder ticks" is the challenge. Fix: put the
+  drop in Challenge and link the result to the measured shots on p9. Who: **Claude** (still needs **You**: recovery
+  time and the unit of the 200 ticks).
+
+### [Medium] Parts table leaves out the intake motors
+- Location: p11 "What each part does". Evidence: p8 says two motors drive the intake and transition; p11 lists 6 of the
+  8 motors. Fix: add the row. Who: **Claude**.
+
+### [Medium] Risks table ignores the robot results
+- Location: p15 "Risks and how we reduce them" (4 rows, room for more). Fix: add defence (X-lock, tested), jams
+  (reverse rollers, tested) and holding too much pollen (beam sensors stop at 4, rule G407). Who: **Claude**.
+
+### [Medium] Two fixes on the same 12-degree bug read differently
+- Location: p13 says the aim stopped short because of static friction; p15 says the fix was battery-voltage
+  feedforward. Fix: one wording that has both (kS push past static friction, scaled by battery voltage). Who: **Claude**.
+
+### [Low] Vague line on the swerve page
+- Location: p7 "We move more efficiently, which is a big advantage in a match". Fix: use the measured 250 cm/s
+  (about 1.5 s to cross the field). Who: **Claude**.
+
+### [Low] Autonomous total reads as a result
+- Location: p14 "Total 45" is the plan. Fix: "Planned total". Who: **Claude** (the real score needs **You**).
+
+### [Low] Choices show only the upside
+- Location: p7-13 "Why" columns. Judges like the cost of each choice too (swerve costs 4 servos and more code; a fixed
+  shooter means the whole robot turns). Fix: one short cost per row from the team. Who: **You**.
+
+### [Low] Flower mechanism has no picture
+- Location: p10. Fix: a CAD screenshot or photo of the flower mechanism. Who: **You**.
+
+## Round 6: portfolio_v36 (2026-11-12)
+All **Claude** items from round 5 are fixed: intake motors in the parts table (p11, all 8 motors now listed), speed
+control Result points to the measured shots (p11), measured top speed with the sum (p7), "Planned total" (p14), three
+risks from the robot tests and one wording for the 12-degree fix (p15). Layout checks pass; hand-in check 0 FAIL,
+1 WARN (no upload deadline in PROJECT.md); no placeholders; tests 50 pass.
+
+**Estimate: 72 / 100 (range 66-77)**, judgement. Only **You** items are left. Most marks first:
+1. Photos of the real robot and the build (Design, Innovate, Control). Still to add.
+2. Solver or lookup table: which the robot uses in matches (p13 and p15 disagree; Think, Control). Still to add.
+3. Tries behind each result: shots (p9), jams (p8), auto runs and points (p14), X-lock push (p7). Still to add.
+4. Unit and recovery time of the 200-tick drop (p11). Still to add.
+5. One cost for each choice (p7-13 Why columns; Think). Still to add.
+6. A picture of the flower mechanism (p10; Innovate). Still to add.
+7. Confirm the p15 wording "a push past static friction (kS), scaled by battery voltage" against the code.
+
+## Round 7: portfolio_v37 (2026-11-12)
+Re-marked after the mentor's feedback (design process on the robot, impact of outreach). FTC has no mark bands; the
+verdicts use `general/guides/RUBRIC_GUIDE.md` and the number is a judgement.
+
+| Award | Verdict | Change since v36 |
+|---|---|---|
+| Think | strong | up: page 4 now shows each loop step on the shooter, intake and code, with page links to the evidence |
+| Control | strong, partly proven | same: results still lack a count of tries |
+| Innovate | partly | same: flower mechanism has no picture |
+| Design | partly | same: no photo of the real robot |
+| Inspire | strong | up: page 3 has numbers (20+ students, about 15 sessions), outcomes (own teams, first competitions, awards) and what outreach did for us |
+
+**Estimate: 75 / 100 (range 69-80)**, judgement. No new **Claude** items: the text is consistent across pages
+(the 12-degree fix reads the same on pages 4, 13 and 15) and the style and hand-in checks pass.
+
+### [Medium] "Test + change" shows the tests but not the change
+- Location: page 4 table, row 5. The intake has a fix (reverse the rollers); the shooter (all but 1 in) and the code
+  (2 of 3 while moving) show no change after testing. Judges reading the loop look for the "change" half. Fix: one
+  thing changed (or planned) after each test. Who: **You**.
+
+### [Low] Impact on the Maliyan team is a feeling, not a result
+- Location: page 3, "Mentoring and volunteering" ("very rewarding to watch the students flourish"). Fix: one result
+  (a competition, an award, a skill they now have). Who: **You**.
+
+### [Low] No photo or quote from Darkinjung
+- Location: page 3. Fix: a session photo or a one-line quote from a student or teacher. Who: **You**.
+
+**You list, most marks first:** (1) real-robot photos; (2) solver or lookup table (pages 13 and 15 disagree);
+(3) tries behind each result; (4) what changed after each test (page 4, row 5); (5) unit and recovery time of the
+200 ticks; (6) one cost for each choice; (7) flower mechanism picture; (8) a Maliyan result and a Darkinjung photo or
+quote.

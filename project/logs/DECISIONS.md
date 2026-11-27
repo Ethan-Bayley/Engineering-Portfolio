@@ -282,3 +282,174 @@ Append new entries at the bottom, with the date. See skill `log-work`.
   clear what to say: QUESTIONS 79), more season goals (80).
 - **Image:** new line drawing saved as `assets/cad/linework_light/shooter/shooter_exploded_iso_lines.png` (black lines made
   see-through, original in `assets/cad/screenshots/shooter/`).
+
+## 22. Portfolio v13: answers applied (2026-11-11)
+- Team name Darkinjung Maliyan (page 3); beam sensors back to 3 (pages 8, 10, 11) and the scoring cycle says "until the
+  intake is full" instead of a number, because the robot has 3 sensors but rule G407 allows 4: question 84.
+- Three season goals were **drafted by me at the user's request** (judged awards, consistent robot, outreach); they are
+  intentions, not results, and are marked for confirmation. No result or test claim was added.
+
+## 23. Portfolio v14: team portraits (2026-11-11)
+- 12 photos (120 x 120 px each, about 170 dpi at the size printed) filed in `assets/photos/raw/team_<name>.png` and prepared
+  to `ready/` with `photo_prep.py` (no edits). They are matched to the cards **by the order the user gave**, not by looking
+  at faces: the user must confirm. A201 allows student photos with first name and last initial only. CREDITS.md says to
+  confirm each member agreed to appear.
+
+## 24. Portfolio v15: the auto route redrawn (2026-11-11)
+- **Method:** `project/src/trace_auto_route.py` finds the black line in the hand-drawn picture (one connected stroke),
+  follows its centre, keeps the out-and-back to the top marker, smooths it (RDP then two Chaikin passes) and draws it on the
+  blank field (3x enlarged). The blank field is the hand-drawn one **turned 90 degrees anticlockwise**: checked on the four
+  gold markers, both gardens and both loading zones. Point (u, v) of the hand-drawn field goes to (v, 1 - u). A check overlay
+  (the smoothed line on the original) matched the drawing. Pictures kept in `assets/auto/source/`.
+- **Read from the drawing, not decided by me:** the line starts beside the red loading zone, goes out to a marker on a wall,
+  comes back across the field, turns sharply near the opposite wall marker, and ends at a wall. Marked with a start ring and
+  an end arrow; **the direction is my assumption** (start at the loading zone): to confirm. Colour is the page's yellow with a
+  dark outline. Steps, points and the date are still the team's (QUESTIONS 35, 36).
+- **Credit:** the field pictures come from a field diagram whose source I do not know: check we may use it (CREDITS.md).
+
+## 25. Portfolio v16 and v17: straight route, subteam grid (2026-11-11)
+- **Route (v16):** `trace_auto_route.py` now keeps straight segments (RDP corner points only, 12 points, no rounding).
+- **Team grid (v16):** a header over each column (Design and CAD, Programming, Strategy and scouting); leads Ethan B., Isaac H.
+  and Will Q. on top. The grid fills row by row, so the lists in `p01_team` run across. Roles changed to fit the columns:
+  Ryan T. CAD (driver second); Chelsey W. scouting (assembly second); Chloe L. electrical (scouting, assembly); Chloe S.
+  strategy (scouting, code, assembly); Tina X. programming (strategy, scouting, assembly). I kept Chloe S.'s code and assembly so
+  the user's earlier counts still hold (assembly 8 of 12, code 5) and made scouts **five** (Jemima, Chelsey, Chloe L., Tina,
+  Chloe S.), also on page 5. **To confirm** with the user.
+- **v17:** page 14 step table widths (the headers wrapped) and a larger route picture; same content as v16.
+- **Rule reached:** the five-version limit for the page 5 success note (v11 + 5 = v16) has passed with the note still empty.
+  Asked the user before writing anything (memory: portfolio-honesty).
+
+## 26. Portfolio v18: route as four points, role changes (2026-11-11)
+- **Route:** `trace_auto_route.py` now only joins four key points read off the sketch with straight lines: start beside the
+  red loading zone, the wall marker at the top of the sketch, the wall marker at the left, and the end at the bottom wall
+  (mapped onto the blank field by turning it 90 degrees anticlockwise). The earlier pixel tracing was dropped: it followed
+  the hand wobble. The direction (start at the loading zone, arrow at the end) is still my assumption.
+- **Roles:** Chloe L. is Scouting first (electrical, assembly); Chloe S. is Strategy (scouting, assembly), no code. Code is
+  now **four** of us (Isaac H., Ivy W., Tina X., Jemima C.) on page 1. Assembly is still eight, scouts still five.
+- **v19:** the page 14 caption now says the route is the sketch redrawn as straight lines between its points.
+
+## 27. Portfolio v20: route on the grid, reversed; parking and flowers on page 5 (2026-11-11)
+- **What the gold hexagons are:** the manual (TU08) says the four FLOWERS are attached to the perimeter, so they are the gold
+  hexagons on the walls, not "markers". Pollen can be removed from the bottom of a flower.
+- **Route:** `trace_auto_route.py` now draws horizontal and vertical lines on the grid (corners on grid lines or tile
+  midpoints), **reversed**: it starts at the right wall, goes into the bottom flower and the left flower (each out and back, as in
+  the sketch, the way back drawn 22 px to the side) and ends in the red loading zone. **My reading of "backwards" and of "out
+  from the flowers" is to be confirmed**; the start point on the wall is the sketch's end point, moved to a tile midpoint.
+- **Page 5 scoring table:** PARK is 5 in auto and 5 in teleop and needs the robot at least partly in its loading zone (manual
+  10.5.4 and Table 10-2). Added a Park row (our answer: swerve, we park in our loading zone) and a "pollen in a flower we own"
+  row (2 each) answered "we do not do this: not enough points", as the user said.
+
+## 28. Portfolio v21: general auto route with seven steps (2026-11-11)
+- Page 14 is now "Our autonomous route" (no "elimination"); the image is `assets/auto/auto_route.png` (renamed; the script
+  `trace_auto_route.py` writes it). In and out of each flower run along the same line; numbered circles 1 to 7 match the steps.
+- **Points column** (manual TU08 Table 10-2): step 1 = 20 (a HIVE TIP is 20 in auto), step 7 = 5 (PARK is 5 in auto), the
+  pollen steps score nothing themselves ("-"), and steps 4 and 6 are `<pts>` because the user did not say whether those shots
+  cause tips (QUESTIONS 35). LEAVE (3 points in auto for leaving the wall) is not claimed: nobody said the start is on the wall.
+- **My placement, to confirm:** the flowers are the bottom one first and then the left one; the shooting position is on the left
+  of the field after the bottom flower ("the other side"); step 6 is at the left flower's line before parking; the start is on
+  the right wall. Steps 3 and 4 share the shooting position.
+- **v22:** page 14 layout only: the Points header no longer wraps and the route picture is larger. Same content as v21.
+
+## 29. Portfolio v23: auto points, page 2 without the plan table (2026-11-11)
+- **Page 14:** step 4 scores 0, step 6 scores 20 (a HIVE TIP is 20 in auto, manual Table 10-2); with step 1 (20) and park (5) the
+  total is **45**. Non-scoring steps now say 0.
+- **Page 2:** the "Planned on 10 October vs what happened" box and its table were removed at the user's request (this also removes
+  the `<what happened>` placeholder and the 2-8 Nov row). The timeline now carries what happened (15 Sep, 18 Sep, 10 Oct, 19-25 Oct,
+  26 Oct-1 Nov) and a second dotted row for what is still to come (12 Nov Wollongong, 28 Nov, 4-5 Dec, 28 Apr-1 May); Wollongong
+  moved to the dotted row because it has not happened yet. The freed space goes to a bigger schedule picture and the goals.
+- The 12-18 Oct facts (parts ordered, shooter redesigned, intake and transfer design, ball tracking started) are no longer on page 2;
+  the ball tracking stays on page 14 and the turret reasons on page 9.
+- **v24:** page 14 layout only: the Step header no longer wraps and the route picture is larger. Same content as v23.
+- **v25:** the page 14 step table headers are now No. and Pts so neither can wrap. Same content as v23.
+
+## 30. Portfolio v26 and v27: choices on every subsystem page, last page reworked (2026-11-11)
+- **Page 5:** scouting is two general sentences (what scouting shows us; we use it to choose alliance partners and plan each
+  match): purpose only, no claims about what the team records. The "How well it worked" note is gone, so the five-version rule
+  about writing "overall successful" is void and nothing like it was written.
+- **Page 14:** the "date we plan to have it running" line is gone.
+- **Last page** (now "Lessons and risks"): Test results, Next and Reliability removed. It holds a lessons table with what we
+  changed, "What we found and fixed when we merged the code" (moved from page 12), "Risks and how we reduce them" (moved from
+  page 12) and the AI endnote. The simulation results are still on pages 12 and 13; robot tests stay in the Tests boxes.
+- **"Choices we compared"** (Choice, We chose, Instead of, Why) on pages 7, 8, 9, 10, 11, 12 and 13, from what the team said
+  (7 swerve vs mecanum; 8 32 mm vs 48 mm top wheels and the ramps; 9 turret, flywheels, hood, direction; 10 flower mechanism and
+  blocker; 11 speed control and position tracking; 12 simulator and code structure; 13 gravity solver vs lookup table).
+  Not filled from evidence, so marked as such: page 9's "one flywheel / fixed hood / facing forwards" are my reading of the
+  user's words (QUESTIONS 87); `<what else we compared>` x 3 and `<why we start with wheels and the IMU>` are placeholders. Page 6
+  (overview) has no section: it is not a subsystem.
+- **Removed to make room:** page 9's separate turret box (its reasons are in the Aiming row and the turret cards); page 11's
+  3500 RPM limit (page 13 has the 50 RPM and 2 degree limits) and the R503 motors-and-servos row; page 13's turret row (page 9 has it).
+- Layout: row heights are weights (proportional): the checker's "needs X but has Y" numbers are content heights, a box adds about
+  39 pt of heading and padding.
+- **v28:** page 12 now has "What the simulator shows" (pick up 3, aim and score 3; score while still and moving, both alliances; lose the heading sensor: all PASS in simulation, from the code report of 25 Oct 2026). These rows were on the removed test table; the user asked for that table to go from the last page, and this fills the space left on the software page. Robot tests are still not claimed.
+
+## 31. Portfolio v29: instead-of answers, no blocker (2026-11-11)
+- Page 8 ramps: polycarbonate instead of 3D printed ramps. Page 10 flower mechanism: the VEX Push Back match-loader idea instead of
+  side vertical intake wheels (**my reading** of an answer given in page order: the user's second item). Page 11 position tracking:
+  odometry and the IMU instead of motor encoders, because it is much more accurate. Only one placeholder is left (page 5, how we play).
+- **Blocker removed** from page 5 (requirements row), page 9 (Aiming row), page 10 (title, box, choices row) and page 11 (parts table).
+  Page 10 is now "Flower mechanism, gate, cameras". An unused servo count is not claimed anywhere.
+- **Page 11 / 14 odometry:** the parts table has an Odometry pod row; the caption no longer says the code uses wheels and the IMU, and
+  page 14 says Odometry + IMU. **Note:** the code on branch `Isaac` still uses wheel (motor-encoder) odometry with the IMU
+  (`localisationSource` = wheel-imu-odometry), so the portfolio states a choice the code has not caught up with yet.
+- **v30:** page 10's Gate box is plain text (it had a GATE label under a GATE title). Same content as v29.
+
+## 32. Portfolio v31: the first robot results (2026-11-11)
+- Pages 7, 8, 9, 13 and 14 now show the user's results (TESTS.md has the exact words and what is missing). Tests boxes are titled
+  "Tests on the robot" and use the status TESTED, because no pass mark was given. Shots: only "from the furthest distance, all but 1
+  went in" is claimed (the other distances and the number of shots were not given). Jams: "Intake jams", not "per 20 pickups" (no
+  pickup count). Page 12 changed tense ("the robot was not finished"); the lookup-table clause "once the robot is finished" was dropped.
+  Page 15 lessons gained: the intake jammed once, reversing the rollers cleared it.
+- **Left as visible placeholders** (so the hand-in check fails until filled): flower mechanism result and camera status (page 10),
+  flywheel speed drop and recovery (page 11), and how we play (page 5).
+
+## 33. Portfolio v32: 4 pollen, 6.5 kg, 3 minutes (2026-11-11)
+- Page 5 collect step is "until we hold 4"; page 8 says 3 beam sensors count the pollen and we hold up to 4 (the most G407 allows); page 10
+  says the beam sensors tell us we are full (4 pollen). The sensor count (3) was not changed: it is a separate fact (Q84 open on where the
+  4th sits). Page 6: light robot, 6.5 kg. Page 7: a pod swap takes 3 minutes (**my reading** of an unlabelled "3 minutes", in the order of
+  the questions I had listed). Page 11 caption now just "Our odometry pod" (the team uses odometry). The user confirmed the page 9 and
+  page 10 instead-of cells and that the 25 Oct test and simulation results are current, so those pages are unchanged.
+
+## 34. Portfolio v33: three more results (2026-11-11)
+- Page 10: flower mechanism result and "both cameras work"; page 11: the speed-drop result (about 200 encoder ticks). Only one
+  placeholder is left, page 5 "how we play", kept on purpose at the user's request. Not claimed: the recovery time, or the unit of the 200.
+
+## 35. Portfolio v34: strategy on page 5 (2026-11-12)
+- "How we play" is now the team's four points, written in the first person with "RP" spelled out once (ranking points). Nothing was added to
+  them. That was the last bracketed placeholder, so the portfolio has none left (the hand-in check also reports none). The scoring plan
+  detail (what we score first, where we shoot from, our role with an alliance partner) was not given.
+
+## 36. Portfolio v35 and v36: final check and marking round 5 (2026-11-12)
+- **v35 (final check):** serial comma removed on page 7, a noun-comma phrase reworded on page 8, box title "Lessons and
+  what we changed"; bullet squares at full size so nothing in the file is under 10 pt (`portfolio_style.py`, `buSzPct`
+  100000). Hand-in check: 0 FAIL, 1 WARN (no upload deadline in PROJECT.md).
+- **Marking round 5** (`outputs/reviews/marking_loop.md`): about 70 / 100 (range 64-76), a judgement; FTC has no bands.
+- **v36 fixes, all from evidence already in the portfolio or logs:** page 7 measured top speed with the sum (3.6 m field
+  at 250 cm/s is about 1.5 s, not counting speeding up); page 11 adds the 2 intake motors (page 8) so all 8 motors are
+  listed, the 200-tick drop moves to Challenge and Result points to the shots on page 9; page 14 "Planned total";
+  page 15 risks add X-lock (tested), jams (tested) and G407 (beam sensors stop at 4), and the 12-degree fix now reads
+  "a push past static friction (kS), scaled by battery voltage" to match page 13 (kS 0.06, RobotConfig) and the
+  battery-voltage feedforward checked in the code on 2026-11-05. The team should confirm that wording.
+- **Left for the team:** real-robot photos; solver or lookup table (pages 13 and 15 disagree); tries behind each result;
+  the unit and recovery time of the 200 ticks; the real autonomous score; a cost for each choice; a flower mechanism picture.
+
+## 37. Portfolio v37: design loop on the robot and outreach impact (2026-11-12)
+- **Why:** the team's mentor asked for more on how we used the design process on the robot and more on the impact of
+  our volunteering.
+- **Page 4:** new table "How we used the loop on our robot": the five loop steps for the shooter, the intake and
+  transition, and the code and auto-aim. Every cell comes from another page (5, 9, 12, 13, 15) or the logs; nothing new
+  is claimed. The CAD process box is now the height of its pictures, and "Coding together" is one paragraph (its
+  bug list is on page 15).
+- **Page 3** (now "Outreach and impact"): tiles 20+ students and about 15 sessions; the Darkinjung impact (own teams,
+  first competitions, awards with our help); Round Square "Reach" renamed "Impact"; mentoring and the Barker VEX
+  competition share one box; new box "What outreach did for us" (explaining our robot, leading a group, Round Square
+  very rewarding). Numbers and outcomes are the user's answers of 2026-11-12. The mentoring write-up is still not used.
+- **Checks:** style checks pass; hand-in check 0 FAIL, 1 WARN (no upload deadline in PROJECT.md); no placeholders.
+
+
+## 38. Submission check of portfolio_v37 (2026-11-12)
+- Hand-in check: 16 pages (cover + 15), A4 portrait, fonts embedded, no placeholders, no AI tool names, nothing under
+  10 pt, 2.0 MB; 0 FAIL, 1 WARN (no upload deadline in PROJECT.md).
+- Own scans: no links, emails or URLs; PDF metadata has no author or title (no personal details); members as first
+  name + last initial only; "AI" only in the endnote; no serial commas; every "(page N)" points to the right page; all
+  dates 2026-2027 (A201.E). All 16 pages looked over on a contact sheet: no overflow, overlap or cut-off text.
+- Not done: no test print (edge bar against printer margins); pages 13 and 15 still disagree on solver vs lookup table.

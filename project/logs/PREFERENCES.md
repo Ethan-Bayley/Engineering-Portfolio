@@ -28,7 +28,7 @@ Append new entries at the bottom, with the date. See skill `log-work`.
 
 ## 2026-11-05: content interview
 - Members and roles: 13 (listed in PROJECT.md), first name + last initial.
-- Event: FTC Wollongong, Thursday 2026-11-12; hand-in is a PDF upload before the event (deadline not given).
+- Event: FTC Wollongong, Thursday 2026-11-11; hand-in is a PDF upload before the event (deadline not given).
 - Sponsor: Barker Robotics.
 - Outreach since 1 January 2026 (user's words, no dates or numbers yet): 7 members teach robotics to Darkinjung
   students once a fortnight; Ethan B. and Isaac H. mentor VEX teams; Ethan B., Isaac H. and Brandon L. volunteered at
@@ -137,3 +137,78 @@ Append new entries at the bottom, with the date. See skill `log-work`.
   The robot has a very small frame perimeter, which makes defence easier to avoid.
 - New image: an exploded shooter line drawing (the user called it "turret"; it shows the fixed shooter).
 - Asked me to look at the three example portfolios again (22105, 1002, 12635) and the manual TU08.
+
+## 2026-11-11: answers to QUESTIONS 78-83
+- Darkinjung VEX team: **Darkinjung Maliyan**. First team meeting: **18 September**. Beam sensors: **3** (not 4). The new
+  exploded image is the **shooter**, not the turret.
+- Season goals: "just add whatever season goals, make them up": drafted from what the user said (judged awards, a
+  consistent robot, teaching and FIRST) and marked in QUESTIONS 80 for the user to confirm.
+
+## 2026-11-11: team portraits
+- Sent 12 head-and-shoulders photos, "left to right, top to bottom". Used in the order of the team cards on page 1 (Ethan B.,
+  Brandon L., Isaac H., Ryan T., Will Q., Ivy W., Tina X., Chelsey W., Chloe L., Chloe S., Jemima C., Lucas T.). The user
+  should check each photo is on the right card.
+
+## 2026-11-11: the auto route
+- Sent "elims auto" (a hand-drawn route on a field picture) and a blank field to redraw it on. Page 14 shows it as the
+  elimination-match route.
+
+## 2026-11-11: route lines and the team grid
+- Make the auto route out of **straight lines**.
+- Team grid: **one column per subteam, lead on top.** Design (Ethan, Brandon, Ryan, Lucas), Programming (Isaac, Ivy, Tina,
+  Jemima), Strategy (Will, Chelsey, Chloe L., Chloe S.). Chloe S.: strategy first, then scouting. "Whatever else to make it
+  work best" was left to me.
+
+## 2026-11-11: route is the sketch's intent; two role changes
+- The route image was only a sketch: draw straight lines to where it is trying to say the robot goes (start, wall marker,
+  wall marker, end), not the wiggles.
+- Chloe L.: **scouting** is her primary role (electrical and assembly after). Chloe S.: **code removed** (strategy, scouting,
+  assembly).
+
+## 2026-11-11: route direction and grid; page 5 scoring rows
+- "You have it backwards": the route runs the other way. It should go **out from the flowers and then in straight horizontal or
+  vertical lines into them**, with the points on the grid lines (tile midpoints allowed).
+- Page 5: "pollen in flowers" answer = we do not do it, not enough points to be worth it. Add **parking** as a way we score.
+
+## 2026-11-11: the auto route is general, with seven steps
+- Not elimination-specific: it is just the autonomous route. Go into and out of each flower on the **same line**.
+- Steps: 1 shoot (causing a tip), 2 get pollen from the flower, 3 go to the shooting position on the other side, 4 shoot,
+  5 collect pollen from the flower, 6 shoot, 7 park.
+
+## 2026-11-11: auto points; drop the plan-vs-happened box
+- The second shot scores nothing and the third scores 20 points (so the auto is 20 + 0 + 20 + park 5 = 45).
+- "The planned on 10 October vs what happened section is stupid": removed from page 2.
+
+## 2026-11-11: scouting, sections removed, choices compared
+- Page 5: write one or two sentences on why scouting is good and what it is used for. Remove "How well it worked". Page 14: remove
+  the date line.
+- Last page: remove Test results, Next and Reliability, and put other content on it. Add a "Choices we compared" section to each
+  subsystem page.
+- Asked first whether the testing and lessons page was necessary; I said no and suggested moving the lessons to page 4 and adding a
+  choices page. The user chose to keep the page as a lessons page and put the choices on each subsystem page.
+
+## 2026-11-11: instead-of answers; the blocker is gone
+- Ramps: instead of 3D printed ramps. Side vertical intake wheels (read as the flower mechanism's alternative). Position tracking:
+  odometry and the IMU instead of motor encoders, because it is much more accurate.
+- Remove every mention of the blocker: there will not be one at competition.
+
+## 2026-11-11: test results
+- Top speed 250 cm/s; X-lock: it did not move; 1 jam solved by reversing the rollers; all but 1 shot from the furthest distance went in;
+  time between shots under 0.1 s; auto routes really consistent; 3 of 3 score while still, 2 of 3 while moving.
+- Asked me to list anything else that is not complete.
+
+## 2026-11-11 (later): answers
+- Holds 4 pollen; 6.5 kg; 3 minutes; "yes correct" for the instead-of cells; "we use odometry"; the tests are in date.
+
+## 2026-11-11 (later): results and a placeholder
+- Flower mechanism: empties the flower really well in under a second. Cameras work. Speed drop about 200 encoder ticks.
+- Keep a placeholder for "how we play" (the user will write it).
+
+## 2026-11-12: strategy
+- Strategy points: score pollen to maximise RP; outscore teams to maximise output; cycle fast and be robust; a simple robot that can be made quickly.
+
+## 2026-11-12: mentor feedback and outreach impact
+- Mentor asked for more on how the design process was used on the robot and more on the impact of volunteering.
+- Darkinjung: over 20 students, about 15 sessions; students formed their own teams and competed for the first time;
+  they won a couple of awards with our help. For us: better at explaining (interviews) and leading a group.
+

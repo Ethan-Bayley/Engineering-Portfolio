@@ -7,14 +7,16 @@ date, then uses it on the pages. Notes are the team's words: Claude does not add
 
 - Event: FTC Wollongong, **Thursday 12 November 2026**. The portfolio is **printed** (user, 2026-11-06); earlier a PDF
   upload was recorded: **ask the Event Director** if an upload is also needed, and by when.
-- Current version: `outputs/portfolio/portfolio_v12.pdf` (cover + 15 pages, option A; pictures in
-  `outputs/portfolio/pages_v12/`). Marking review: `outputs/reviews/marking_loop.md` (57 / 100 on v03's content,
-  judgement). **The robot is not finished** (2026-11-05: user said not built; 2026-11-10 notes: swerve assembled
-  26 Oct-1 Nov): every robot test shows "not finished yet / NOT TESTED" until it is.
+- Current version: `outputs/portfolio/portfolio_v37.pdf` (cover + 15 pages, option A; pictures in
+  `outputs/portfolio/pages_v37/`). Marking review: `outputs/reviews/marking_loop.md` (about 72 / 100 on v36,
+  judgement, round 6). The robot is built and has first results (2026-11-11, pages 7-9, 13); results the team has
+  not given stay out of the portfolio. Round 6 lists what only the team can add.
 
 ---
 
 ## A. Next steps
+
+**Every placeholder, by page: [PLACEHOLDERS.md](PLACEHOLDERS.md).**
 
 ### Decide first (2026-11-06)
 Look: **A chosen** (white, yellow bands), the default. Yellow: **keep #F5E660** (user, 2026-11-06). Both done.
@@ -25,7 +27,7 @@ prototypes; **hand sketches and brainstorming**; **V1 to V4 iteration rows with 
 mechanism; **graphs and test data** next to the maths; **comparison tables** that show why one option won; a **team photo**
 with every member; **quotes** from named members; and an outreach section with photos and numbers. Ours has CAD line
 drawings, tables and plain text, but **no photos at all** except Round Square. What the team can add (best first):
-1. Photos of the robot and the build (any stage, labelled with the date), and a team photo (page 1).
+1. Photos of the robot and the build (any stage, labelled with the date). Done in v14: a portrait of every member on page 1.
 2. Photos of hand sketches, whiteboards and brainstorming (page 4).
 3. For one mechanism, two or more versions with a photo of each and what was wrong or right about it (turret, swerve pod).
 4. A scored comparison table for drivetrain and shooter (QUESTIONS 25, 26).
@@ -33,9 +35,7 @@ drawings, tables and plain text, but **no photos at all** except Round Square. W
 6. One short quote from a named member on each mechanism page.
 7. Photos from outreach (Darkinjung sessions, the Barker VEX competition on 14 November).
 
-**Rule from the user (2026-11-11):** the "How well it worked" note on page 5 needs a few sentences on how well each answer
-worked. If it is still empty five versions after v11 (v16), ask the user before writing that the answers were "overall
-successful", and write only what the logs prove.
+**Note (2026-11-11):** the "How well it worked" note on page 5 was removed at the user's request, so no success claim is written.
 
 ### The team (most marks first)
 **Easiest way: answer the questions in [QUESTIONS.md](QUESTIONS.md)** (77 questions, each tied to a page; 1-20 answered). The table below is the same work, grouped.
@@ -52,8 +52,8 @@ successful", and write only what the logs prove.
 | 6 | Strategy: how we play, what scouting records, why the flower mechanism | 5, 10 | Will Q., Chloe S., Tina X. | |
 | 7 | Build and maintenance: robot mass, time to swap a pod, printed vs bought parts, part count | 6, 7 | Lucas T., Chloe L. | |
 | 8 | Intake V1: what worked and what went wrong; any V2 downsides | 8 | Tina X. | |
-| 9 | What the blocker stops; are the cameras working on the robot; when we meet and how we decide | 1, 10 | anyone | meetings and decisions done (v03); blocker and cameras open |
-| 10 | Print one page of v12 (page 8 or 9): check the yellow and whether the edge bar reaches the paper's edge | | anyone | |
+| 9 | Are the cameras working on the robot; when we meet and how we decide | 1, 10 | anyone | meetings and decisions done (v03); blocker and cameras open |
+| 10 | Print one page of v37 (page 8 or 9): check the yellow and whether the edge bar reaches the paper's edge | | anyone | |
 | 11 | Confirm the meeting notes in part B marked **check** | | Ethan B. | |
 
 ### Claude (when the team's items come in)
@@ -101,3 +101,33 @@ pollen, rear: AprilTags); transition sketch sizes (pollen 71.12 mm, rollers 50 m
 | **Scheduling:** an Excel spreadsheet shared with students and mentors, with availabilities for the season, to track who comes and what work they get. Largely successful, but external commitments (an exam block a fortnight before camp, outreach) made it hard to judge how feasible each week's goals were. | 2, 15 | ok |
 | **Round Square write-up:** showcased to international delegates from many schools and backgrounds, many not previously aware of FIRST; demonstrations of robot driving, shooting, intaking and scoring at the RSIC opening fair; shared FIRST culture. | 3 | ok. **check**: it says the conference was in the **Term 2-3 holidays**, but the page says **28 September 2026** (your answer): which is right? |
 | **Mentoring write-up ("D teams", Dhupuma or Darkinjung):** its author wrote "PLEASE DO NOT JUST PUT THIS INTO CLAUDE - I HAVE NO IDEA WHAT I'M DOING". | 3 | **not used**: waiting for Ethan B. to confirm with its author; also check Dhupuma or Darkinjung |
+
+### 2026-11-11 (typed by Ethan B.)
+| What the team said | Goes on | Status |
+|---|---|---|
+| **No blocker at competition:** removed everywhere (pages 5, 9, 10, 11 and the questions). The 10 October meeting notes above still say we kept it: they are the history, not the robot. | 5, 9, 10, 11 | ok |
+| The "instead of" answers: 3D printed ramps (page 8); side vertical intake wheels (page 10, the flower mechanism); **odometry and the IMU instead of motor encoders, because it is much more accurate** (page 11). | 8, 10, 11 | the middle one: **check** that it is the flower mechanism |
+
+### 2026-11-11: the robot is built and tested (typed by Ethan B.)
+| What the team said | Goes on | Status |
+|---|---|---|
+| Top speed 250 cm/s; it did not move in X-lock; 1 intake jam, cleared by reversing the rollers; all but 1 shot from the furthest distance went in; time between shots under 0.1 s; auto routes really consistent; 3 of 3 while still and 2 of 3 while moving. | 7, 8, 9, 13, 14, 15 | ok, **but** tries, distances and dates are missing (QUESTIONS 1-7) |
+
+### 2026-11-11 (later, typed by Ethan B.)
+| What the team said | Goes on | Status |
+|---|---|---|
+| The robot holds **4 pollen**; it weighs **6.5 kg**; **3 minutes** (read as the time to swap a pod). | 5, 6, 7, 8, 10 | ok; **check** that 3 minutes is the pod swap |
+| Yes: the page 9 and page 10 "instead of" cells are right (two flywheels vs one, moving hood vs fixed, rear-facing vs front-facing, flower mechanism vs side vertical intake wheels). | 9, 10 | ok |
+| We use odometry (so the code on `Isaac` is behind the robot). The 24 tests and the simulation results "are in date". | 11, 12, 13, 14 | ok |
+
+### 2026-11-12 (typed by Ethan B.)
+| What the team said | Goes on | Status |
+|---|---|---|
+| **Strategy:** score pollen to maximise RP; need to outscore teams to maximise output; cycle fast and be robust; be able to have a simple robot that can be made quickly. | 5 | ok (their four points, first person) |
+
+### 2026-11-12 (mentor feedback, passed on by Ethan B.)
+| What the team said | Goes on | Status |
+|---|---|---|
+| **Mentor:** more on how we used the design process on our robot, and more on the impact of our volunteering. | 3, 4 | done in v37 |
+| **Impact:** over 20 Darkinjung students; about 15 sessions; students formed their own teams and competed for the first time; they won a couple of awards with our help; teaching made us better at explaining and taught us to lead. | 3 | ok |
+
