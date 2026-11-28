@@ -40,3 +40,7 @@ Append new entries at the bottom, with the date. See skill `log-work`.
 - **What went wrong at Wollongong (user, 2026-11-28):** electrical inconsistency in the swerve; shooter not tuned; backspin
   issues (no counter roller); no autonomous; poor battery management. Since then: swerve rewired / connectors fixed, shooter
   tuned on the robot, counter roller added, autonomous working, batteries numbered, charged in rotation and checked.
+
+## 2026-11-28: after Wollongong (user)
+- Shooter with 2 counter rollers: **3-4 in 4** shots in per run (was 1 in 4 with backspin). Tries not given.
+- Intake: **no jams in 20 pickups**.

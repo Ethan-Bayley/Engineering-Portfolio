@@ -218,3 +218,7 @@ Append new entries at the bottom, with the date. See skill `log-work`.
   newer facts. Answers: 3 beam sensors; remove the blocker; jams, shooting speed and roles as v37; keep the path picture from
   the hand-edited PDF, everything else on page 14 as v37; "we kinda just shoot from one spot now but we're still saying
   that it works from other positions".
+- (2026-11-28, later) Roles: Isaac lead programming, electrical, design and manufacturing; Brandon lead assembly,
+  electrical and design; Ethan assembly. Say "poor coordination of which batteries we used", never "bad battery
+  management". No beam sensors on the robot; rear camera only (PhotonVision). The robot uses a lookup table, not a
+  gravity solver. No new photos needed. Keep the AI endnote for now.

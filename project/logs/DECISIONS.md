@@ -484,3 +484,32 @@ Append new entries at the bottom, with the date. See skill `log-work`.
   cover them), the lookup-table bug (the robot uses the solver), risks for a lost heading sensor (page 12), the turret (lessons
   row 1) and rule G407 (page 8). **Page 9:** choices row "Backspin: a counter roller instead of none". **Page 2:** pointer to page 15.
 - Hand-in check: 0 FAIL, 1 WARN (no upload deadline).
+
+## 41. Portfolio v41-v43: the team's 28 November notes (2026-11-28)
+- **Source:** the user's pasted notes (roles, competition debrief, page-by-page changes) and answers: 2 counter rollers;
+  connectors hot-glued; the simulation interface is our own (no name); no jams in 20 pickups.
+- **Page 1:** Isaac H. lead programming (electrical, design, manufacturing); Brandon L. lead assembly (electrical, design);
+  Ethan B. assembly. First column renamed "Design and assembly" with Brandon on top.
+- **Page 2:** timeline shortened; the spreadsheet removed for a Wollongong debrief table (problem, cause, what we changed)
+  and "Goals for Macquarie" (qualify for nationals, auto every match, 3-4 in 4 shots, no brownouts: **drafted from the
+  debrief, to confirm**). "Poor battery management" is now "poor coordination of which batteries we used" (user).
+- **Pages 7-10:** "What it needs to do" first. Page 7: swerve versions 2022 (Rory, a former member), last season, this
+  season (only what we know; no pictures); silicone grease. Page 8: no beam sensors; WD-40 and new belts; no jams in 20
+  pickups. Page 9: cards turret 2025-26 → turret 2026-27 → fixed shooter → counter rollers; why a fixed rear shooter (the
+  user's five points); counter roller shooter: 63.5 mm flywheel, 2 x 27 mm counter rollers geared to the same surface
+  speed, so they spin 63.5 ÷ 27 ≈ 2.35 times faster (**derived by me from "match surface speed"; the team should
+  check their real gear ratio**); 1 in 4 → 3-4 in 4 shots per run. Page 10: Push Back inspiration from another team's
+  match loader (team not named), our own version; rear camera only, PhotonVision.
+- **Page 11:** no beam sensors or front camera; 4 odometry pods averaged; swerve code flow (input, kinematics, optimise,
+  output) as in FRC's WPILib; odometry drawing no longer cut off. **Isaac H. to check.**
+- **Page 12:** how our simulator works (our hardware I/O interface fakes encoder ticks; same idea as FRC's hardware map
+  behind an I/O interface; lets us run the auto before the robot).
+- **Page 13 rewritten:** 4 odometry pods averaged, rear camera AprilTag pose by trigonometry, extended Kalman filter;
+  aim vector from the goal to the robot 0.4 s ahead (feedforward) with a diagram (`project/src/auto_aim_diagram.py` →
+  `assets/diagrams/auto_aim_vector.png`, a sketch not to scale); lookup table chosen over a gravity solver and why. The
+  old shot-check table, PD gains and 0.07 s look-ahead were removed as "very incorrect" (user).
+- **Page 14:** "What it can use" removed; status says no auto at Wollongong, written and run since.
+- **Page 15:** code lessons and the merged-code table replaced by the Wollongong lessons; risks add loose connectors and
+  no jams in 20 pickups. AI endnote kept (user: keep it for now; removing it would break A201's credit rule).
+- **v42:** the Greek letter ω made PowerPoint fall back to Cambria, so the maths is in words. **v43:** page 7 gear
+  drawings larger, page 9 card names shorter, diagram text bigger. Hand-in check v43: 0 FAIL, 1 WARN.
