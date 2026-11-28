@@ -5,12 +5,10 @@ Context for every session on the portfolio (skill `portfolio-notes` reads and up
 with where it goes in the portfolio). Anyone can add to part B: say or type it, and Claude writes it here with the
 date, then uses it on the pages. Notes are the team's words: Claude does not add facts, numbers or reasons to them.
 
-- Event: FTC Wollongong, **Thursday 12 November 2026**. The portfolio is **printed** (user, 2026-11-06); earlier a PDF
-  upload was recorded: **ask the Event Director** if an upload is also needed, and by when.
-- Current version: `outputs/portfolio/portfolio_v37.pdf` (cover + 15 pages, option A; pictures in
-  `outputs/portfolio/pages_v37/`). Marking review: `outputs/reviews/marking_loop.md` (about 72 / 100 on v36,
-  judgement, round 6). The robot is built and has first results (2026-11-11, pages 7-9, 13); results the team has
-  not given stay out of the portfolio. Round 6 lists what only the team can add.
+- Events: Wollongong 13 Nov 2026 (Think Award); **Macquarie 29 Nov 2026** (interview Sunday 29 Nov); nationals 5-6 Dec.
+  The portfolio is printed (user, 2026-11-06); ask the Event Director if an upload is also needed.
+- Current version: `outputs/portfolio/portfolio_v49.pdf` (cover + 15 pages; pictures in `outputs/portfolio/pages_v49/`).
+  Marking review: `outputs/reviews/marking_loop.md` (about 79 / 100 on v49, judgement, round 9).
 
 ---
 

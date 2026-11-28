@@ -513,3 +513,40 @@ Append new entries at the bottom, with the date. See skill `log-work`.
   no jams in 20 pickups. AI endnote kept (user: keep it for now; removing it would break A201's credit rule).
 - **v42:** the Greek letter ω made PowerPoint fall back to Cambria, so the maths is in words. **v43:** page 7 gear
   drawings larger, page 9 card names shorter, diagram text bigger. Hand-in check v43: 0 FAIL, 1 WARN.
+
+## 42. Portfolio v44-v46: annotated pictures and a full review (2026-11-28)
+- **Asked for:** "review everything, make sure it's all perfect", annotate diagrams and photos.
+- **Labels added** (handwritten style, arrows): page 6 chassis exploded view (side panel, swerve pod, base plate); page 8
+  assembly views (gecko wheels, gears, intake; mecanum rollers, gears); page 10 rear camera drawing (the old front-camera
+  highlight removed, since the robot now has the rear camera only) and a side section labelled collect, hold, release.
+  Not labelled: the chassis underside and the Round Square photo (no clear space; text on a photo is low contrast, A201),
+  and the team's auto path (which step is where is not recorded).
+- **New sketch:** page 9 counter roller shooter (`project/src/counter_roller_diagram.py`): pollen squeezed between the
+  flywheel (63.5 mm) and 2 counter rollers (27 mm) on the opposite side (user, 2026-11-28), turning opposite ways so the
+  pollen leaves with no spin. Marked "sketch, not to scale". The test table moved under "Why a fixed rear shooter".
+- **Page 2:** Wollongong in three tiles (2-3-1, 7th of 10, Think Award). **Page 14:** the auto path is now full width.
+- **Matched to the new auto-aim (user: "use the information from the updated portfolio"):** page 4 simulate row (no
+  12-degree line), page 5 scoring cycle (Collect, Aim along the aim vector, Spin up from the lookup table, Feed; no 0.1 s
+  settle), page 10 release (the gate opens once the shot is ready), page 15 risk (Kalman filter instead of the removed
+  calibration check). Page 11: 3-4 in 4 now credited to the counter rollers as well as the speed control.
+- **Checks:** hand-in check 0 FAIL, 1 WARN (no upload deadline); 36 pictures all with alt text; every "(page N)" correct;
+  no serial commas; tests 50 pass (a dark-theme copy of the new camera drawing was needed).
+
+## 43. Portfolio v49: the teammate's v48 merged with v44-v46 (2026-11-28)
+- **Source:** `user_edits/portfolio_v48_teammate_2026-11-28.pdf` (built at 19:27 from a script not in this repo). Its text
+  was compared with v43 page by page: changes on pages 1, 2, 9, 10, 14 and 15 only. Those pages were rewritten in
+  `build_portfolio.py` to match it word for word (inline bold inside table cells is not supported here, so dropped).
+  Its 3 pictures not in the repo were rendered from the PDF (flower mechanism 1243 x 965 px; blocker 267 x 405 px: soft).
+- **Kept from v44-v46:** labels on pages 6 and 8, Wollongong tiles (page 2), page 4 simulate row, page 5 cycle, page 11
+  speed control, the counter roller sketch, the larger auto route picture. **Replaced by v48:** page 10's camera drawing
+  and hold/release section (v48 rebuilt page 10 with the gate, camera text and blocker).
+- **Where v48 and v44-v46 disagreed:** v48's gate 'ready for 0.1 s' (page 10) is the team's newest words, so page 5's
+  Feed step says the same; v48's new lesson 'aiming 12 degrees short was fixed in the simulator' kept (added by the
+  teammate); v48's calibration risk dropped (it came from the auto-aim the user called incorrect, and v48 already has
+  'Localisation drifts' for the camera and filter).
+- **New:** Ethan B. manufacturing (Isaac H. no longer lists it); page 9 counter roller CAD from the user, highlight
+  recoloured to the page yellow, labelled counter rollers, flywheel and gears; V4 card uses the plain view; the sketch is
+  in 'Why no backspin'; page 9's one-row test table removed for room (the Fix says 'tested on the robot: 3-4 in 4');
+  page 4 shooter build row adds the counter rollers; page 10 flower mechanism labelled.
+- **Numbering:** v47 and v48 were made on the teammate's computer, so this is v49 (built with --draft to that name,
+  since save_versioned only sees local .pptx files). Hand-in check 0 FAIL, 1 WARN; tests 50 pass.

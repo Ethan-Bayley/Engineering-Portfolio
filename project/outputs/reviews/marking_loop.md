@@ -207,3 +207,27 @@ verdicts use `general/guides/RUBRIC_GUIDE.md` and the number is a judgement.
 (3) tries behind each result; (4) what changed after each test (page 4, row 5); (5) unit and recovery time of the
 200 ticks; (6) one cost for each choice; (7) flower mechanism picture; (8) a Maliyan result and a Darkinjung photo or
 quote.
+
+## Round 8: portfolio_v46 (2026-11-28)
+Judgement against the FTC award criteria (no mark bands). Since round 7 (v37) the team and other sessions added the
+Wollongong debrief, counter rollers, the new auto-aim, swerve code and simulator; this round added labels and a sketch.
+
+| Award | Verdict | Evidence |
+|---|---|---|
+| Think | strong | Think Award at Wollongong; design loop on the robot (p4); debrief problem, cause, change (p2, p15); counter roller maths (p9); choices tables |
+| Control | strong | parts table (p11), swerve code steps (p11), odometry + camera + Kalman filter + aim vector (p13), simulator (p12); counts of tries still thin |
+| Innovate | partly to strong | counter roller sketch (p9), aim 0.4 s ahead (p13), our own simulator interface (p12) |
+| Design | partly | annotated CAD on every subsystem page; still no photo of the real robot |
+| Inspire | strong | team (p1), outreach numbers and impact (p3) |
+
+**Estimate: 79 / 100 (range 73-84)**, judgement. No Claude items left. **You**, most marks first:
+1. Photos of the real robot (whole robot, counter rollers, swerve pod). Still to add.
+2. How many runs behind "3-4 in 4" (p9), "very consistent" auto (p14) and "2 of 3 while moving" (p13). Still to add.
+3. Confirm the Macquarie goals (p2, drafted from the debrief) and the counter roller gear ratio (p9).
+4. Which step happens where on the auto path picture (p14), so the steps can be numbered on it.
+
+## Round 9: portfolio_v49 (2026-11-28)
+The teammate's v48 adds a stronger Wollongong debrief (why each problem happened), V1-V4 shooter versions, the blocker
+plan and an honest 'running now' column for the autonomous. With the labelled counter roller CAD and sketch:
+**estimate 81 / 100 (range 75-85)**, judgement. Still You: real-robot photos; tries behind 3-4 in 4 and 'very
+consistent'; confirm the Macquarie goals and the counter roller gearing.

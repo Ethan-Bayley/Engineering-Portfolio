@@ -49,3 +49,9 @@
 | portfolio_v41.pptx | 2026-11-28 | v41: team's 28 Nov notes: roles, Wollongong debrief and Macquarie goals on page 2, what each subsystem needs to do, swerve versions, counter roller shooter, swerve code, simulator, new auto-aim with vector diagram, lookup table, rear camera only, no beam sensors, new lessons |
 | portfolio_v42.pptx | 2026-11-28 | v42: v41 with the counter roller maths in words (no Greek letter, so no fallback font) |
 | portfolio_v43.pptx | 2026-11-28 | v43: v42 with bigger page 7 gear drawings, shorter page 9 card names and a clearer auto-aim diagram |
+| portfolio_v44.pptx | 2026-11-28 | v44: annotated pictures (chassis, intake assembly, rear camera, hold and release), counter roller sketch, bigger auto path, Wollongong tiles; pages 4, 5, 10, 11 and 15 match the new auto-aim |
+| portfolio_v45.pptx | 2026-11-28 | v45: v44 with a larger 'sketch, not to scale' note in the counter roller sketch |
+| portfolio_v46.pptx | 2026-11-28 | v46: v45 with the counter roller sketch note moved clear of the labels |
+| portfolio_v47.pptx | 2026-11-28 | made by a teammate on another computer; not in this repo |
+| portfolio_v48.pptx | 2026-11-28 | made by a teammate on another computer (push failed); only its PDF is here: `user_edits/portfolio_v48_teammate_2026-11-28.pdf` |
+| portfolio_v49.pptx | 2026-11-28 | v49: the teammate's v48 (roles, Wollongong debrief, V1-V4 shooter, blocker, auto running now, lessons and risks) merged with v44-v46; Ethan B. manufacturing; new counter roller CAD labelled; flower mechanism labelled |
