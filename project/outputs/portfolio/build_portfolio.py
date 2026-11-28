@@ -171,19 +171,21 @@ def p01_team(doc):
 
 def p02_season(doc):
     p = doc.page("Our season")
-    top, sched, goals = p.rows(p.area, 1.15, 1.35, 0.55)
+    top, sched, goals = p.rows(p.area, 1.3, 1.2, 0.55)
     tl = p.box(top, "2026-2027 season timeline")
-    r1, r2, note = p.rows(tl.content, 1, 1, 0.22)
+    r1, r2, note = p.rows(tl.content, 1, 1, 0.55)
     tl.timeline(r1, [("15 Sep", "Schedule", "everyone adds when they are free"),
                      ("18 Sep", "First meeting", "subteams chosen; design and code begin"),
                      ("10 Oct", "Refocus", "major meeting; turret cut"),
                      ("19-25 Oct", "Machining", "parts made; assembly begins"),
-                     ("26 Oct-1 Nov", "Swerve built", "goBILDA parts arrive")])
-    tl.timeline(r2, [("12 Nov", "Wollongong", "first event"),
-                     ("28 Nov", "Macquarie", "second event"),
-                     ("4-5 Dec", "Macquarie", "national competition"),
+                     ("26 Oct-1 Nov", "Swerve built", "goBILDA parts arrive"),
+                     ("13 Nov", "Wollongong", "first event; Think Award")])
+    tl.timeline(r2, [("29 Nov", "Macquarie", "second event"),
+                     ("5-6 Dec", "Macquarie", "national competition"),
                      ("28 Apr-1 May", "Worlds", "FTC World Championship")], dashed=True)
-    tl.text(note, [{"text": "Dotted line: events still to come.", "size": 10, "colour": MUTED}])
+    tl.text(note, ["At **Wollongong** we played 6 qualification matches (2 wins, 3 losses and 1 tie), ranked 7th of 10 "
+                   "and won the **Think Award**.",
+                   {"text": "Dotted line: events still to come.", "size": 10, "colour": MUTED}])
     sc = p.box(sched, "How we schedule")
     sc.stack(sc.content, [
         ("fill", 1, lambda rr: sc.picture(rr, A / "screenshots" / "scheduling_page.png",
@@ -593,12 +595,10 @@ def p14_auto(doc):
     top, bottom = p.rows(p.area, 1.0, 0.36)
     l, r = p.cols(top, 1.7, 1)
     rt = p.box(l, "Our autonomous route", accent=True)
-    rt.picture(rt.content, A / "auto" / "auto_route.png",
-               "Our autonomous route drawn on the field with horizontal and vertical lines and numbered 1 to 7. It "
-               "starts at the right wall, goes into the bottom flower and back along the same line, crosses to a "
-               "shooting position on the other side, goes into the left flower and back along the same line, then "
-               "parks in the red loading zone",
-               "The numbers match the steps. We go into each flower and back out along the same line")
+    rt.picture(rt.content, A / "auto" / "auto_path_team.png",
+               "Our autonomous path drawn in yellow on the field: from the start to a flower, a curve to the "
+               "shooting position, back to the flower, then to the loading zone",
+               "Our autonomous path on the field")
     a, b2 = p.rows(r, 1.6, 0.9)
     s1 = p.box(a, "Each step")
     s1.table(s1.content, [["No.", "What we do", "Pts"],

@@ -453,3 +453,23 @@ Append new entries at the bottom, with the date. See skill `log-work`.
   name + last initial only; "AI" only in the endnote; no serial commas; every "(page N)" points to the right page; all
   dates 2026-2027 (A201.E). All 16 pages looked over on a contact sheet: no overflow, overlap or cut-off text.
 - Not done: no test print (edge bar against printer margins); pages 13 and 15 still disagree on solver vs lookup table.
+
+## 39. Merged Ethan's v13-v37 here; v38 and v39 (2026-11-28)
+- **Found:** Ethan B. pushed commit d49175f ("RAWR", 2026-11-27) with portfolio v13-v37 (made 11-12 Nov). This computer had a
+  separate v13 (Claude, 2026-11-27) and the user's hand-edited PDF (2026-11-28), with clashing names. Local work was backed up
+  (scratchpad `backup_before_v37/`, patch and copies) and stashed ("local work before merging Ethan v37"), then main was
+  fast-forwarded to d49175f. Nothing committed or pushed.
+- **Kept from the local work:** `brief/ASSESSMENT.md` (Inspire categories, Sustain, Reach, Connect criteria, how judging works);
+  QUESTIONS 89-96 (were 84-91: money, next year, goals, tracking, Wollongong, recruiting, outreach goals, learning plan). The
+  user's hand-edited PDF is in `outputs/portfolio/user_edits/portfolio_hand_edited_2026-11-28.pdf`. Claude's earlier v13 is
+  superseded and only in the backup.
+- **The user chose v37 as the base:** 3 beam sensors; blocker removed; jams, shooting speed and roles as in v37 (not the
+  hand-edited PDF); shooting: "we kinda just shoot from one spot now but we're still saying that it works from other
+  positions", so v37's tested claim (furthest distance) and design claim (moving hood, shoot from anywhere) stay and the
+  hand-edited distance results (0.5 m 6.5/10, 1 m 9/10, 1.5 m 8/10) are not used.
+- **v38:** page 2 timeline: Wollongong moved to what happened (13 Nov, Think Award), Macquarie 29 Nov, nationals 5-6 Dec, and a
+  line with the Wollongong record from ftc-events (6 matches, 2-3-1, 7th of 10, Think Award).
+- **v39:** page 14 uses the team's path picture from the hand-edited PDF (`assets/auto/auto_path_team.png`, 359 x 362 px,
+  about 100 dpi printed: a little soft) instead of Ethan's traced route; the seven steps, 45-point plan and status stay as in
+  v37 (user). Caption no longer says the numbers match the steps. Source of the field picture not recorded (CREDITS).
+- Hand-in check v39: 0 FAIL, 1 WARN (no upload deadline). Interview: Sun 29 Nov 2026 at Macquarie (AUMPQ2).

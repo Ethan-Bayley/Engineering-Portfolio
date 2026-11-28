@@ -43,3 +43,5 @@
 | portfolio_v35.pptx | 2026-11-12 | v35: final check fixes (serial comma, noun-comma phrase, box title); bullets at full size so no text is under 10 pt |
 | portfolio_v36.pptx | 2026-11-12 | v36: marking round 5 fixes: intake motors in the parts table, speed-control result tied to the shots, risks from the robot tests, one wording for the 12-degree fix, measured top speed, planned auto total |
 | portfolio_v37.pptx | 2026-11-12 | v37: outreach impact (20+ students, about 15 sessions, own teams and first competitions, what outreach did for us) and a table of how we used the design loop on the robot (page 4) |
+| portfolio_v38.pptx | 2026-11-28 | v38: Ethan's v37 plus Wollongong results and Think Award, Macquarie 29 Nov, nationals 5-6 Dec |
+| portfolio_v39.pptx | 2026-11-28 | v39: v38 with the team's autonomous path picture on page 14 |

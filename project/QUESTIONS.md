@@ -265,3 +265,29 @@ Deeper questions per subsystem, from your drawings and the code (branch `Isaac`)
 88. **Other pages:** is there a choice you compared that is not on its page (intake rollers, the beam sensors, the cameras,
     the gate, the shooter motors)? Give me the options and the reason.
     **Answer:**
+
+## For Inspire: Sustain, Reach and Connect (added 2026-11-21)
+Inspire needs us to be a strong contender in a Team Attributes award too. Sustain fits what we already have (season
+plan, schedule spreadsheet, cutting the turret); these fill the gaps.
+89. **Money:** where does the team's money come from (school, sponsors, fundraising), roughly how much this season, and
+    what is it spent on? Is there a budget anyone tracks? (Sustain)
+    **Answer:**
+90. **Next year:** how does the team keep going when Year 12s leave? Do younger members shadow leads, is there a handover,
+    how are new members recruited and trained? (Sustain)
+    **Answer:**
+91. **Long-term goals:** what does the team want to be in 2-3 years (more teams, a feeder program, new skills)? (Sustain)
+    **Answer:**
+92. **Tracking progress:** besides the Excel schedule, how do you check whether you are on track (weekly reviews, task
+    lists, who checks)? What did you change after you fell behind? (Sustain)
+    **Answer:**
+93. **Wollongong, 12 November:** how did it go (match scores, what broke, what you changed after, judge feedback)?
+    (Think, Control, Sustain)
+    **Answer:**
+94. **Recruiting into FIRST:** has anyone joined FIRST because of us (a new team, mentor, volunteer or student), for example
+    from Darkinjung or Round Square? How many? (Reach)
+    **Answer:**
+95. **Outreach goals:** why these activities, what did you want each to achieve, and how do they grow FIRST? (Reach)
+    **Answer:**
+96. **Learning plan:** how do new members learn CAD, code and building (workshops, pairing, guides)? Any engineers or
+    mentors outside school you work with? (Connect)
+    **Answer:**

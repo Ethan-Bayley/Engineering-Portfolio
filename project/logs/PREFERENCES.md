@@ -212,3 +212,9 @@ Append new entries at the bottom, with the date. See skill `log-work`.
 - Darkinjung: over 20 students, about 15 sessions; students formed their own teams and competed for the first time;
   they won a couple of awards with our help. For us: better at explaining (interviews) and leading a group.
 
+
+## 2026-11-28
+- Award aim: **Design, Control and Innovate** (earlier, 2026-11-21: try for Inspire). Base for printing: Ethan's v37 plus
+  newer facts. Answers: 3 beam sensors; remove the blocker; jams, shooting speed and roles as v37; keep the path picture from
+  the hand-edited PDF, everything else on page 14 as v37; "we kinda just shoot from one spot now but we're still saying
+  that it works from other positions".

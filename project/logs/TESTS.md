@@ -33,3 +33,7 @@ Append new entries at the bottom, with the date. See skill `log-work`.
 - Flower mechanism: **empties the flower really well, in under a second** (tries not given).
 - Cameras: **both work** on the robot.
 - Flywheel: each shot **drops the speed by about 200 encoder ticks** (unit and recovery time not given).
+
+## 2026-11-13: Wollongong Qualifier (AUNWQ), from ftc-events (read 2026-11-27)
+- Qualification: Q2 47-21 win, Q3 27-83 loss, Q7 50-71 loss, Q10 7-28 loss, Q12 80-62 win, Q15 53-53 tie (our alliance
+  first). Rank 7 of 10, 2-3-1, no playoffs. Think Award. What worked or broke in each match was not recorded.

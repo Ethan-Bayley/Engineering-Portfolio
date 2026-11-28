@@ -28,14 +28,28 @@ because Team Updates can change it. Below is a summary with rule numbers; the PD
 ## Award criteria the team is aiming for
 | Award | Portfolio needed? | Required (R) and encouraged (E) criteria, summarised | Where it will be shown |
 |---|---|---|---|
-| Inspire | yes | R: submit a portfolio; be a strong contender in each of: machine/creativity/innovation awards, team attributes awards, Think; positive and inclusive, every member contributes; can share experiences with the judges | whole portfolio; team page |
+| Inspire | yes | R: submit a portfolio; be a strong contender for **at least one award in each** category: A. Machine, Creativity and Innovation (Design, Innovate, Control), B. Team Attributes (Connect, Reach, Sustain), C. Think; positive and inclusive, every member contributes; can share experiences with the judges | whole portfolio; team page. Targets (2026-11-21): A = Control, B = Sustain (Reach second), C = Think |
 | Think | yes | R: at least one of: evidence of the engineering process; lessons learned and applied to the robot design; comparing choices and why one was chosen; using maths to make robot or programming decisions. E: easy to read and find | design process, options and maths pages |
 | Control | yes | R: show the hardware and software control components, the challenge each solves and the function of each; use external feedback (sensors) to control the robot. E: works in most matches; reliability shown or improvements explained; what was learned through the engineering process | control page(s): sensors, software, auto |
 | Innovate | no (helps) | R: examples of engineering work showing how the design was developed; creative or unique robot or mechanism; stable and reliable. E: risks and how they were reduced | mechanism page |
 | Design | no (helps) | R: robot is elegant, efficient (simple to build and operate) and/or practical to maintain; the whole robot or the process, not one part. E: stands out in appearance and function; reasons behind design choices; consistent and fits the game strategy | robot overview and CAD pages |
 
-Teams can also show Connect, Reach and Sustain evidence (learning plan, outreach, partners, finances); not targeted
-for now.
+### Team Attributes awards (needed for Inspire; no portfolio required, but it is where judges read the evidence)
+Source: 2026-2027 Competition Manual HTML (first-resources.pdx-prod.ftclive.org/ftc/game/cm-html), read 2026-11-21;
+summarised, check the manual before the event.
+| Award | Required (R) and encouraged (E) criteria, summarised |
+|---|---|
+| Sustain | R: plans for long-term success (financial sustainability, season planning and/or long-term team goals); how the team measures, reviews and tracks progress toward them. E: clearly defined roles and a deliberate way of preparing future student leaders; risk management (constraints found, mitigations, plans adapted) |
+| Reach | R: outreach objectives, the strategy behind the activities and how they grow the FIRST community; recruiting new teams, coaches, mentors or volunteers who were not in FIRST before. E: ambassador for FIRST, public awareness; creative outreach materials that keep improving |
+| Connect | R: a plan for developing members' skills (learning goals and the steps to reach them). E: relationships with STEM professionals; working with the engineering community (mentoring, technical guidance) |
+
+### How judging works (6.1, A203, A215)
+- Judges use only the Initial Interview, any follow-up interview and the portfolio. They do not use robot performance
+  (unless a criterion names it), penalties, rank, past seasons or websites.
+- Every team is asked two set questions: one on Machine, Creativity and Innovation, one on Team Attributes.
+- Pit visits may happen but bring no new content into deliberation.
+- A team can win or be runner-up for only one judged award per event. At the smallest events only one of Connect,
+  Reach or Sustain is given.
 
 ## Mark bands
 None: judges deliberate against the criteria above. See also `general/guides/RUBRIC_GUIDE.md`.
