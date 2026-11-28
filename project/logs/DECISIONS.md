@@ -473,3 +473,14 @@ Append new entries at the bottom, with the date. See skill `log-work`.
   about 100 dpi printed: a little soft) instead of Ethan's traced route; the seven steps, 45-point plan and status stay as in
   v37 (user). Caption no longer says the numbers match the steps. Source of the field picture not recorded (CREDITS).
 - Hand-in check v39: 0 FAIL, 1 WARN (no upload deadline). Interview: Sun 29 Nov 2026 at Macquarie (AUMPQ2).
+
+## 40. Portfolio v40: what Wollongong taught us (2026-11-28)
+- **From the user's Wollongong summary** (won Think; electrical inconsistency in the swerve; shooter not tuned; backspin issues,
+  no counter roller; no autonomous; poor battery management) and their answers on what changed since (rewired / fixed the swerve
+  connectors; tuned the shooter; added a counter roller; the autonomous works now; numbered batteries, charged in rotation and
+  checked before each match).
+- **Page 15:** new box "Our first event: Wollongong, 13 November (Think Award)" with what went wrong and what we changed.
+  To make room, rows that repeat other pages were cut: lessons on mixed units and late merging (the merged-code table and page 4
+  cover them), the lookup-table bug (the robot uses the solver), risks for a lost heading sensor (page 12), the turret (lessons
+  row 1) and rule G407 (page 8). **Page 9:** choices row "Backspin: a counter roller instead of none". **Page 2:** pointer to page 15.
+- Hand-in check: 0 FAIL, 1 WARN (no upload deadline).

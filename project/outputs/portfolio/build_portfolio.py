@@ -184,7 +184,7 @@ def p02_season(doc):
                      ("5-6 Dec", "Macquarie", "national competition"),
                      ("28 Apr-1 May", "Worlds", "FTC World Championship")], dashed=True)
     tl.text(note, ["At **Wollongong** we played 6 qualification matches (2 wins, 3 losses and 1 tie), ranked 7th of 10 "
-                   "and won the **Think Award**.",
+                   "and won the **Think Award**. What we changed after it is on page 15.",
                    {"text": "Dotted line: events still to come.", "size": 10, "colour": MUTED}])
     sc = p.box(sched, "How we schedule")
     sc.stack(sc.content, [
@@ -423,7 +423,7 @@ def p08_intake(doc):
 
 def p09_shooter(doc):
     p = doc.page("Shooter design")
-    top, ch, mid, bottom = p.rows(p.area, 235, 199, 181, 99)
+    top, ch, mid, bottom = p.rows(p.area, 215, 237, 163, 99)
     it = p.box(top, "What we tried")
     it.iterations(it.content, [
         ("Turret, last season", None, "", ["aims without turning the robot"], ["months of tuning (Apr-Jun 2026)"]),
@@ -439,7 +439,8 @@ def p09_shooter(doc):
         ["Flywheels", "Two", "One", "Less waiting between shots"],
         ["Hood", "A moving hood", "A fixed hood", "We can shoot from anywhere on the field. It moves from 33.6 to 67 degrees"],
         ["Direction", "Facing backwards", "Facing forwards",
-         "Pollen collects along the wall, so we can drive up to the wall and aim without turning round first"]])
+         "Pollen collects along the wall, so we can drive up to the wall and aim without turning round first"],
+        ["Backspin", "A counter roller", "No counter roller", "We had backspin issues at Wollongong, so we added one"]])
     l, r = p.cols(mid, 1, 1.15)
     d = p.box(l, "Hood drive")
     d.labelled(d.content.inset(0.5 * G, 0.8 * G), SH / "shooter_side_hood_drive_highlight.png",
@@ -625,16 +626,21 @@ def p14_auto(doc):
 
 def p15_tests(doc):
     p = doc.page("Lessons and risks")
-    top, mid, bot, foot = p.rows(p.area, 222, 202, 218, 24)
-    a = p.box(top, "Lessons and what we changed", accent=True)
+    top, wol, mid, bot, foot = p.rows(p.area, 164, 183, 195, 140, 22)
+    w = p.box(wol, "Our first event: Wollongong, 13 November (Think Award)", accent=True)
+    w.table(w.content, [["What went wrong", "What we changed"],
+                        ["Electrical problems made our swerve inconsistent", "we rewired the swerve and fixed the connectors"],
+                        ["The shooter was not tuned", "we tuned it on the real robot"],
+                        ["Backspin issues, with no counter roller", "we added a counter roller (page 9)"],
+                        ["We had no autonomous", "we wrote and ran our autonomous route (page 14)"],
+                        ["Poor battery management", "batteries are numbered, charged in rotation and checked before each match"]],
+            col_weights=[1.3, 1.5])
+    a = p.box(top, "Lessons and what we changed")
     a.table(a.content, [["What we learned", "What we changed"],
                         ["A turret cost us months last season", "this season the drivetrain aims"],
                         ["Sizes should come before the CAD", "we sketch the pollen path first"],
-                        ["Mixed units caused bugs when we merged the code", "every value has one unit (RPM, radians)"],
-                        ["The bugs only showed when the subsystems met", "we merge subsystems early"],
                         ["Time ran short in October", "we cut the least necessary part and made the rest consistent"],
-                        ["Exams and outreach changed what a week could fit", "we plan each week around them"],
-                        ["The intake jammed once in testing", "reversing the rollers cleared it"]],
+                        ["Exams and outreach changed what a week could fit", "we plan each week around them"]],
             col_weights=[1.4, 1.4])
     f = p.box(mid, "What we found and fixed when we merged the code")
     f.table(f.content, [["Problem", "Fix"],
@@ -642,18 +648,14 @@ def p15_tests(doc):
                         ["Updates changed numbers but moved nothing", "read feedback, write a limited motor power every loop"],
                         ["RPM, encoder ticks, degrees and servo positions mixed", "one unit for each value; conversion only in hardware code"],
                         ["The flywheel's controller also drove the hood", "the hood has its own mapping and rate limit"],
-                        ["Lookup table divided by zero at its first point", "handles exact points; never guesses past its ends"],
                         ["Simulated aiming stopped about 12 degrees short", "a push past static friction (kS), scaled by battery voltage"]],
             col_weights=[1.1, 1.1])
     n = p.box(bot, "Risks and how we reduce them")
     n.table(n.content, [["Risk", "How we reduce it"],
                         ["Simulation is not the real robot", "the code refuses to feed until the shooter is calibrated"],
-                        ["Heading sensor lost mid-match", "tested in simulation: stops driving and feeding"],
                         ["Flat battery changes the shot", "feedforward scaled by battery voltage"],
-                        ["A complex turret fails", "no turret: the drivetrain aims"],
                         ["Defence pushes us off our spot", "X-lock: pushed in testing, the robot did not move"],
-                        ["Pollen jams in the intake", "reversing the rollers cleared the 1 jam in testing"],
-                        ["Holding more than 4 pollen (rule G407)", "the beam sensors stop the intake at 4"]],
+                        ["Pollen jams in the intake", "reversing the rollers cleared the 1 jam in testing"]],
             col_weights=[1, 1.5])
     write(p.slide, foot, [{"text": ENDNOTE, "size": 10, "colour": MUTED, "after": 0}], sizes=p.sizes)
 

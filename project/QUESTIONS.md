@@ -280,7 +280,7 @@ plan, schedule spreadsheet, cutting the turret); these fill the gaps.
 92. **Tracking progress:** besides the Excel schedule, how do you check whether you are on track (weekly reviews, task
     lists, who checks)? What did you change after you fell behind? (Sustain)
     **Answer:**
-93. **Wollongong, 12 November:** how did it go (match scores, what broke, what you changed after, judge feedback)?
+93. **Wollongong, 13 November:** how did it go (match scores, what broke, what you changed after, judge feedback)?
     (Think, Control, Sustain)
     **Answer:**
 94. **Recruiting into FIRST:** has anyone joined FIRST because of us (a new team, mentor, volunteer or student), for example

@@ -45,3 +45,4 @@
 | portfolio_v37.pptx | 2026-11-12 | v37: outreach impact (20+ students, about 15 sessions, own teams and first competitions, what outreach did for us) and a table of how we used the design loop on the robot (page 4) |
 | portfolio_v38.pptx | 2026-11-28 | v38: Ethan's v37 plus Wollongong results and Think Award, Macquarie 29 Nov, nationals 5-6 Dec |
 | portfolio_v39.pptx | 2026-11-28 | v39: v38 with the team's autonomous path picture on page 14 |
+| portfolio_v40.pptx | 2026-11-28 | v40: what went wrong at Wollongong and what we changed (page 15), counter roller (page 9), pointer on page 2; repeated rows cut from page 15 |

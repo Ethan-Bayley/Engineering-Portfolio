@@ -37,3 +37,6 @@ Append new entries at the bottom, with the date. See skill `log-work`.
 ## 2026-11-13: Wollongong Qualifier (AUNWQ), from ftc-events (read 2026-11-27)
 - Qualification: Q2 47-21 win, Q3 27-83 loss, Q7 50-71 loss, Q10 7-28 loss, Q12 80-62 win, Q15 53-53 tie (our alliance
   first). Rank 7 of 10, 2-3-1, no playoffs. Think Award. What worked or broke in each match was not recorded.
+- **What went wrong at Wollongong (user, 2026-11-28):** electrical inconsistency in the swerve; shooter not tuned; backspin
+  issues (no counter roller); no autonomous; poor battery management. Since then: swerve rewired / connectors fixed, shooter
+  tuned on the robot, counter roller added, autonomous working, batteries numbered, charged in rotation and checked.
