@@ -550,3 +550,7 @@ Append new entries at the bottom, with the date. See skill `log-work`.
   page 4 shooter build row adds the counter rollers; page 10 flower mechanism labelled.
 - **Numbering:** v47 and v48 were made on the teammate's computer, so this is v49 (built with --draft to that name,
   since save_versioned only sees local .pptx files). Hand-in check 0 FAIL, 1 WARN; tests 50 pass.
+
+## 44. Portfolio v50: Ivy W. assembly (2026-11-28)
+- Page 1: Ivy W. is Programming, assembly (was HR). The page now lists 8 members with assembly, matching "eight of us
+  assembled" in How we split the work. Hand-in check 0 FAIL, 1 WARN.

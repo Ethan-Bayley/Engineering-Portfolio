@@ -226,3 +226,4 @@ Append new entries at the bottom, with the date. See skill `log-work`.
 ## 2026-11-28: roles and v48
 - Manufacturing is Ethan B.'s role (user); it moved off Isaac H.'s line on page 1.
 - A teammate's v48 (PDF only, push failed) is the base for the next version; apply Claude's v44-v46 changes on top.
+- Ivy W.: assembly instead of HR (user, 2026-11-28).

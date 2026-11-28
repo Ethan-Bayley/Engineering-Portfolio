@@ -1,6 +1,6 @@
-# Portfolio v49 pages
+# Portfolio v50 pages
 
-Images of `../portfolio_v49.pdf` (1240 px wide), for viewing on GitHub. The PDF is the print copy.
+Images of `../portfolio_v50.pdf` (1240 px wide), for viewing on GitHub. The PDF is the print copy.
 
 ![Page 0](00_cover.png)
 ![Page 1](01_team.png)

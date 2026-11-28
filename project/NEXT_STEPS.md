@@ -7,7 +7,7 @@ date, then uses it on the pages. Notes are the team's words: Claude does not add
 
 - Events: Wollongong 13 Nov 2026 (Think Award); **Macquarie 29 Nov 2026** (interview Sunday 29 Nov); nationals 5-6 Dec.
   The portfolio is printed (user, 2026-11-06); ask the Event Director if an upload is also needed.
-- Current version: `outputs/portfolio/portfolio_v49.pdf` (cover + 15 pages; pictures in `outputs/portfolio/pages_v49/`).
+- Current version: `outputs/portfolio/portfolio_v50.pdf` (cover + 15 pages; pictures in `outputs/portfolio/pages_v50/`).
   Marking review: `outputs/reviews/marking_loop.md` (about 79 / 100 on v49, judgement, round 9).
 
 ---

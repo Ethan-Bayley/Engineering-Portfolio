@@ -138,7 +138,7 @@ def p01_team(doc):
     # one column per subteam, lead at the top (user, 2026-11-11): the grid fills row by row, so the lists run across
     design = [("Brandon L.", "Lead design", "assembly, electrical"), ("Ethan B.", "Assembly", "manufacturing"),
               ("Ryan T.", "CAD", "driver"), ("Lucas T.", "CAD", "assembly")]
-    code = [("Isaac H.", "Lead programming", "electrical, design"), ("Ivy W.", "Programming", "HR"),
+    code = [("Isaac H.", "Lead programming", "electrical, design"), ("Ivy W.", "Programming", "assembly"),
             ("Tina X.", "Programming", "strategy, scouting, assembly"), ("Jemima C.", "Programming", "scouting")]
     strat = [("Will Q.", "Lead strategy", "drive coach"), ("Chelsey W.", "Scouting", "assembly"),
              ("Chloe L.", "Scouting", "electrical, assembly"), ("Chloe S.", "Strategy", "scouting, assembly")]

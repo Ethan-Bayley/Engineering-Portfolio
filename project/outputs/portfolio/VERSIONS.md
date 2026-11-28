@@ -55,3 +55,4 @@
 | portfolio_v47.pptx | 2026-11-28 | made by a teammate on another computer; not in this repo |
 | portfolio_v48.pptx | 2026-11-28 | made by a teammate on another computer (push failed); only its PDF is here: `user_edits/portfolio_v48_teammate_2026-11-28.pdf` |
 | portfolio_v49.pptx | 2026-11-28 | v49: the teammate's v48 (roles, Wollongong debrief, V1-V4 shooter, blocker, auto running now, lessons and risks) merged with v44-v46; Ethan B. manufacturing; new counter roller CAD labelled; flower mechanism labelled |
+| portfolio_v50.pptx | 2026-11-28 | v50: v49 with Ivy W.'s HR role replaced by assembly (page 1) |
