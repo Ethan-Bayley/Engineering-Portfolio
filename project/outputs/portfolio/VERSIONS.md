@@ -43,3 +43,9 @@
 | portfolio_v35.pptx | 2026-11-12 | v35: final check fixes (serial comma, noun-comma phrase, box title); bullets at full size so no text is under 10 pt |
 | portfolio_v36.pptx | 2026-11-12 | v36: marking round 5 fixes: intake motors in the parts table, speed-control result tied to the shots, risks from the robot tests, one wording for the 12-degree fix, measured top speed, planned auto total |
 | portfolio_v37.pptx | 2026-11-12 | v37: outreach impact (20+ students, about 15 sessions, own teams and first competitions, what outreach did for us) and a table of how we used the design loop on the robot (page 4) |
+| portfolio_v38.pptx | 2026-11-28 | v38: Ethan's v37 plus Wollongong results and Think Award, Macquarie 29 Nov, nationals 5-6 Dec |
+| portfolio_v39.pptx | 2026-11-28 | v39: v38 with the team's autonomous path picture on page 14 |
+| portfolio_v40.pptx | 2026-11-28 | v40: what went wrong at Wollongong and what we changed (page 15), counter roller (page 9), pointer on page 2; repeated rows cut from page 15 |
+| portfolio_v41.pptx | 2026-11-28 | v41: team's 28 Nov notes: roles, Wollongong debrief and Macquarie goals on page 2, what each subsystem needs to do, swerve versions, counter roller shooter, swerve code, simulator, new auto-aim with vector diagram, lookup table, rear camera only, no beam sensors, new lessons |
+| portfolio_v42.pptx | 2026-11-28 | v42: v41 with the counter roller maths in words (no Greek letter, so no fallback font) |
+| portfolio_v43.pptx | 2026-11-28 | v43: v42 with bigger page 7 gear drawings, shorter page 9 card names and a clearer auto-aim diagram |

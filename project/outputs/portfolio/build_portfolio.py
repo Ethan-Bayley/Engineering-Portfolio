@@ -124,13 +124,20 @@ def choices(p, rect, rows):
     return c
 
 
+def needs(p, rect, text):
+    """'What it needs to do' at the top of each subsystem page (user, 2026-11-28)."""
+    n = p.box(rect, "What it needs to do", accent=True)
+    n.text(n.content, [text])
+    return n
+
+
 def p01_team(doc):
     p = doc.page("Meet the team")
     top, bottom = p.rows(p.area, 1.5, 1)
     # one column per subteam, lead at the top (user, 2026-11-11): the grid fills row by row, so the lists run across
-    design = [("Ethan B.", "Lead design", "assembly"), ("Brandon L.", "CAD", "assembly"),
+    design = [("Brandon L.", "Lead assembly", "electrical, design"), ("Ethan B.", "Assembly", ""),
               ("Ryan T.", "CAD", "driver"), ("Lucas T.", "CAD", "assembly")]
-    code = [("Isaac H.", "Lead code", "CAD, assembly"), ("Ivy W.", "Programming", "HR"),
+    code = [("Isaac H.", "Lead programming", "electrical, design, manufacturing"), ("Ivy W.", "Programming", "HR"),
             ("Tina X.", "Programming", "strategy, scouting, assembly"), ("Jemima C.", "Programming", "scouting")]
     strat = [("Will Q.", "Lead strategy", "drive coach"), ("Chelsey W.", "Scouting", "assembly"),
              ("Chloe L.", "Scouting", "electrical, assembly"), ("Chloe S.", "Strategy", "scouting, assembly")]
@@ -141,7 +148,7 @@ def p01_team(doc):
     hr = Rect(t.content.x, t.content.y, t.content.w, head_h)
     gr = Rect(t.content.x, t.content.y + head_h + 0.5 * G, t.content.w, t.content.h - head_h - 0.5 * G)
     cw = (hr.w - 2 * 0.6 * G) / 3
-    for k, title in enumerate(["Design and CAD", "Programming", "Strategy and scouting"]):
+    for k, title in enumerate(["Design and assembly", "Programming", "Strategy and scouting"]):
         c = Rect(hr.x + k * (cw + 0.6 * G), hr.y, cw, hr.h)
         _shape(p.slide, MSO_SHAPE.RECTANGLE, c, FILL, None, 0)
         write(p.slide, c, [{"text": title.upper(), "size": 10, "bold": True, "colour": FILL_TEXT,
@@ -171,32 +178,38 @@ def p01_team(doc):
 
 def p02_season(doc):
     p = doc.page("Our season")
-    top, sched, goals = p.rows(p.area, 1.15, 1.35, 0.55)
+    top, deb, bottom = p.rows(p.area, 205, 330, 180)
     tl = p.box(top, "2026-2027 season timeline")
-    r1, r2, note = p.rows(tl.content, 1, 1, 0.22)
+    r1, r2 = p.rows(tl.content, 1, 0.8)
     tl.timeline(r1, [("15 Sep", "Schedule", "everyone adds when they are free"),
-                     ("18 Sep", "First meeting", "subteams chosen; design and code begin"),
-                     ("10 Oct", "Refocus", "major meeting; turret cut"),
-                     ("19-25 Oct", "Machining", "parts made; assembly begins"),
-                     ("26 Oct-1 Nov", "Swerve built", "goBILDA parts arrive")])
-    tl.timeline(r2, [("12 Nov", "Wollongong", "first event"),
-                     ("28 Nov", "Macquarie", "second event"),
-                     ("4-5 Dec", "Macquarie", "national competition"),
-                     ("28 Apr-1 May", "Worlds", "FTC World Championship")], dashed=True)
-    tl.text(note, [{"text": "Dotted line: events still to come.", "size": 10, "colour": MUTED}])
-    sc = p.box(sched, "How we schedule")
-    sc.stack(sc.content, [
-        ("fill", 1, lambda rr: sc.picture(rr, A / "screenshots" / "scheduling_page.png",
-                                          "Our shared availability spreadsheet: who is free in each time slot, "
-                                          "subteams and weekly meetings",
-                                          "Our availability spreadsheet (part)")),
-        ("text", ["A shared spreadsheet shows who is free each week and what work they are given. It mostly worked, "
-                  "but an exam block and outreach made it hard to judge what each week could really fit."])])
-    b2 = p.box(goals, "Our season goals")
-    b2.text(b2.content, ["- Win the national competition and qualify for the FTC World Championship",
-                         "- Be a strong contender for the judged awards: Inspire, Think, Control, Innovate and Design",
-                         "- Run a consistent robot, with a reliable intake, transfer and autonomous",
-                         "- Keep teaching Darkinjung students and spread FIRST"])
+                     ("18 Sep", "First meeting", "subteams chosen"),
+                     ("10 Oct", "Refocus", "turret cut"),
+                     ("26 Oct-1 Nov", "Swerve built", "goBILDA parts arrive"),
+                     ("13 Nov", "Wollongong", "Think Award")])
+    tl.timeline(r2, [("29 Nov", "Macquarie", "second event"),
+                     ("5-6 Dec", "Macquarie", "nationals"),
+                     ("28 Apr-1 May", "Worlds", "if we qualify")], dashed=True)
+    d = p.box(deb, "Wollongong debrief: 6 matches, 2 wins, 3 losses, 1 tie, 7th of 10, Think Award", accent=True)
+    d.table(d.content, [["Problem", "Cause", "What we changed"],
+                        ["Shooter backspin: 1 in 4 shots went in", "no counter rollers",
+                         "rebuilt the shooter with counter rollers geared to the flywheel: now 3-4 in 4 (page 9)"],
+                        ["Brownouts and electrical issues", "poor coordination of which batteries we used",
+                         "batteries numbered and charged in rotation; all wiring redone for room and easier "
+                         "debugging; every connector hot-glued"],
+                        ["High friction in our subsystems", "belts and pods turning stiffly",
+                         "WD-40 and new belt sizes in the transition; silicone grease in the swerve pods"],
+                        ["No autonomous", "not written in time", "we wrote and ran our route (page 14)"]],
+            col_weights=[1.15, 1.05, 2.0])
+    l, r = p.cols(bottom, 1, 1)
+    g = p.box(l, "Goals for Macquarie")
+    g.text(g.content, ["- Qualify for nationals",
+                       "- Run our autonomous every match",
+                       "- Keep 3-4 in 4 shots in matches",
+                       "- No brownouts"])
+    s = p.box(r, "Our season goals")
+    s.text(s.content, ["- Win nationals and qualify for the FTC World Championship",
+                       "- Be a strong contender for the Design, Control and Innovate awards",
+                       "- Keep teaching Darkinjung students and spread FIRST"])
 
 
 def p03_outreach(doc):
@@ -227,7 +240,7 @@ def p03_outreach(doc):
     b = p.box(l, "Mentoring and volunteering")
     b.text(b.content, ["Three of us (Ethan B., Isaac H. and Brandon L.) mentor the Darkinjung Maliyan VEX team. It "
                        "is very rewarding to watch the students flourish in their games and competitions.",
-                       "On **14 November 2026** the same three will referee, queue teams and help the Barker VEX "
+                       "On **14 November 2026** the same three refereed, queued teams and helped the Barker VEX "
                        "competition run smoothly."])
     c = p.box(r, "What outreach did for us", accent=True)
     c.text(c.content, ["- Teaching made us better at **explaining our robot** and why we made each choice, which "
@@ -253,9 +266,9 @@ def p04_process(doc):
          "one behaviour code for the robot and the simulator (page 12)"],
         ["3 Simulate", "3 of 3 shots in, also while moving", "pick up 3, aim and score 3",
          "aiming stopped 12 degrees short, so we added a push past static friction"],
-        ["4 Build", "two flywheels, a moving hood and a gate", "polycarbonate ramps; 32 mm gecko wheels at the top",
-         "subsystems merged on 25 Oct; the bugs it showed are fixed (page 15)"],
-        ["5 Test + change", "all but 1 shot in from the furthest distance", "1 jam, cleared by reversing the rollers",
+        ["4 Build", "a flywheel, a moving hood and a gate", "polycarbonate ramps; 32 mm gecko wheels at the top",
+         "subsystems merged on 25 Oct; the bugs it showed are fixed"],
+        ["5 Test + change", "backspin: 1 in 4 shots; counter rollers made it 3-4 in 4", "no jams in 20 pickups; WD-40 and new belts",
          "on the robot: 3 of 3 while still, 2 of 3 while moving (page 13)"]],
         col_weights=[0.8, 1.3, 1.3, 1.3])
     s = p.box(mid, "Our CAD process, shown on the transition")
@@ -277,8 +290,8 @@ def p04_process(doc):
                        "bugs that only appear when subsystems meet, such as mixed units (RPM, ticks, degrees)."])
     v = p.box(r, "Ideas from VEX and last season")
     v.text(v.content, ["Four of us (Ethan B., Will Q., Ryan T. and Tina X.) competed in VEX **Push Back**. The match "
-                       "loaders in that game worked well for getting pollen out of the flower, so we used the same "
-                       "idea (page 10).",
+                       "loaders in that game worked well for getting pollen out, so we made our own version for the "
+                       "flower (page 10).",
                        "Swerve and logging carried over from last season."])
 
 
@@ -301,18 +314,18 @@ def p05_strategy(doc):
                        "- We want a simple robot that we can make quickly"])
     c = p.box(mid, "One scoring cycle")
     c.timeline(c.content, [("1", "Collect", "until we hold 4"), ("2", "Hold aim", "robot turns to the goal"),
-                           ("3", "Spin up", "flywheels and hood reach target"), ("4", "Settle", "ready for 0.1 s"),
+                           ("3", "Spin up", "flywheel and hood reach target"), ("4", "Settle", "ready for 0.1 s"),
                            ("5", "Feed", "pollen goes to the shooter")])
     r = p.box(tab, "Requirements, and how the robot meets each", accent=True)
     r.table(r.content, [["We need to", "Why", "Our answer"],
                  ["Launch from anywhere", "fewer trips across the field", "moving hood"],
-                 ["Launch quickly and often", "less waiting between shots", "two flywheels"],
+                 ["Launch the same way every time", "backspin spoils shots", "counter rollers geared to the flywheel"],
                  ["Launch without turning round", "pollen collects along the wall", "rear-facing shooter"],
                  ["Aim while driving", "save time every cycle", "swerve and auto-aim"],
                  ["Hold our spot", "defence will push us", "swerve X-lock"],
                  ["Avoid defence", "defenders will chase us", "very small frame perimeter"],
                  ["Empty the flower", "pollen sits inside it", "flower mechanism"],
-                 ["Find pollen and the goal", "drive and aim without guessing", "front and rear cameras"]],
+                 ["Find the goal", "aim without guessing", "rear camera reads AprilTags"]],
             col_weights=[1.25, 1.35, 1.25])
     s = p.box(bottom, "Scouting")
     s.text(s.content, ["Jemima C., Chelsey W., Chloe L., Tina X. and Chloe S. scout. Scouting shows us what other "
@@ -348,40 +361,41 @@ def p06_robot(doc):
 
 def p07_swerve(doc):
     p = doc.page("Swerve drivetrain")
-    top, mid, ch, bottom = p.rows(p.area, 270, 215, 130, 99)
+    nd, top, ver, mid, ch, bottom = p.rows(p.area, 64, 200, 117, 125, 106, 102)
+    needs(p, nd, "Move any way, turn the whole robot to aim while driving, and hold our spot.")
     l, r = p.cols(top, 1.1, 1)
     d = p.box(l, "One swerve pod")
-    d.labelled(d.content.inset(2.2 * G, 0.6 * G), SW / "swerve_pod_exploded_iso_a.png",
+    d.labelled(d.content.inset(2.2 * G, 0.4 * G), SW / "swerve_pod_exploded_iso_a.png",
                "Exploded line drawing of one swerve pod",
                labels=[(0.46, 0.1, "angle sensor", 0.0, 0.06), (0.5, 0.33, "steering gears", 0.98, 0.22),
                        (0.62, 0.53, "frame plates", 1.0, 0.44), (0.22, 0.68, "drive motor", -0.03, 0.55),
                        (0.62, 0.82, "bevel gear", 1.03, 0.7), (0.47, 0.86, "wheel", 0.02, 0.97)])
-    k = p.box(r, "Our pods", accent=True)
+    k = p.box(r, "Our pods")
     k.text(k.content, [
-        "- Each pod has a drive motor and a steering servo",
-        "- We designed and machined custom parts for the pods",
+        "- A drive motor and a steering servo in each pod",
         "- We can swap a pod in **3 minutes**",
-        "- Every pod has an **absolute angle sensor**, so each wheel knows where it points from the start",
-        "- **X-lock:** we can place the wheels in an X. The friction makes us much harder to push, which helps "
-        "against defence",
-        "- At our top speed of **250 cm/s** we cross the 3.6 m field in about 1.5 s (360 ÷ 250), before "
-        "speeding up and slowing down"])
+        "- An **absolute angle sensor** in every pod",
+        "- **X-lock:** wheels in an X, so we are much harder to push",
+        "- Top speed **250 cm/s**: across the 3.6 m field in about 1.5 s",
+        "- Silicone grease after Wollongong, so the pods turn more freely"])
+    v = p.box(ver, "Our swerve versions")
+    v.timeline(v.content, [("2022", "First swerve", "by Rory, a former member"),
+                           ("2025-2026", "Last season", "our own swerve"),
+                           ("2026-2027", "This season", "custom machined pods")])
     l, r = p.cols(mid, 1, 1)
     a = p.box(l, "Wheel drive")
     a.labelled(a.content.inset(1.5 * G, 0), SW / "swerve_geartrain_wheel_drive_iso_highlight.png",
                "Gear train that drives the wheel, highlighted",
                labels=[(0.15, 0.42, "drive motor", 0.08, 0.12), (0.58, 0.28, "gears", 0.92, 0.06),
-                       (0.43, 0.8, "bevel gears", 0.1, 0.97), (0.82, 0.78, "wheel", 1.0, 0.95)],
-               caption="Motor, gears, then a bevel gear turn the wheel")
+                       (0.43, 0.8, "bevel gears", 0.1, 0.97), (0.82, 0.78, "wheel", 1.0, 0.95)])
     b = p.box(r, "Module rotation")
     b.labelled(b.content.inset(1.5 * G, 0), SW / "swerve_geartrain_module_rotation_iso_highlight.png",
                "Gear train that turns the pod, highlighted",
                labels=[(0.28, 0.42, "ring gear", 0.02, 0.08), (0.76, 0.26, "steering gears", 0.9, 0.04),
-                       (0.17, 0.66, "wheel fork", 0.04, 0.9), (0.55, 0.88, "wheel", 0.98, 0.9)],
-               caption="A servo and a ring gear turn the whole pod")
+                       (0.17, 0.66, "wheel fork", 0.04, 0.9), (0.55, 0.88, "wheel", 0.98, 0.9)])
     choices(p, ch, [["Drivetrain", "Swerve", "Mecanum",
                      "X-lock makes us much harder to push. Full-grip wheels give more speed and pushing power. We can "
-                     "drive one way while facing the goal. We built swerve last season, so we already knew it"]])
+                     "drive one way while facing the goal"]])
     t = p.box(bottom, "Tests on the robot")
     t.table(t.content, [["Test", "Result", "Status"], ["Top speed", "250 cm/s", "TESTED"],
                         ["Pushed while in X-lock", "it did not move", "TESTED"]],
@@ -390,7 +404,8 @@ def p07_swerve(doc):
 
 def p08_intake(doc):
     p = doc.page("Intake and transition")
-    top, mid, ch, bottom = p.rows(p.area, 285, 190, 128, 96)
+    nd, top, mid, ch, bottom = p.rows(p.area, 64, 272, 150, 128, 100)
+    needs(p, nd, "Pick up pollen quickly, hold up to 4 (rule G407) and pass it up to the shooter without backspin.")
     l, r = p.cols(top, 1.25, 1)
     d = p.box(l, "Pollen path")
     d.labelled(d.content.inset(0.5 * G, 1.2 * G), TR / "transition_side_ball_path_highlight.png",
@@ -404,8 +419,8 @@ def p08_intake(doc):
                        "- Smaller gecko wheels at the top reduce **backspin** going into the shooter",
                        "- **Polycarbonate ramps** give the pollen a low-friction surface",
                        "- Two motors drive the intake and the transition",
-                       "- **3 beam sensors** count the pollen. Rule G407 allows **4 pollen** and we hold 4. The intake stops "
-                       "when we are full"])
+                       "- We hold up to **4 pollen**, the most rule G407 allows",
+                       "- After Wollongong: **WD-40** and new belt sizes so it spins freely"])
     a = p.box(mid, "Assembly")
     l2, r2 = p.cols(a.content, 1, 1)
     a.picture(l2, TR / "transition_iso.png", "Line drawing of the intake and transition assembly",
@@ -415,138 +430,138 @@ def p08_intake(doc):
     choices(p, ch, [["Top wheels", "32 mm gecko wheels", "48 mm gecko wheels", "Less backspin goes into the shooter"],
                     ["Ramps", "Polycarbonate", "3D printed ramps", "A low-friction surface for the pollen"]])
     t = p.box(bottom, "Tests on the robot")
-    t.table(t.content, [["Test", "Result", "Status"], ["Intake jams", "1 jam, cleared by reversing the rollers", "TESTED"]],
+    t.table(t.content, [["Test", "Result", "Status"], ["Intake jams", "no jams in 20 pickups", "TESTED"]],
             col_weights=[1.6, 1.2, 1], status_col=2)
 
 
 def p09_shooter(doc):
     p = doc.page("Shooter design")
-    top, ch, mid, bottom = p.rows(p.area, 235, 199, 181, 99)
+    nd, top, mid, ch, bottom = p.rows(p.area, 64, 158, 248, 146, 98)
+    needs(p, nd, "Launch pollen into the upward cell the same way every time, from anywhere on the field.")
     it = p.box(top, "What we tried")
     it.iterations(it.content, [
-        ("Turret, last season", None, "", ["aims without turning the robot"], ["months of tuning (Apr-Jun 2026)"]),
-        ("Turret, this season", TU / "turret_iso_rotation_highlight.png",
-         "Line drawing of this season's turret design with the turntable highlighted", ["what we wanted first"],
-         ["weight and space", "goBILDA parts delayed", "no time: regionals 4 weeks away"]),
-        ("Fixed rear shooter", SH / "shooter_iso_rear_a.png", "Line drawing of our fixed rear shooter design",
-         ["fewer parts", "shoots out of the flowers without turning"], ["the whole robot must turn to aim"])])
+        ("Turret 2025-26", None, "", ["aims without turning"], ["months of tuning"]),
+        ("Turret 2026-27", TU / "turret_iso_rotation_highlight.png",
+         "Line drawing of this season's turret design with the turntable highlighted", [],
+         ["weight and space", "no time"]),
+        ("Fixed shooter", SHL, "Exploded line drawing of our fixed rear shooter", ["fewer parts"],
+         ["backspin"]),
+        ("Counter rollers", None, "", ["no backspin", "3-4 in 4 shots in"], [])])
+    l, r = p.cols(mid, 0.9, 1.25)
+    w = p.box(l, "Why a fixed rear shooter")
+    w.text(w.content, ["- No turret: time for the swerve and a consistent robot",
+                       "- Less fixing at competitions, so more reliable",
+                       "- Quicker to assemble, so time for other things",
+                       "- Swerve makes the **whole robot a moving turret**",
+                       "- X-lock holds us in place while we shoot"])
+    c = p.box(r, "Counter roller shooter (after Wollongong)", accent=True)
+    c.story(c.content, [("Problem", "Backspin: **1 in 4** shots went in."),
+                        ("Fix", "A **63.5 mm** flywheel and **2 counter rollers** (27 mm) at the back, geared so their "
+                                "surfaces match. Now **3-4 in 4** shots go in per run."),
+                        ("Maths", "Same surface speed, so the rollers spin **63.5 ÷ 27 ≈ 2.35×** faster.")
+                        ])  # team result (3-4 in 4), 2026-11-28
     choices(p, ch, [
         ["Aiming", "A fixed shooter (page 13)", "A turret",
-         "Regionals were four weeks away and our goBILDA parts were delayed, so we cut the turret as the least "
-         "necessary part. We kept swerve and made everything else consistent"],
-        ["Flywheels", "Two", "One", "Less waiting between shots"],
-        ["Hood", "A moving hood", "A fixed hood", "We can shoot from anywhere on the field. It moves from 33.6 to 67 degrees"],
-        ["Direction", "Facing backwards", "Facing forwards",
-         "Pollen collects along the wall, so we can drive up to the wall and aim without turning round first"]])
-    l, r = p.cols(mid, 1, 1.15)
-    d = p.box(l, "Hood drive")
-    d.labelled(d.content.inset(0.5 * G, 0.8 * G), SH / "shooter_side_hood_drive_highlight.png",
-               "Side line drawing of the shooter with the hood drive highlighted",
-               labels=[(0.6, 0.42, "hood rack", 0.42, 0.0), (0.72, 0.3, "servo gear", 0.9, 0.0),
-                       (0.1, 0.3, "flywheel", 0.1, 0.0)],
-               caption="A servo gear drives a rack to tilt the hood")
-    e = p.box(r, "Exploded view")
-    e.labelled(e.content, SHL, "Exploded line drawing of the fixed shooter",
-               labels=[(0.47, 0.66, "flywheel", 0.08, 0.9), (0.5, 0.3, "hood", 0.12, 0.08),
-                       (0.62, 0.14, "motor", 0.92, 0.04)])
+         "Short on time and parts, so we cut the least necessary part"],
+        ["Hood", "A moving hood", "A fixed hood", "Shoot from anywhere: 33.6 to 67 degrees"],
+        ["Backspin", "Counter rollers", "No counter rollers", "Backspin cost us shots at Wollongong"]])
     t = p.box(bottom, "Tests on the robot")
-    t.table(t.content, [["Test", "Result", "Status"], ["Shots in, from the furthest distance", "all but 1 went in", "TESTED"],
-                        ["Time between shots", "less than 0.1 s", "TESTED"]], col_weights=[1.6, 1.2, 1], status_col=2)
+    t.table(t.content, [["Test", "Result", "Status"], ["Shots in per run of 4", "1 in 4 before; 3-4 in 4 now", "TESTED"]],
+            col_weights=[1.6, 1.4, 0.8], status_col=2)
 
 
 def p10_loader(doc):
-    p = doc.page("Flower, gate, cameras")
-    top, mid, bottom, ch = p.rows(p.area, 240, 196, 174, 104)
-    l, r = p.cols(top, 1, 1)
+    p = doc.page("Flower, gate, camera")
+    nd, top, mid, bottom, ch = p.rows(p.area, 64, 248, 150, 147, 105)
+    needs(p, nd, "Get pollen out of the flower, hold it until the shot is ready and find the goal.")
+    l, r = p.cols(top, 1.3, 1)
     m = p.box(l, "Flower mechanism", accent=True)
-    m.story(m.content, [("Idea", "Four of us competed in VEX **Push Back**. The match loaders in that game worked well "
-                                 "for getting pollen out of a container, so we used the same idea for the flower."),
-                        ("Problem", "Pollen sits inside the flower and we need to get it out."),
+    m.story(m.content, [("Inspiration", "Another team's **match loader** design in VEX **Push Back** got pollen out of "
+                                        "a container quickly."),
+                        ("Our version", "Four of us competed in Push Back, so we used that experience to design our "
+                                        "own version for the flower."),
                         ("Result", "It empties the flower really well, in under a second.")])
     b = p.box(r, "Gate")
-    b.text(b.content, ["The gate stops pollen going into the shooter until the shot is ready. It uses 1 Axon "
-                       "servo."])
-    c = p.box(mid, "Two cameras")
-    l2, r2 = p.cols(c.content, 1.5, 1)
-    c.labelled(l2, TR / "transition_side_cameras_highlight.png", "Side view with the two cameras highlighted",
-               labels=[(0.05, 0.12, "front camera", 0.2, -0.02), (0.88, 0.12, "rear camera", 0.78, -0.02)])
-    c.text(r2, ["- The **front camera** finds pollen so we can drive a path to it",
-                "- The **rear camera** reads AprilTags so we know where the goal is",
-                "- Both cameras work on the robot"])
+    b.text(b.content, ["The gate stops pollen going into the shooter until the shot is ready. It uses 1 Axon servo."])
+    c = p.box(mid, "Rear camera")
+    c.text(c.content, ["- One camera, on the back, running **PhotonVision**",
+                       "- It reads the AprilTags so we know where we are and where the goal is (page 13)",
+                       "- It works on the robot"])
     h = p.box(bottom, "How we hold and release pollen")
-    l3, r3 = p.cols(h.content, 1, 1.15)
+    l3, r3 = p.cols(h.content, 1, 1.4)
     h.picture(l3, TR / "transition_front.png", "Front line drawing of the intake and transition")
-    h.text(r3, ["- **Collect:** the intake runs until the beam sensors say we are full (4 pollen), then it stops",
+    h.text(r3, ["- **Collect:** the intake pulls in up to 4 pollen",
                 "- **Hold:** pollen waits while the robot aims",
                 "- **Release:** pollen only feeds once aim, flywheel speed and hood have all been ready for "
-                "**0.1 s** (page 13)"])
-    choices(p, ch, [["Flower mechanism", "The idea from the VEX Push Back match loaders", "Side vertical intake wheels",
-                     "Those match loaders worked well for getting pollen out of a container"]])
+                "**0.1 s**"])
+    choices(p, ch, [["Flower mechanism", "Our own version of a Push Back match loader", "Side vertical intake wheels",
+                     "Match loaders were proven at getting pollen out of a container"]])
 
 
 # ---------------------------------------------------------------- 11-15: control, software, aim, auto, tests
 def p11_control(doc):
     p = doc.page("Control system")
-    top, ch, bottom = p.rows(p.area, 366, 146, 202)
+    top, code, bottom = p.rows(p.area, 340, 184, 190)
     m = p.box(top, "What each part does")
     m.table(m.content, [
         ["Part", "Problem it solves", "What it does"],
         ["4 drive motors", "moving in any direction", "drive each swerve wheel"],
         ["4 steering servos + 4 angle sensors", "pointing every wheel the right way", "turn each pod and read its angle"],
         ["IMU", "knowing which way we face", "heading for driving and aiming"],
-        ["Front and rear cameras", "finding pollen and the goal", "pollen pathing; AprilTags"],
-        ["3 beam sensors", "knowing how much pollen we hold", "count the pollen along the transition"],
-        ["Gate servo", "pollen reaching the shooter too early", "holds pollen until the shot is ready"],
+        ["4 odometry pods", "knowing where we are on the field", "averaged to track our position"],
+        ["Rear camera (PhotonVision)", "finding the goal", "reads AprilTags to correct our position"],
         ["2 intake motors", "moving pollen in and up", "drive the rollers and the gecko wheels"],
-        ["2 shooter motors", "the same shot every time", "flywheels held at target speed (PIDF)"],
+        ["2 shooter motors", "the same shot every time", "flywheel and counter rollers held at target speed"],
+        ["Gate servo", "pollen reaching the shooter too early", "holds pollen until the shot is ready"],
         ["Hood servo", "shooting from different distances", "sets the launch angle"],
-        ["Flower mechanism servo", "pollen stuck inside the flower", "empties the flower"],
-        ["Odometry pod", "knowing where we are on the field", "tracks our position"],
-        ["Voltage and current checks", "brown-outs and stalled motors", "logged every loop"]],
+        ["Flower mechanism servo", "pollen stuck inside the flower", "empties the flower"]],
         col_weights=[1.25, 1.35, 1.6])
-    l, r = p.cols(bottom, 0.72, 1.48)
+    s = p.box(code, "How our swerve code works (the same logic FRC teams use in WPILib)", accent=True)
+    s1, s2 = p.rows(s.content, 1.25, 0.5)
+    s.timeline(s1, [("1", "Driver input", "forward, sideways and turn speed"),
+                    ("2", "Kinematics", "work out each pod's wheel speed and angle"),
+                    ("3", "Optimise", "turn the short way; reverse the wheel if needed"),
+                    ("4", "Output", "servo angle and motor power to each pod")])
+    s.text(s2, ["Optimising: if a pod would turn more than 90 degrees, it reverses its wheel instead, so it never turns more than 90."])
+    l, r = p.cols(bottom, 0.9, 1.3)
     o = p.box(l, "Odometry pod")
-    o1, o2 = p.rows(o.content, 1, 1)
-    o.labelled(o1, OD / "odom_pod_assembled_iso.png", "Line drawing of the odometry pod",
-               labels=[(0.5, 0.3, "mounting plate", 0.08, 0.05), (0.57, 0.93, "odometry wheels", 0.82, 0.72)])
-    o.picture(o2, OD / "odom_pod_exploded_iso.png", "Exploded line drawing of the odometry pod",
-              "Our odometry pod")
-    choices(p, ch, [["Speed control", "PIDF with feedforward from the battery voltage", "A plain speed controller",
-                     "A flat battery does not change the shot"],
-                    ["Position tracking", "Odometry and the IMU", "Motor encoders", "It is much more accurate"]])
-    s = p.box(r, "Speed control")
-    s.story(s.content, [("Challenge", "Each shot drops the flywheel by about **200 encoder ticks**. A slower wheel shoots "
-                                      "short."),
-                        ("Solution", "A **PIDF** controller holds the target speed, with feedforward from the battery "
-                                     "voltage."),
-                        ("Result", "All but 1 shot went in from the furthest distance (page 9).")])
+    o.labelled(o.content.inset(1.2 * G, 0.6 * G), OD / "odom_pod_assembled_iso.png", "Line drawing of the odometry pod",
+               labels=[(0.5, 0.3, "mounting plate", 0.15, 0.04), (0.57, 0.9, "odometry wheels", 0.85, 0.75)])
+    sp = p.box(r, "Speed control")
+    sp.story(sp.content, [("Challenge", "Each shot drops the flywheel by about **200 encoder ticks**; a slower wheel "
+                                        "shoots short."),
+                          ("Solution", "A **PIDF** controller with battery-voltage feedforward holds the target "
+                                       "speed: **3-4 in 4** shots in per run (page 9).")])
 
 
 def p12_software(doc):
     p = doc.page("Software and simulation")
-    top, mid, sim, ch = p.rows(p.area, 125, 215, 160, 150)
+    top, how, mid, ch = p.rows(p.area, 125, 258, 170, 150)
     a = p.box(top, "Same code on the robot and on a laptop", accent=True)
     a.table(a.content, [["Part", "What it holds", "Why"],
                         ["RobotCode", "behaviour: driving, aiming, shooting", "written once, used on both"],
                         ["TeamCode", "the real motors, servos and sensors", "only place that touches hardware"],
-                        ["RobotSim", "simulated robot, field and pollen", "test before the robot was finished"]],
+                        ["RobotSim", "simulated robot, field and pollen", "test without the robot"]],
             col_weights=[0.9, 1.6, 1.5])
-    l, r = p.cols(mid, 1, 1)
-    s = p.box(l, "Why we simulate")
-    s.story(s.content, [("Challenge", "The robot was not finished yet, but the code needed testing."),
-                        ("Solution", "The same TeleOp runs in our simulator on the official field CAD."),
-                        ("Result", "In simulation we score **3 of 3** for both alliances, also while moving.")])
-    t = p.box(r, "Automated tests")
+    h = p.box(how, "How our simulator works")
+    h.story(h.content, [("Interface", "Our code talks to the hardware through our own **hardware I/O interface**. On the "
+                                      "robot it reads the real motors and sensors."),
+                        ("Simulation", "On a computer the same interface **fakes the encoder ticks**, so our team code "
+                                       "runs without the robot."),
+                        ("Like FRC", "This is the same idea FRC teams use: a hardware map behind an I/O interface, with "
+                                     "one version for the robot and one for simulation."),
+                        ("Why", "We can run things like our **autonomous route** before we put it on the robot.")])
+    l, r = p.cols(mid, 1, 1.3)
+    t = p.box(l, "Automated tests")
     t.text(t.content, ["- **24 desktop tests** pass (25 October 2026)",
-                       "- They cover heading wrap, 10 ms loops, a lost heading sensor, manual turn override and "
-                       "stop outputs",
+                       "- They cover heading wrap, 10 ms loops, a lost heading sensor and stop outputs",
                        "- Every loop is logged, so we can replay a run"])
-    r_ = p.box(sim, "What the simulator shows")
+    r_ = p.box(r, "What the simulator shows")
     r_.table(r_.content, [["Test (in simulation)", "Result", "Status"],
                           ["Pick up 3, aim and score 3", "3 of 3", "PASS"],
-                          ["Score 3 while still and while moving, both alliances", "3 of 3", "PASS"],
-                          ["Lose the heading sensor", "stops driving and feeding", "PASS"]],
-             col_weights=[2.2, 1.3, 0.8], status_col=2)
+                          ["Score while still and moving", "3 of 3", "PASS"],
+                          ["Lose the heading sensor", "stops driving", "PASS"]],
+             col_weights=[2.0, 1.2, 0.8], status_col=2)
     choices(p, ch, [["Testing the code", "Our own simulator", "Waiting for the finished robot", "We can test the code now"],
                     ["Code structure", "One behaviour code with separate hardware code",
                      "Separate code for the robot and the simulator", "We write the behaviour once and use it on both"]])
@@ -554,35 +569,25 @@ def p12_software(doc):
 
 def p13_aim(doc):
     p = doc.page("Auto-aim")
-    top, chk, mid, ch, bottom = p.rows(p.area, 125, 216, 155, 115, 103)
-    s = p.box(top, "The problem")
-    s.story(s.content, [("Challenge", "We dropped the turret, so the shooter faces backwards and cannot turn on its "
-                                      "own."),
-                        ("Solution", "Holding the aim button turns the **whole robot** until it is within **2.5 "
-                                     "degrees** of the goal.")])
-    c = p.box(chk, "What the robot checks before every shot, in order", accent=True)
-    c.table(c.content, [["Check", "If not, the robot says", "Why"],
-                        ["Is there a possible shot?", "NO TRAJECTORY", "do not waste pollen"],
-                        ["Is the shooter calibrated?", "CALIBRATION REQUIRED", "simulation is not the real robot"],
-                        ["Is it aimed and not still turning?", "AIMING", "within 2.5 degrees"],
-                        ["Flywheels and hood on target?", "SPINNING UP", "within 50 RPM and 2 degrees"],
-                        ["Ready for 0.1 s?", "SETTLING", "it must stay on target, not pass through it"],
-                        ["Is there pollen to shoot?", "EMPTY", "the beam sensors know"],
-                        ["All yes", "FEEDING", "pollen goes to the shooter"]], col_weights=[1.45, 1.2, 1.3])
-    l, r = p.cols(mid, 1, 1)
-    h = p.box(l, "Maths: turning to aim")
-    h.text(h.content, ["Turn speed = **feedback** on the heading error + **damping** + **feedforward** for a goal "
-                       "that moves as we drive + a small push past **static friction**.",
-                       "Gains: kP 4.0, kD 0.35, kS 0.06.",
-                       "In simulation, aiming first stopped **12 degrees** short because small commands sat inside "
-                       "the static friction dead zone."])
-    v = p.box(r, "Maths: shooting while moving")
-    v.text(v.content, ["The pollen leaves with the shooter's speed **plus the robot's**:",
-                       "**v pollen = v shot + v robot + turn rate × r**",
-                       "(r is where the pollen leaves, measured from the robot's centre). We look **0.07 s** ahead to "
-                       "where the robot will be at release, then a gravity solver finds the speed and hood angle."])
-    choices(p, ch, [["Working out the shot", "A gravity solver", "A lookup table of measured shots",
-                     "The solver needs no measured shots"]])
+    loc, aim, ch, bottom = p.rows(p.area, 210, 285, 120, 99)
+    l = p.box(loc, "Knowing where we are", accent=True)
+    l.story(l.content, [("Odometry", "We average our **4 odometry pods** to track how far we have moved."),
+                        ("Camera", "The rear camera images the **AprilTags** and solves our pose with trigonometry."),
+                        ("Filter", "An **extended Kalman filter** checks which camera results are believable, then "
+                                   "updates our pose from those.")])
+    a, b = p.cols(aim, 1.45, 1)
+    d = p.box(a, "Aiming: a vector from the goal")
+    d.picture(d.content, A / "diagrams" / "auto_aim_vector.png",
+              "Diagram: an aim vector runs from the goal to where the robot will be in 0.4 seconds; the robot turns so "
+              "its rear shooter points along it")
+    f = p.box(b, "Why 0.4 s ahead")
+    f.text(f.content, ["We draw the aim vector from the goal to where the robot **will be 0.4 s from now**, not where "
+                       "it is.",
+                       "By the time we read the sensors and send a command, it is already a new loop. Aiming ahead "
+                       "(feedforward) makes us **more accurate while moving**."])
+    choices(p, ch, [["Working out the shot", "A lookup table of measured shots", "A gravity solver",
+                     "A solver needs very advanced maths with many unknowns. We needed 3-4 in 4 shots in the time we had, "
+                     "so measuring shots was our best answer"]])
     t = p.box(bottom, "Tests on the robot")
     t.table(t.content, [["Test", "Simulation", "Robot"], ["Score while still", "3 of 3", "3 of 3"],
                         ["Score while moving", "3 of 3", "2 of 3"]], col_weights=[1.4, 1, 1.2])
@@ -590,16 +595,13 @@ def p13_aim(doc):
 
 def p14_auto(doc):
     p = doc.page("Autonomous")
-    top, bottom = p.rows(p.area, 1.0, 0.36)
-    l, r = p.cols(top, 1.7, 1)
+    l, r = p.cols(p.area, 1.6, 1)
     rt = p.box(l, "Our autonomous route", accent=True)
-    rt.picture(rt.content, A / "auto" / "auto_route.png",
-               "Our autonomous route drawn on the field with horizontal and vertical lines and numbered 1 to 7. It "
-               "starts at the right wall, goes into the bottom flower and back along the same line, crosses to a "
-               "shooting position on the other side, goes into the left flower and back along the same line, then "
-               "parks in the red loading zone",
-               "The numbers match the steps. We go into each flower and back out along the same line")
-    a, b2 = p.rows(r, 1.6, 0.9)
+    rt.picture(rt.content, A / "auto" / "auto_path_team.png",
+               "Our autonomous path drawn in yellow on the field: from the start to a flower, a curve to the "
+               "shooting position, back to the flower, then to the loading zone",
+               "Our autonomous path on the field")
+    a, b2 = p.rows(r, 1.7, 0.9)
     s1 = p.box(a, "Each step")
     s1.table(s1.content, [["No.", "What we do", "Pts"],
                           ["1", "Shoot, causing a HIVE TIP", "20"],
@@ -611,49 +613,32 @@ def p14_auto(doc):
                           ["7", "Park in our loading zone", "5"],
                           ["", "Planned total", "45"]], col_weights=[0.8, 2.7, 1.0])
     st = p.box(b2, "Status")
-    st.text(st.content, ["- On 12-18 October we started a **ball-tracking** setup so the robot can find, map and "
-                         "intake pollen by itself",
-                         "- We have run our autonomous routes and they are very consistent"])
-    u = p.box(bottom, "What it can use")
-    u.table(u.content, [["Part", "What it gives the autonomous"],
-                        ["Odometry + IMU", "where we are as we drive"],
-                        ["Rear camera", "AprilTags, to know where we are on the field"],
-                        ["Front camera", "a path to the pollen"],
-                        ["Beam sensors", "how much pollen we hold"],
-                        ["Auto-aim", "the same shot checks as TeleOp (page 13)"]], col_weights=[1, 2.6])
+    st.text(st.content, ["- We had no autonomous at Wollongong",
+                         "- We have since written and run this route, and it is very consistent",
+                         "- It uses the same position tracking as auto-aim (page 13)"])
 
 
 def p15_tests(doc):
     p = doc.page("Lessons and risks")
-    top, mid, bot, foot = p.rows(p.area, 222, 202, 218, 24)
+    top, bot, foot = p.rows(p.area, 380, 280, 24)
     a = p.box(top, "Lessons and what we changed", accent=True)
     a.table(a.content, [["What we learned", "What we changed"],
                         ["A turret cost us months last season", "this season the drivetrain aims"],
-                        ["Sizes should come before the CAD", "we sketch the pollen path first"],
-                        ["Mixed units caused bugs when we merged the code", "every value has one unit (RPM, radians)"],
-                        ["The bugs only showed when the subsystems met", "we merge subsystems early"],
                         ["Time ran short in October", "we cut the least necessary part and made the rest consistent"],
-                        ["Exams and outreach changed what a week could fit", "we plan each week around them"],
-                        ["The intake jammed once in testing", "reversing the rollers cleared it"]],
-            col_weights=[1.4, 1.4])
-    f = p.box(mid, "What we found and fixed when we merged the code")
-    f.table(f.content, [["Problem", "Fix"],
-                        ["Shooter could never reach its shooting state", "a target speed now starts the wheel controller"],
-                        ["Updates changed numbers but moved nothing", "read feedback, write a limited motor power every loop"],
-                        ["RPM, encoder ticks, degrees and servo positions mixed", "one unit for each value; conversion only in hardware code"],
-                        ["The flywheel's controller also drove the hood", "the hood has its own mapping and rate limit"],
-                        ["Lookup table divided by zero at its first point", "handles exact points; never guesses past its ends"],
-                        ["Simulated aiming stopped about 12 degrees short", "a push past static friction (kS), scaled by battery voltage"]],
-            col_weights=[1.1, 1.1])
+                        ["Backspin makes shots inconsistent", "counter rollers geared to the flywheel: 1 in 4 to 3-4 in 4"],
+                        ["Brownouts came from not coordinating our batteries", "numbered batteries, charged in rotation"],
+                        ["Vibration can pull connectors out in a match", "every connector is hot-glued"],
+                        ["Messy wiring is hard to debug", "we redid all the wiring with more room"],
+                        ["Friction slows our subsystems", "WD-40 and new belts in the transition; grease in the pods"],
+                        ["Exams and outreach changed what a week could fit", "we plan each week around them"]],
+            col_weights=[1.4, 1.5])
     n = p.box(bot, "Risks and how we reduce them")
     n.table(n.content, [["Risk", "How we reduce it"],
                         ["Simulation is not the real robot", "the code refuses to feed until the shooter is calibrated"],
-                        ["Heading sensor lost mid-match", "tested in simulation: stops driving and feeding"],
                         ["Flat battery changes the shot", "feedforward scaled by battery voltage"],
-                        ["A complex turret fails", "no turret: the drivetrain aims"],
                         ["Defence pushes us off our spot", "X-lock: pushed in testing, the robot did not move"],
-                        ["Pollen jams in the intake", "reversing the rollers cleared the 1 jam in testing"],
-                        ["Holding more than 4 pollen (rule G407)", "the beam sensors stop the intake at 4"]],
+                        ["Pollen jams in the intake", "no jams in 20 pickups in testing"],
+                        ["A connector comes loose mid-match", "hot glue on every connector"]],
             col_weights=[1, 1.5])
     write(p.slide, foot, [{"text": ENDNOTE, "size": 10, "colour": MUTED, "after": 0}], sizes=p.sizes)
 
